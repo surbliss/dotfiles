@@ -1,0 +1,14 @@
+# if [[ -z "$__HM_ZSH_SESS_VARS_SOURCED" ]]; then
+# export __HM_ZSH_SESS_VARS_SOURCED=1
+export AOCD_DIR="~/aocd/"
+export _JAVA_AWT_WM_NONREPARENTING=1;
+# fi
+
+export ZDOTDIR=$HOME/.config/zsh
+
+export PATH=$PATH:$HOME/.dotnet/tools
+
+# Makes terminal English, despite locale being Danish
+export LC_MESSAGES="en_US.UTF8"
+
+# vim: filetype=zsh

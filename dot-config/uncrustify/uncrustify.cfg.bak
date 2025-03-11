@@ -1,0 +1,65 @@
+# K&R style
+newlines                = lf
+input_tab_size         = 4
+output_tab_size        = 4
+indent_columns         = 4
+indent_with_tabs       = 0
+
+# Brace style
+mod_full_brace_if      = force     # "if (a) a--;" -> "if (a) { a--; }"
+mod_full_brace_for     = force
+mod_full_brace_do      = force
+mod_full_brace_while   = force
+
+# Brace positioning
+nl_fdef_brace         = remove    # "void foo() {" no newline
+nl_if_brace           = remove    # "if () {" no newline
+nl_else_brace         = remove    # "} else {" on same line
+nl_elseif_brace       = remove
+nl_for_brace          = remove
+nl_while_brace        = remove
+nl_do_brace           = remove
+
+# Single line formatting
+mod_full_brace_nl      = 0        # don't remove if brace on newline
+nl_collapse_empty_body = true      # collapse empty braced statements
+nl_multi_line_cond     = false
+nl_before_block_cont     = remove
+nl_after_brace_open      = remove    # Remove newline after '{'
+nl_after_brace_close     = remove    # Remove newline after '}'
+nl_squeeze_paren_close   = true      # Remove blank lines after ')'
+sp_inside_braces        = force      # space after '{' and before '}'
+
+# Space settings
+sp_arith               = force     # space around arithmetic operators
+sp_assign              = force     # space around assignment operators
+sp_compare             = force     # space around comparison operators
+sp_inside_paren        = remove    # remove spaces inside parentheses
+sp_paren_paren         = remove    # remove spaces between nested parentheses
+sp_before_sparen       = force     # space before control statement parentheses
+sp_after_sparen        = force     # space after control statement parentheses
+sp_inside_fparen       = remove    # remove spaces inside function parentheses
+sp_func_proto_paren    = remove    # remove spaces after function prototype parentheses
+sp_func_def_paren      = remove    # remove spaces after function definition parentheses
+sp_before_dc           = remove    # no space before declaration colon
+sp_after_dc            = force     # space after declaration colon
+
+
+
+# Class indentation settings
+indent_class              = true       # Indent class body
+indent_class_colon        = true       # Indent after class colon
+indent_class_on_colon     = false      # Don't indent class on colon
+indent_access_spec        = 1          # Indent access specifiers (public/private)
+indent_access_spec_body   = true       # Indent after access specifiers
+
+# Additional class formatting
+nl_class_brace           = remove      # No newline between class name and brace
+nl_class_init_args       = force       # Force newline after each class init arg
+nl_class_colon          = remove      # No newline before class inheritance colon
+nl_create_if_one_liner   = true
+mod_full_brace_nl = 0
+
+
+
+nl_squeeze_ifdef         = true      # squeeze empty lines between #if/else/endif

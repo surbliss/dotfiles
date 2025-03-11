@@ -1,0 +1,9 @@
+# Defaults: https://github.com/betterlockscreen/betterlockscreen/blob/next/examples/betterlockscreenrc
+
+locktext="Thomas H. Surlykke"
+time_format="%H:%M"
+
+wrongtext="Forkert kodeord!"
+
+
+# vim: ft=sh

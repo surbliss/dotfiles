@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <sdk>
+    <rollForward>latestFeature</rollForward>
+  </sdk>
+
+  <property>
+    <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
+    <Nullable>disable</Nullable>
+  </property>
+</configuration>

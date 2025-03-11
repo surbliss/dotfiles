@@ -1,0 +1,5 @@
+local fterm = require("FTerm")
+vim.keymap.set("n", "q", fterm.close, { buffer = true })
+-- vim.keymap.set("n", "<esc><esc>", "<c-\\><c-n>", { buffer = true })
+vim.keymap.set("t", "<esc><esc>", fterm.close, { buffer = true })
+-- vim.keymap.set("t", "<esc>q", fterm.close, { buffer = true })

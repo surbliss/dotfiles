@@ -1,0 +1,20 @@
+# PROMPT!
+PROMPT='%F{green}[%F{white}%B%3~%b%F{green}]%(!.#.$) %f'
+
+# Better 'time' command
+TIMEFMT=$'\n================\nuser\t%*Us\nsystem\t%*Ss\ntotal\t%*Es'
+
+# Plugin-config
+bindkey '^ ' autosuggest-accept
+# See https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
+bindkey '^[[13;5u' autosuggest-execute #Maps to CTRL+Enter
+bindkey '^N' autosuggest-clear
+
+
+# Source config-files:
+source "$ZDOTDIR/aliases.zsh"
+source "$ZDOTDIR/functions.zsh"
+
+
+eval "$(direnv hook zsh)"
+# vim: filetype=zsh

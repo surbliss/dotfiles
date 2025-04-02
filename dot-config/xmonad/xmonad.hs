@@ -44,6 +44,7 @@ import XMonad.Util.SpawnOnce
 
 import XMonad.Hooks.RefocusLast (isFloat)
 import XMonad.Hooks.InsertPosition (insertPosition, Position(Below), Focus(Newer))
+import XMonad.Util.Cursor
 
 ------------------------------------------------------------------------
 -- VARIABLES
@@ -160,10 +161,13 @@ myKeys =
     -- , ("M-s", spawn "rofi -show file-browser-extended -font 'Nimbus Sans 16'")
     ("M-d", spawn "rofi -show drun"),
     -- , ("M-s", spawn "rofi -show file-browser-extended")
-    ("M-s", spawn "rofi -show file-browser-extended -file-browser-dir Documents -file-browser-depth 0"),
+    -- Overvej '1-Projects' istedet
+    ("M-s", spawn "rofi -show file-browser-extended -file-browser-dir Documents/1-projekter -file-browser-depth 0"),
     -- ("M-c", spawn "rofi -show calc"),
     ("M-c", spawn "rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | xclip\""),
-    ("M-0", spawn "rofi -show p -modi p:rofi-power-menu"),
+    -- TODO: Fix so we can also logout/lock screen. loginctl terminate-session
+    -- doesnt work on XMonad
+    ("M-0", spawn "rofi -show p -modi 'p:rofi-power-menu --choices=shutdown/reboot/suspend/hibernate'"),
     ("M-e", spawn "rofi modi emoji -show emoji -kb-custom1 Ctrl+c -emoji-mode insert_no_copy"),
     -- ("M-o", spawn "firefox"),
     ("M-o", spawnOn "2" "zen"),
@@ -274,10 +278,11 @@ myManageHook =
   -- composeOne 
   -- composeOne 
   composeOne
-    [ -- className =? "VirtualBox Machine" --> doShift (myWorkspaces !! 8),
-      className =? "obsidian" -?> doShift "7"
+  -- className == WM_NAME from xprop
+    [ className =? "obsidian" -?> doShift "7"
       , title =? "Oracle VM VirtualBox Manager" -?> doCenterFloat
       , className =? "discord" -?> doShift "8"
+      -- , className =? "feh" -?> doCenterFloat
       -- , title =? "Navigator" -?> doShift "2"
       -- , className =? "zen-twilight" -?> doShift "2"
       -- , className =? "Zathura" -?> doShift "4"

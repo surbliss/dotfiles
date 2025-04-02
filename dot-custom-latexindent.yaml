@@ -1,0 +1,65 @@
+defaultIndent: "  "
+maxNumberOfBackups: 5
+cycleThroughBackups: 1
+
+indentPreamble: 0
+
+# indentRules:
+#   mysection: "   "
+
+noAdditionalIndent:
+  paracol: 1
+  timeline: 1
+  lasttimeline: 1
+
+modifyLineBreaks:
+  oneSentencePerLine:
+    manipulateSentences: 1
+  environments:
+    BeginStartsOnOwnLine: 1
+    EndStartsOnOwnLine: 1
+    minipage:
+      BeginStartsOnOwnLine: 2
+    section:
+      BeginStartsOnOwnLine: 4
+    subsection:
+      BeginStartsOnOwnLine: 4
+    subsubsection:
+      BeginStartsOnOwnLine: 4
+    mysection:
+      BeginStartsOnOwnLine: 4
+  VerbatimBeginStartsOnOwnLine: 4
+  VerbatimEndFinishesWithLineBreak: 4
+
+# replacements:
+#   -
+#     substitution: |-
+#       s/(.)(?<!\\)&/$1\n&/mg
+
+# lookForAlignDelims:
+#    tabular: 
+#       delims: 0
+#       spacesBeforeAmpersand: 2
+#    tabularx: 
+#       delims: 0
+#       spacesBeforeAmpersand: 2
+  # tabular:
+  #   delims: 1
+  #   alignDoubleBackSlash: 0
+  # tabularx:
+  #   delims: "&"
+  #   alignRowsWithoutMaxDelims: 0
+  #   spacesBeforeAmpersand: 0
+  #   spacesAfterAmpersand: 0
+  #   justification: left
+  #   dontMeasure: 1
+  #   alignFinalDoubleBackSlash: 0
+  #   multiColumnGrouping: 0
+  # tabularx:
+  #   delims: 1
+  #   alignDoubleBackSlash: 0
+  #   # alignContentAfterDoubleBackSlash: 1
+  #   dontMeasure:
+  #     -
+  #       regex: [\w\d\s]{21,}
+  #       applyTo: row

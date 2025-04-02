@@ -1,18 +1,22 @@
 -- Server-specific configuration in nvim/lsp/ folder
 
 -- Global options
--- vim.lsp.config("*", {})
+-- vim.lsp.config("*", {
+--   root_markers = { ".git" },
+--   single_file_support = true,
+-- })
 
 local lsp_servers = {
-  "lua_ls",
+  "lua-ls",
   "ltex",
   "pyright",
   "ruff",
   "nixd",
   "hls",
-  "csharp_ls",
-  "futhark_lsp",
+  "futhark-lsp",
   "clangd",
+  "harper-ls",
+  "text-harper-ls",
 }
 
 -- Enable all lsp servers (make *sure* to define cmd and filetypes for all

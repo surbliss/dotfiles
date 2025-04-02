@@ -69,10 +69,13 @@ vim.opt.splitbelow = true
 -- wrap between words
 vim.opt.linebreak = true
 vim.opt.showbreak = "↪ "
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 8
-vim.opt.softtabstop = 4
+
+-- Tabbing
+vim.opt.expandtab = false -- Don't expand tabs to spaces
+vim.opt.smarttab = true -- *Do* expand tabs at start of line (for indent)
+vim.opt.shiftwidth = 2 -- Default space-indent (idk if 2 or 4 best)
+vim.opt.tabstop = 8 -- Visual amount of spaces for TAB-characters
+vim.opt.softtabstop = 8 -- Actual space inserted when pressing TAB
 
 -- Don't keep buffer open when opening new file
 vim.opt.hidden = false

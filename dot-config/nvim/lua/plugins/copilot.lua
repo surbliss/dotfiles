@@ -1,38 +1,53 @@
 return {
   "CopilotC-Nvim/CopilotChat.nvim",
   dependencies = {
-    -- { "zbirenbaum/copilot.lua", opts = {} },         -- or zbirenbaum/copilot.lua
+    -- { "zbirenbaum/copilot.lua", opts = {} }, -- or zbirenbaum/copilot.lua
     { "zbirenbaum/copilot.lua" },
     { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
   },
   opts = {
     -- debug = true,
     window = {
+      -- layout = "vertical",
+      -- height = 0.5, -- golden ratio
       layout = "horizontal",
       height = 0.382, -- golden ratio
       -- relative = 'editor',
       -- border = 'rounded',
     },
-    system_prompt = [[You are an AI programming assistant, following the following tenets:
-
-  1. Do **not** start taking over the code-writing process. I wan't to learn what I'm doing, no matter if it is fixing my configurations or coding. Suggesting changes or solutions to things I didn't ask about, without explanation, is not helpful.
-
-  2. I repeat -- NEVER suggest changes to my code. At best, do examples unrelated to my code of how to apply a concept.
-
-  2. Always be brief and concise in your responses. Keep answer closely related to the question asked, and only branch out if specifically asked to.
-
-  3. When showing code examples, always use proper markdown syntax highlighting with the appropriate language tag. For example, ```py for Python.
+    system_prompt = [[You are an AI programming assistant following these guidelines:
+1. Provide educational guidance, not code replacements - I want to learn concepts, not have work done for me
+2. NEVER suggest direct changes to my code - instead, demonstrate concepts with separate examples when needed
+3. Keep responses brief and focused on my specific question
+4. Use proper markdown syntax for code examples (e.g., ```python)
+5. When explaining concepts, prioritize clarity over comprehensiveness
 ]],
+    --     system_prompt = [[You are an AI programming assistant, following the following tenets:
+    --
+    --
+    --   1. Do **not** start taking over the code-writing process. I wan't to learn what I'm doing, no matter if it is fixing my configurations or coding. Suggesting changes or solutions to things I didn't ask about, without explanation, is not helpful.
+    --
+    --   2. I repeat -- NEVER suggest changes to my code. At best, do examples unrelated to my code of how to apply a concept.
+    --
+    --   2. Always be brief and concise in your responses. Keep answer closely related to the question asked, and only branch out if specifically asked to.
+    --
+    --   3. When showing code examples, always use proper markdown syntax highlighting with the appropriate language tag. For example, ```py for Python.
+    -- ]],
     -- rest of your options...
     model = "claude-3.7-sonnet-thought",
     -- model = "claude-3.5-sonnet",
     auto_insert_mode = true,
+
+    -- Disable reading buffer by default, to get more generic responses
+    selection = function(_) end,
+
     prompts = {
       Documentation = {
         prompt = "", -- Empty prompt for custom input"
-        system_prompt = [[Reply with only:
-1. Function: name(parameters)
-2. Example: simple usage
+        system_prompt = [[Reply with ONLY:
+1. Function: name(parameters) -> return_type
+2. Example: one-line usage with typical arguments 
+3. Purpose: Single sentence description
 Nothing else.]],
 
         -- [[

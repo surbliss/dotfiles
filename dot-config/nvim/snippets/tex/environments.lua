@@ -129,6 +129,19 @@ return {
   ),
 
   as(
+    "descc",
+    fmta(
+      [[
+  \begin{description}
+    \item[<>] <>
+  \end{description}
+  ]],
+      { i(1), i(2) }
+    ),
+    { condition = line_begin }
+  ),
+
+  as(
     "itemm",
     fmta(
       [[

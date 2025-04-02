@@ -14,6 +14,11 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "gk", "v:count == 0 ? 'k' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "gj", "v:count == 0 ? 'j' : 'j'", { expr = true, silent = true })
 
+-- Simpler way to paste last *yanked* think (ignoring deletes)
+-- Does overwrite default command, which pastes and puts cursor after, but
+-- whatever
+vim.keymap.set("n", "gp", '"0p', {desc = "Paste last yank", silent=true})
+
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", function()
     vim.diagnostic.jump({ count = -1, float = true })
@@ -35,6 +40,10 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 -- vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<leader>j", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<leader>k", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+----- Conflicts with vimtex!
+-- vim.keymap.set("n", "<leader>h", "<C-w><C-h>", { desc = "Move focus to the lower window" })
+-- vim.keymap.set("n", "<leader>l", "<C-w><C-l>", { desc = "Move focus to the upper window" })
+
 
 -- LSP-commands (see :help vim.lsp.buf)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)

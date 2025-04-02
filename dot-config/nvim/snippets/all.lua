@@ -14,6 +14,6 @@ local helpers = require("utils.luasnip-helpers")
 local asm = helpers.asm
 
 return {
-  s({ trig = "lolol" }, { t("LuaSnip test") }),
-  asm("abcde", fmta("ggwp<>", { i(1) })),
+  -- s({ trig = "lolol" }, { t("LuaSnip test") }),
+  -- asm("abcde", fmta("ggwp<>", { i(1) })),
 }

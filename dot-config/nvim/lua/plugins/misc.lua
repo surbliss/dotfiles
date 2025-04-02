@@ -10,7 +10,7 @@ return {
 
   {
     "windwp/nvim-autopairs",
-    opts = { disable_filetype = { "tex" } },
+    opts = { disable_filetype = { "tex", "copilot-chat" } },
   },
 
   {

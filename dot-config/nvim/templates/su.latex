@@ -23,6 +23,13 @@
 \begin{document}
 
 \maketitle
+\input{introduction}
+\input{background}
+\input{analysis}
+\input{design}
+\input{implementation}
+\input{evaluation}
+\input{conclusion}
 {{_cursor_}}
 
 \end{document}

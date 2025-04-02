@@ -6,7 +6,8 @@ configuration {
 	xoffset: 0;
 /*	fixed-num-lines: true;*/
 	show-icons: true;
-	terminal: "/nix/store/j215lgj502s6fbmfx9yghxl50f80gw46-wezterm-20240203-110809-5046fc22/bin/wezterm";
+	// terminal: "/nix/store/j215lgj502s6fbmfx9yghxl50f80gw46-wezterm-20240203-110809-5046fc22/bin/wezterm";
+	terminal: "/run/current-system/sw/bin/wezterm";
         modi: ["drun", "filebrowser"];
         /*modi: ["drun", "file-browser-extended", "calc", "emoji"];*/
 /*	ssh-client: "ssh";*/
@@ -153,9 +154,10 @@ configuration {
       directories-first: true;
       sorting-method:    "name";
   }
-  plugin {
-      path: "/nix/store/dd7qq9rfzfgbvf9qac060lpaiyq1n75h-rofi-1.7.5/lib/rofi";
-  }
+  // plugin {
+  //     // path: "/nix/store/dd7qq9rfzfgbvf9qac060lpaiyq1n75h-rofi-1.7.5/lib/rofi";
+  //     path: "/run/current-system/sw/lib/rofi/";
+  // }
 }
 @theme "Arc-Dark"
 /* vim: ft=rasi

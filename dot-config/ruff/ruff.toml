@@ -1,6 +1,10 @@
 line-length = 80
+### Made lsp think python-version was 3.9, hmmm
+# preview = true
+
 [format]
-skip-magic-trailing-comma = true
+# Always collapse to 1 line, despite ending last argument with ','
+skip-magic-trailing-comma = true 
 
 [lint]
 flake8-annotations.mypy-init-return = true

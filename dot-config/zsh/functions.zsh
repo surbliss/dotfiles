@@ -110,7 +110,7 @@ function cpcd() {
 # Open *detached* from terminal
 function open() {
     case "$1" in
-        *.pdf)
+        *.pdf|*.ods)
             setsid xdg-open "$1" &>/dev/null
             ;;
         *)

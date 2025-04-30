@@ -3,18 +3,17 @@ return {
   cmd = { "lua-language-server" },
   settings = {
     Lua = {
-      -- runtime = {
-      --   version = "LuaJIT",
-      -- },
+      runtime = {
+        version = "LuaJIT",
+      },
       workspace = {
         checkThirdparty = false,
-        -- https://github.com/neovim/neovim/discussions/24119
-        -- library = {
-        --   vim.env.VIMRUNTIME,
-        -- }
-        -- Didnt work
-        -- library = vim.api.nvim_get_runtime_file("", true),
-        -- library = vim.api.nvim_get_runtime_file("", true),
+
+        -- Maybe this should only be done for neovim, but atm that is all I'm
+        -- using lua for, sooo
+        library = {
+          vim.env.VIMRUNTIME,
+        },
       },
       telemetry = { enable = false },
     },

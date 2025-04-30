@@ -7,10 +7,15 @@ return {
         timeout_ms = nil,
       },
 
-      format_on_save = {
-        timeout_ms = 1500,
+      format_on_save = function(bufnr)
+        local filetype = vim.bo[bufnr].filetype
+        if filetype == "fsharp" or filetype == "cs" then
+          return nil
+        end
+
+        return { timeout_ms = 1500 }
         -- lsp_format = "fallback",
-      },
+      end,
       -- default_format_opts = {
       -- lsp_format = "fallback",
       formatters_by_ft = {
@@ -27,6 +32,7 @@ return {
         nix = { "nixfmt" },
         python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
         tex = { "latexindent" },
+        gleam = { "gleam" },
       },
     },
     config = function(_, opts)
@@ -79,7 +85,7 @@ return {
         -- print(string.format("Current filetype: %s", vim.bo.filetype))
         -- print(vim.inspect(conform.list_formatters()))
         print("Formatting...")
-        conform.format({ async = true })
+        conform.format({ timeout_ms = 10000 })
         print("Code formatted!")
       end, { desc = "[F]ormat document" })
     end,

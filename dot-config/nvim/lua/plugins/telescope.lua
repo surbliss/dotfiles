@@ -9,6 +9,7 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
     },
+    "nvim-telescope/telescope-file-browser.nvim",
   },
   config = function()
     require("telescope").setup({
@@ -27,6 +28,7 @@ return {
     -- Enable telescope fzf native, if installed
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
+    pcall(require("telescope").load_extension, "file-browser")
     -- require("telescope").load_extension("emoji")
 
     -- Mappings
@@ -45,8 +47,11 @@ return {
     nmap("<leader>sr", builtin.resume, "[S]earch [R]esume")
     nmap("<leader>s.", builtin.oldfiles, "[S]earch [.] (Recent Files)")
     -- nmap("<leader>sg", builtin.git_files, "[S]earch [G]it Files")
-    nmap("<leader>sb>", builtin.buffers, "[Search] existing [B]uffers")
+    nmap("<leader>sb>", builtin.buffers, "[S]earch existing [B]uffers")
     nmap("<leader>se", ":Telescope emoji<CR>", "[S]earch [E]mojis")
+    nmap("<leader>fb", function()
+      require("telescope").extensions.file_browser.file_browser()
+    end, "[F]ile [B]rowser")
 
     local fuzzy_find = function()
       builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({

@@ -56,6 +56,9 @@ return {
       -- signature = { window = { border = "single" } },
       -- Disable commandline completions
       --
+      fuzzy = {
+        implementation = "lua",
+      },
 
       snippets = {
         preset = "luasnip",

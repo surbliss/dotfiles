@@ -11,6 +11,40 @@ return {
   {
     "windwp/nvim-autopairs",
     opts = { disable_filetype = { "tex", "copilot-chat" } },
+    config = function(_, opts)
+      require("nvim-autopairs").setup(opts)
+      local npairs = require("nvim-autopairs")
+      local Rule = require("nvim-autopairs.rule")
+      local ts_conds = require("nvim-autopairs.ts-conds")
+      local log = require("nvim-autopairs._log")
+      local utils = require("nvim-autopairs.utils")
+
+      -- Note that when the cursor is at the end of a comment line,
+      -- treesitter thinks we are in attrset_expression
+      -- because the cursor is "after" the comment, even though it is on the same line.
+      local is_not_ts_node_comment_one_back = function()
+        return function(info)
+          log.debug("not_in_ts_node_comment_one_back")
+
+          local p = vim.api.nvim_win_get_cursor(0)
+          -- Subtract one to account for 1-based row indexing in nvim_win_get_cursor
+          -- Also subtract one from the position of the column to see if we are at the end of a comment.
+          local pos_adjusted = { p[1] - 1, p[2] - 1 }
+
+          vim.treesitter.get_parser():parse()
+          local target = vim.treesitter.get_node({ pos = pos_adjusted, ignore_injections = false })
+          log.debug(target:type())
+          if target ~= nil and utils.is_in_table({ "comment" }, target:type()) then
+            return false
+          end
+
+          local rest_of_line = info.line:sub(info.col)
+          return rest_of_line:match("^%s*$") ~= nil
+        end
+      end
+
+      npairs.add_rule(Rule("= ", ";", "nix"):with_pair(is_not_ts_node_comment_one_back()):set_end_pair_length(1))
+    end,
   },
 
   {
@@ -86,26 +120,34 @@ return {
 
   -- { "mrcjkb/haskell-tools.nvim", version = "^4", lazy = false },
 
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  --   ft = { "markdown" },
+  --   build = function()
+  --     vim.fn["mkdp#util#install"]()
+  --   end,
+  -- },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
+    build = "cd app && yarn install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
     end,
+    ft = { "markdown" },
   },
 
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons",
 
   {
-    "norcalli/nvim-colorizer.lua",
+    -- "norcalli/nvim-colorizer.lua", -- Uses deprecated tbl_flatten
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
     opts = {
-      user_default_options = { names = false },
+      --   user_default_options = { names = false },
     },
-    config = function(_, opts)
-      require("colorizer").setup(opts)
-    end,
   },
 
   "BeneCollyridam/futhark-vim",
@@ -113,6 +155,7 @@ return {
   {
     "abecodes/tabout.nvim",
     opts = {
+      enable = false,
       tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
       backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
       act_as_tab = true, -- shift content if tab out is not possible
@@ -130,7 +173,7 @@ return {
         { open = "{", close = "}" },
       },
       ignore_beginning = false, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-      exclude = {}, -- tabout will ignore these filetypes
+      exclude = { "latex", "tex" }, -- tabout will ignore these filetypes
     },
   },
 

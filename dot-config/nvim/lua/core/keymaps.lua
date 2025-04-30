@@ -63,5 +63,7 @@ vim.keymap.set("n", "<leader>p", vim.cmd.bprev )
 -- Floating terminal
 -- vim.keymap.set("n", "tt", "<cmd>Floaterminal<cr>", { desc = "[T]oggle [T]erminal" })
 
+vim.keymap.set("n", "g<cr>", "i<cr><esc>", {desc ="Insert new line"} )
+
 
 vim.lsp.get_clients()

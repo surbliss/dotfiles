@@ -1,0 +1,80 @@
+[init]
+defaultBranch = main
+
+[status]
+branch = true
+showStash = true
+showUntrackedFiles = true
+
+[user]
+name = Thomas Holme Surlykke
+email = thomas.dev@surlykke.dk
+
+[pull]
+# default = "current"
+autoSetupRemote = true
+rebase = false
+
+[push]
+autoSetupRemote = true
+default = current
+followTags = true
+
+[interactive]
+diffFilter = diff-so-fancy --patch
+singleKey = true
+
+[alias]
+; a = add .
+; c = commit
+; cm = commit -m
+; acm = !git add . && git commit -m
+# ca = !git add . && git commit -m 'empty'
+# I don't like these...
+; st = status
+; sw = switch
+; br = branch
+; ps = push
+; pl = pull
+# co = checkout
+# qp = !git add . && git commit -m 'quick-commit' && git push; # quick-push
+last = log -1 HEAD
+# Inverse of 'add'
+unstage = restore --staged
+# To remove a file added later to .gitignore
+untrack = rm --cached
+# Undo last commit but keep changes staged
+uncommit = reset --soft HEAD^
+# Amend the previous commit without changing its message
+amend = commit --amend --no-edit
+# Fix typos/errors in previous commit message
+recommit = commit --amend
+
+# Compact, colorful graph of commits
+; lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+# Show changed files in the last commit
+; files = show --pretty="" --name-only
+
+# Discard all local changes in your working directory
+; wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+
+### Branch Management
+# Show all branches with their last commit info
+; branches = branch -vv
+
+# Remove branches that have been merged into main/master
+; cleanup = "!git branch --merged | grep -v '\\*\\|master\\|main' | xargs -n 1 git branch -d"
+
+### Find and Fix Issues
+# Find strings in any committed version
+; find = "!f() { git log -p -G\"$1\"; }; f"
+
+# Show who changed each line in a file
+; blame-history = "!f() { git log -p -M --follow --stat -- $1; }; f"
+
+
+
+
+
+# vim: ft=ini

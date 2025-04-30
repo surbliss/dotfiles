@@ -12,12 +12,24 @@ noAdditionalIndent:
   timeline: 1
   lasttimeline: 1
 
+verbatimEnvironments:
+  verbatim: 1
+  lstlisting: 1
+  minted: 1
+
+verbatimCommands:
+  verb: 1
+  lstinline: 1
+
 modifyLineBreaks:
   oneSentencePerLine:
     manipulateSentences: 1
+    removeSentenceLineBreaks: 0
   environments:
-    BeginStartsOnOwnLine: 1
-    EndStartsOnOwnLine: 1
+    BeginStartsOnOwnLine: 3
+    BodyStartsOnOwnLine: 3
+    EndStartsOnOwnLine: 3
+    EndFinishesWithLineBreak: 3  
     minipage:
       BeginStartsOnOwnLine: 2
     section:
@@ -28,8 +40,12 @@ modifyLineBreaks:
       BeginStartsOnOwnLine: 4
     mysection:
       BeginStartsOnOwnLine: 4
-  VerbatimBeginStartsOnOwnLine: 4
-  VerbatimEndFinishesWithLineBreak: 4
+    # minted:
+    #   BeginStartsOnOwnLine: -1
+    #   EndStartsOnOwnLine: -1
+    #   BodyStartsOnOwnLine: -1
+  # VerbatimBeginStartsOnOwnLine: 4
+  # VerbatimEndFinishesWithLineBreak: 4
 
 # replacements:
 #   -

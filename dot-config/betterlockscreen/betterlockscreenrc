@@ -2,8 +2,6 @@
 
 locktext="Thomas H. Surlykke"
 time_format="%H:%M"
-
 wrongtext="Forkert kodeord!"
-
 
 # vim: ft=sh

@@ -44,6 +44,7 @@ return {
       end
 
       npairs.add_rule(Rule("= ", ";", "nix"):with_pair(is_not_ts_node_comment_one_back()):set_end_pair_length(1))
+      npairs.add_rule(Rule("= ", ",", "lua"):with_pair(is_not_ts_node_comment_one_back()):set_end_pair_length(1))
     end,
   },
 

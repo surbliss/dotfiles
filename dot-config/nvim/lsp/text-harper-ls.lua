@@ -13,5 +13,6 @@ return {
     "gitcommit",
     "html",
     "markdown",
+    "typst",
   },
 }

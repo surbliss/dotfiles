@@ -34,7 +34,7 @@ return {
     "typescriptreact",
     "haskell",
     "cmake",
-    "typst",
+    -- "typst",
     "php",
     "dart",
   },

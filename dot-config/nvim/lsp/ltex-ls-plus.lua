@@ -79,7 +79,7 @@ return {
         "tex",
         "latex",
         "text",
-        "typst",
+        -- "typst",
         "xhtml",
       },
       language = "auto",

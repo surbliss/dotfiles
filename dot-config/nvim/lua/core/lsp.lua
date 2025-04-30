@@ -12,6 +12,7 @@ local lsp_servers = {
   -- "text-harper-ls",
   "gleam-lsp",
   "fsautocomplete",
+  "tinymist",
   -- "pylyzer",
 }
 

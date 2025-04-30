@@ -121,7 +121,15 @@ function open() {
 
 
 # Alternative to 'open'
+
+### NOTE: Copilot answer about syntax
+# Most zsh users prefer the simpler POSIX syntax (`name() { }`) for better compatibility and cleaner code. Unless you specifically need the automatic local variable scoping, the simpler syntax is generally preferred.
+#
+# For maximum portability across shells, `name() { }` is the recommended approach.
 function zathura() {
     setsid zathura "$1" &>/dev/null
 }
 
+reload() {
+  source $ZDOTDIR/.zshrc
+}

@@ -170,12 +170,12 @@ myKeys =
     ("M-0", spawn "rofi -show p -modi 'p:rofi-power-menu --choices=shutdown/reboot/suspend/hibernate'"),
     ("M-e", spawn "rofi modi emoji -show emoji -kb-custom1 Ctrl+c -emoji-mode insert_no_copy"),
     -- ("M-o", spawn "firefox"),
-    ("M-o", spawnOn "2" "zen"),
+    ("M-o", spawnOn "2" "zen-twilight"),
     -- ("M-p", spawn "yazi"),
     ("M-p", spawn (myTerminal ++ " -e yazi")),
     -- ("M-i", spawn (myTerminal ++ " yazi")),
     -- ("C-M-l", spawn "slock") ,
-    ("C-M-l", spawn "betterlockscreen --lock blur") ,
+    -- ("C-M-l", spawn "betterlockscreen --lock blur") , -- Cant unlock!
     ("M-n", spawn "gtk-launch obsidian")
     -- ("M-n", spawnOn "7" "env LC_MESSAGES=da_DK.UTF-8 obsidian")
     -- , ("M-w", sendMessage ToggleStruts)

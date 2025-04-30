@@ -3,8 +3,13 @@ local config = wezterm.config_builder()
 local act = wezterm.action
 
 config.color_scheme = "Catppuccin Mocha"
+config.harfbuzz_features = { "ss01" } -- Script italics
 config.font = wezterm.font_with_fallback({
-  "0xProto",
+  "0xProto Nerd Font",
+  "0xProto Nerd Font Propo",
+  "0xProto Nerd Font Mono",
+  "0xProto", -- different than the nerd font versions...
+  "Symbols Nerd Font",
   "Symbols Nerd Font Mono",
   { family = "Font Awesome 6 Free", weight = "Black" },
   { family = "Font Awesome 6 Free", weight = "Regular" },

@@ -43,8 +43,16 @@ return {
         end
       end
 
+      -- assignment_statement
+      local is_table_constructor = function()
+        return function()
+          vim.treesitter.get_parser():parse()
+          local target = vim.treesitter.get_node()
+          return target ~= nil and target:type() == "table_constructor"
+        end
+      end
       npairs.add_rule(Rule("= ", ";", "nix"):with_pair(is_not_ts_node_comment_one_back()):set_end_pair_length(1))
-      npairs.add_rule(Rule("= ", ",", "lua"):with_pair(is_not_ts_node_comment_one_back()):set_end_pair_length(1))
+      npairs.add_rule(Rule("=", ",", "lua"):with_pair(is_table_constructor()))
     end,
   },
 

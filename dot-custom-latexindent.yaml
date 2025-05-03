@@ -26,10 +26,10 @@ modifyLineBreaks:
     manipulateSentences: 1
     removeSentenceLineBreaks: 0
   environments:
-    BeginStartsOnOwnLine: 3
-    BodyStartsOnOwnLine: 3
-    EndStartsOnOwnLine: 3
-    EndFinishesWithLineBreak: 3  
+    # BeginStartsOnOwnLine: 3
+    # BodyStartsOnOwnLine: 3
+    # EndStartsOnOwnLine: 3
+    # EndFinishesWithLineBreak: 3  
     minipage:
       BeginStartsOnOwnLine: 2
     section:

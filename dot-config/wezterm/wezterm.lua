@@ -1,7 +1,9 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
+local mux = wezterm.mux
 local act = wezterm.action
 
+config.use_fancy_tab_bar = false
 config.color_scheme = "Catppuccin Mocha"
 config.harfbuzz_features = { "ss01" } -- Script italics
 config.font = wezterm.font_with_fallback({
@@ -55,6 +57,16 @@ config.keys = {
   { key = "7", mods = "CTRL", action = act.ActivateTab(6) },
   { key = "8", mods = "CTRL", action = act.ActivateTab(7) },
   { key = "9", mods = "CTRL", action = act.ActivateTab(8) },
+  { key = "1", mods = "ALT", action = act.ActivateTab(0) },
+  { key = "2", mods = "ALT", action = act.ActivateTab(1) },
+  { key = "3", mods = "ALT", action = act.ActivateTab(2) },
+  { key = "4", mods = "ALT", action = act.ActivateTab(3) },
+  { key = "5", mods = "ALT", action = act.ActivateTab(4) },
+  { key = "6", mods = "ALT", action = act.ActivateTab(5) },
+  { key = "7", mods = "ALT", action = act.ActivateTab(6) },
+  { key = "8", mods = "ALT", action = act.ActivateTab(7) },
+  { key = "9", mods = "ALT", action = act.ActivateTab(8) },
+  { key = "t", mods = "ALT", action = act.SpawnTab("CurrentPaneDomain") },
   { key = "t", mods = "ALT", action = act.SpawnTab("CurrentPaneDomain") },
   { key = "t", mods = "SHIFT|ALT", action = act.ShowTabNavigator },
   { key = "w", mods = "ALT", action = act.CloseCurrentTab({ confirm = true }) },
@@ -97,7 +109,81 @@ config.keys = {
     mods = "CTRL",
     action = act.SendString("\x1b[13;5u"),
   },
+  -- { key = "1", mods = "ALT", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+  -- FIX: Wouldn't work on windows...
+  {
+    key = "Tab",
+    mods = "ALT",
+    action = wezterm.action.ShowLauncherArgs({
+      flags = "FUZZY|WORKSPACES",
+      title = "Workspaces",
+    }),
+  },
+  -- { key = "1", mods = "ALT", action = wezterm.action.ShowLauncher },
 }
+
+-- Workspaces
+wezterm.on("gui-startup", function(cmd)
+  -- allow `wezterm start -- something` to affect what we spawn
+  -- in our initial window
+  local args = {}
+  if cmd then
+    args = cmd.args
+  end
+
+  -- Set a workspace for coding on a current project
+  -- Top pane is for the editor, bottom pane is for the build tool
+  local project_dir = wezterm.home_dir .. "/Documents/1-projekter"
+  local vtdir = project_dir .. "/vtdat"
+  local sudir = project_dir .. "/su"
+  local tab, build_pane, window = mux.spawn_window({ workspace = "default" })
+
+  local tab, build_pane, window = mux.spawn_window({
+    workspace = "vtdat",
+    cwd = vtdir,
+    args = args,
+  })
+  local editor_pane = build_pane:split({
+    direction = "Top",
+    size = 0.9,
+    cwd = vtdir,
+  })
+
+  local tab, build_pane, window = mux.spawn_window({
+    workspace = "su",
+    cwd = sudir .. "/exam/Breakout/Breakout",
+    args = args,
+  })
+  local tab, build_pane, window = mux.spawn_window({
+    workspace = "su",
+    cwd = sudir .. "/exam/Breakout/DIKUArcade/DIKUArcade",
+    args = args,
+  })
+
+  local tab, build_pane, window = mux.spawn_window({
+    workspace = "config",
+    cwd = wezterm.home_dir .. "/dotfiles/dot-config",
+    args = args,
+  })
+
+  local tab, build_pane, window = mux.spawn_window({
+    workspace = "nixos",
+    cwd = "/etc/nixos",
+    args = args,
+  })
+
+  -- may as well kick off a build in that pane
+  -- build_pane:send_text("cargo build\n")
+
+  -- A workspace for interacting with a local machine that
+  -- runs some docker containers for home automation
+  -- local tab, pane, window = mux.spawn_window({
+  --   workspace = "automation",
+  --   args = { "ssh", "vault" },
+  -- })
+  -- -- We want to startup in the coding workspace
+  mux.set_active_workspace("default")
+end)
 
 return config
 -- vim: ts=2 sts=4 sw=2 et

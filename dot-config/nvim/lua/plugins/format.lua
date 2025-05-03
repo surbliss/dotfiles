@@ -33,7 +33,7 @@ return {
         python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
         tex = { "latexindent" },
         gleam = { "gleam" },
-        typ = { "typstyle" },
+        typst = { "typstyle" },
       },
     },
     config = function(_, opts)

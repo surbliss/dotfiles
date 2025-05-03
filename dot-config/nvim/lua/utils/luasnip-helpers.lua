@@ -4,13 +4,9 @@ local M = {}
 local ls = require("luasnip")
 local s = ls.snippet
 
-local in_mathzone = function()
-  return vim.fn["vimtex#syntax#in_mathzone"]() == 1
-end
+local in_mathzone = function() return vim.fn["vimtex#syntax#in_mathzone"]() == 1 end
 
-local in_text = function()
-  return vim.fn["vimtex#syntax#in_mathzone"]() == 0
-end
+local in_text = function() return vim.fn["vimtex#syntax#in_mathzone"]() == 0 end
 
 M.in_mathzone = in_mathzone
 M.in_text = in_text

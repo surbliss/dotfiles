@@ -24,12 +24,18 @@ return {
       })
       require("luasnip.loaders.from_lua").load({ paths = { "./snippets/" } })
 
-      vim.keymap.set({ "i", "s" }, "<C-j>", function()
-        luasnip.jump(1)
-      end, { silent = true })
-      vim.keymap.set({ "i", "s" }, "<C-k>", function()
-        luasnip.jump(-1)
-      end, { silent = true })
+      vim.keymap.set(
+        { "i", "s" },
+        "<C-j>",
+        function() luasnip.jump(1) end,
+        { silent = true }
+      )
+      vim.keymap.set(
+        { "i", "s" },
+        "<C-k>",
+        function() luasnip.jump(-1) end,
+        { silent = true }
+      )
     end,
   },
 
@@ -84,7 +90,14 @@ return {
           local success, node = pcall(vim.treesitter.get_node)
           if vim.bo.filetype == "lua" then
             return { "lsp", "path", "snippets" }
-          elseif success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
+          elseif
+            success
+            and node
+            and vim.tbl_contains(
+              { "comment", "line_comment", "block_comment" },
+              node:type()
+            )
+          then
             return { "buffer", "snippets" }
           else
             return { "lsp", "path", "snippets" }

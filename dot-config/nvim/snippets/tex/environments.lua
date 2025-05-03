@@ -228,7 +228,11 @@ return {
   -- Sections:
   as("secc", fmta("\\section{<>} %", { i(1) }), { condition = line_begin }),
   as("subb", fmta("\\subsection{<>} %", { i(1) }), { condition = line_begin }),
-  as("ssubb", fmta("\\subsubsection{<>} %", { i(1) }), { condition = line_begin }),
+  as(
+    "ssubb",
+    fmta("\\subsubsection{<>} %", { i(1) }),
+    { condition = line_begin }
+  ),
   as("codd", fmta("\\code{<>}", { i(1) })),
   as("shll", fmta("\\shell{<>}", { i(1) })),
 }

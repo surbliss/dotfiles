@@ -49,15 +49,11 @@ return {
           -- fucks up vimtex commands!
           ["ac"] = {
             query = "@class.outer",
-            disable = function(lang, bufnr)
-              return lang == "latex"
-            end,
+            disable = function(lang, bufnr) return lang == "latex" end,
           },
           ["ic"] = {
             query = "@class.inner",
-            disable = function(lang, bufnr)
-              return lang == "latex"
-            end,
+            disable = function(lang, bufnr) return lang == "latex" end,
           },
         },
       },

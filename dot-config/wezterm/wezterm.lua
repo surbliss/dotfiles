@@ -83,11 +83,19 @@ config.keys = {
     mods = "SHIFT|ALT",
     action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
   },
-  { key = "x", mods = "ALT", action = act.CloseCurrentPane({ confirm = true }) },
+  {
+    key = "x",
+    mods = "ALT",
+    action = act.CloseCurrentPane({ confirm = true }),
+  },
   { key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
   { key = "h", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Left", 1 }) },
   { key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
-  { key = "l", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Right", 1 }) },
+  {
+    key = "l",
+    mods = "SHIFT|ALT",
+    action = act.AdjustPaneSize({ "Right", 1 }),
+  },
   { key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
   { key = "k", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Up", 1 }) },
   { key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
@@ -98,9 +106,7 @@ config.keys = {
     action = act.PromptInputLine({
       description = "Enter a new name for tab",
       action = wezterm.action_callback(function(window, _, line)
-        if line then
-          window:active_tab():set_title(line)
-        end
+        if line then window:active_tab():set_title(line) end
       end),
     }),
   },
@@ -127,9 +133,7 @@ wezterm.on("gui-startup", function(cmd)
   -- allow `wezterm start -- something` to affect what we spawn
   -- in our initial window
   local args = {}
-  if cmd then
-    args = cmd.args
-  end
+  if cmd then args = cmd.args end
 
   -- Set a workspace for coding on a current project
   -- Top pane is for the editor, bottom pane is for the build tool

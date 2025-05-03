@@ -33,7 +33,13 @@ local config = function()
 
   local function my_on_attach(bufnr)
     local function opts(desc)
-      return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+      return {
+        desc = "nvim-tree: " .. desc,
+        buffer = bufnr,
+        noremap = true,
+        silent = true,
+        nowait = true,
+      }
     end
 
     -- default mappings
@@ -54,7 +60,12 @@ local config = function()
     ":NvimTreeToggle<cr>",
     { silent = true, noremap = true, desc = "Filetree Toggle" }
   )
-  vim.keymap.set("n", "<leader>ft", ":NvimTreeToggle<CR>", { desc = "[F]ile [T]ree" })
+  vim.keymap.set(
+    "n",
+    "<leader>ft",
+    ":NvimTreeToggle<CR>",
+    { desc = "[F]ile [T]ree" }
+  )
   require("nvim-tree").setup({
     on_attach = my_on_attach,
   })

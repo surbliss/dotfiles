@@ -100,9 +100,12 @@ return {
     wordTrig = false,
     -- snippetType = "autosnippet",
   }, {
-    f(function(_, snip)
-      return string.format("%s_%s", snip.captures[1], snip.captures[2])
-    end, {}),
+    f(
+      function(_, snip)
+        return string.format("%s_%s", snip.captures[1], snip.captures[2])
+      end,
+      {}
+    ),
     i(0),
   }),
 
@@ -112,9 +115,12 @@ return {
     regTrig = true,
     wordTrig = false,
   }, {
-    f(function(_, snip)
-      return string.format("%s_{%s}", snip.captures[1], snip.captures[2])
-    end, {}),
+    f(
+      function(_, snip)
+        return string.format("%s_{%s}", snip.captures[1], snip.captures[2])
+      end,
+      {}
+    ),
     i(0),
   }),
 
@@ -125,9 +131,12 @@ return {
     wordTrig = true,
     priority = 100,
   }, {
-    f(function(_, snip)
-      return string.format("%s_{%s", snip.captures[1], snip.captures[2])
-    end, {}),
+    f(
+      function(_, snip)
+        return string.format("%s_{%s", snip.captures[1], snip.captures[2])
+      end,
+      {}
+    ),
     i(1),
     t("}"),
     i(0),

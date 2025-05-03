@@ -3,9 +3,7 @@
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying text)",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+  callback = function() vim.highlight.on_yank() end,
 })
 
 -- Toogle checkboxes, from https://github.com/opdavies/toggle-checkbox.nvim/blob/main/lua/toggle-checkbox.lua
@@ -18,9 +16,7 @@ local line_contains_unchecked = function(line)
   return line:find(unchecked_checkbox)
 end
 
-local line_contains_checked = function(line)
-  return line:find(checked_checkbox)
-end
+local line_contains_checked = function(line) return line:find(checked_checkbox) end
 
 local line_with_checkbox = function(line)
   -- return not line_contains_a_checked_checkbox(line) and not line_contains_an_unchecked_checkbox(line)
@@ -45,7 +41,9 @@ local checkbox = {
       return line:gsub("(%S+)", "- [ ] %1", 1)
     else
       -- "- xxx" -> "- [ ] xxx", "3. xxx" -> "3. [ ] xxx"
-      return line:gsub("(%s*- )(.*)", "%1[ ] %2", 1):gsub("(%s*%d%. )(.*)", "%1[ ] %2", 1)
+      return line
+        :gsub("(%s*- )(.*)", "%1[ ] %2", 1)
+        :gsub("(%s*%d%. )(.*)", "%1[ ] %2", 1)
     end
   end,
 }
@@ -54,7 +52,12 @@ local toggle = function()
   local bufnr = vim.api.nvim_buf_get_number(0)
   local cursor = vim.api.nvim_win_get_cursor(0)
   local start_line = cursor[1] - 1
-  local current_line = vim.api.nvim_buf_get_lines(bufnr, start_line, start_line + 1, false)[1] or ""
+  local current_line = vim.api.nvim_buf_get_lines(
+    bufnr,
+    start_line,
+    start_line + 1,
+    false
+  )[1] or ""
 
   -- If the line contains a checked checkbox then uncheck it.
   -- Otherwise, if it contains an unchecked checkbox, check it.
@@ -68,7 +71,13 @@ local toggle = function()
     new_line = checkbox.uncheck(current_line)
   end
 
-  vim.api.nvim_buf_set_lines(bufnr, start_line, start_line + 1, false, { new_line })
+  vim.api.nvim_buf_set_lines(
+    bufnr,
+    start_line,
+    start_line + 1,
+    false,
+    { new_line }
+  )
   vim.api.nvim_win_set_cursor(0, cursor)
 end
 

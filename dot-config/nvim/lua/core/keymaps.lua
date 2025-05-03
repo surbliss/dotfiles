@@ -7,6 +7,10 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+-- A way to escape _down_ from auto comma or semicolon.
+vim.keymap.set("i", "<C-o>", "<Esc>o", {silent = true,})
+vim.keymap.set("i", "<C-Enter>", "<Esc>o", {silent = true,})
+
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })

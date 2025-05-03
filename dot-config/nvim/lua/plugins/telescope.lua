@@ -49,15 +49,19 @@ return {
     -- nmap("<leader>sg", builtin.git_files, "[S]earch [G]it Files")
     nmap("<leader>sb>", builtin.buffers, "[S]earch existing [B]uffers")
     nmap("<leader>se", ":Telescope emoji<CR>", "[S]earch [E]mojis")
-    nmap("<leader>fb", function()
-      require("telescope").extensions.file_browser.file_browser()
-    end, "[F]ile [B]rowser")
+    nmap(
+      "<leader>fb",
+      function() require("telescope").extensions.file_browser.file_browser() end,
+      "[F]ile [B]rowser"
+    )
 
     local fuzzy_find = function()
-      builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-        winblend = 10,
-        previewer = false,
-      }))
+      builtin.current_buffer_fuzzy_find(
+        require("telescope.themes").get_dropdown({
+          winblend = 10,
+          previewer = false,
+        })
+      )
     end
     nmap("<leader>/", fuzzy_find, "[/] Fuzzily search current buffer")
 

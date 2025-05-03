@@ -9,20 +9,21 @@ return { -- Shows pending keybinds
   },
 
   dependencies = {
-    { 'echasnovski/mini.icons', version = false },
+    { "echasnovski/mini.icons", version = false },
   },
 
   config = function(_, opts)
-    require("which-key").setup(opts
-    -- Remove this if so many keymaps, that you need to scroll
-    -- popup_mappings = {
-    --   scroll_down = "<Nop>",
-    --   scroll_up = "<Nop>",
-    -- },
-    -- Doesn't work
-    -- trigger_blacklist = {
-    --   v = { "j", "k", "<C-D>", "<C-U>" },
-    -- },
+    require("which-key").setup(
+      opts
+      -- Remove this if so many keymaps, that you need to scroll
+      -- popup_mappings = {
+      --   scroll_down = "<Nop>",
+      --   scroll_up = "<Nop>",
+      -- },
+      -- Doesn't work
+      -- trigger_blacklist = {
+      --   v = { "j", "k", "<C-D>", "<C-U>" },
+      -- },
     )
 
     -- Document existing key chains

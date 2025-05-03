@@ -65,9 +65,19 @@ Nothing else.]],
     local chat = require("CopilotChat")
     chat.setup(opts)
     vim.keymap.set("n", "<leader>co", chat.open, { silent = true })
-    vim.keymap.set("n", "<leader>ce", ":CopilotChatExplain<CR>", { silent = true })
+    vim.keymap.set(
+      "n",
+      "<leader>ce",
+      ":CopilotChatExplain<CR>",
+      { silent = true }
+    )
     vim.keymap.set("n", "<leader>cf", ":CopilotChatFix<CR>", { silent = true })
-    vim.keymap.set("n", "<leader>cr", ":CopilotChatReview<CR>", { silent = true })
+    vim.keymap.set(
+      "n",
+      "<leader>cr",
+      ":CopilotChatReview<CR>",
+      { silent = true }
+    )
     -- vim.keymap.set("n", "<leader>cd", function()
     --   chat.open({
     --     system_prompt =

@@ -13,9 +13,7 @@ vim.g.maplocalleader = " "
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
-  callback = function()
-    vim.opt_local.formatoptions:remove("o")
-  end,
+  callback = function() vim.opt_local.formatoptions:remove("o") end,
   group = vim.api.nvim_create_augroup("FormatOptionsGroup", { clear = true }),
   desc = "Remove 'o' from formatoptions for all filetypes",
 })

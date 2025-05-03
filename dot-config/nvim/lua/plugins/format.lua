@@ -9,9 +9,7 @@ return {
 
       format_on_save = function(bufnr)
         local filetype = vim.bo[bufnr].filetype
-        if filetype == "fsharp" or filetype == "cs" then
-          return nil
-        end
+        if filetype == "fsharp" or filetype == "cs" then return nil end
 
         return { timeout_ms = 1500 }
         -- lsp_format = "fallback",
@@ -78,7 +76,9 @@ return {
           --   "-c ~/.config/uncrustify/uncrustify.cfg"
           -- }
           env = {
-            UNCRUSTIFY_CONFIG = vim.fn.expand("~/.config/uncrustify/uncrustify.cfg"),
+            UNCRUSTIFY_CONFIG = vim.fn.expand(
+              "~/.config/uncrustify/uncrustify.cfg"
+            ),
           },
         },
       }

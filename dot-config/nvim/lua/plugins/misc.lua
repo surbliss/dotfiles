@@ -1,18 +1,21 @@
 -- Plugins that don't require separate files, for one reason or another
 return {
+
+  ----------------------------------------------------------------------
+  -- Synatx highlighting
+  ----------------------------------------------------------------------
   "Treeniks/isabelle-syn.nvim",
 
   {
     "kylechui/nvim-surround",
+    enabled = false,
     event = "VeryLazy",
     opts = {},
   },
 
   {
     "catppuccin/nvim",
-    config = function()
-      vim.cmd.colorscheme("catppuccin-mocha")
-    end,
+    config = function() vim.cmd.colorscheme("catppuccin-mocha") end,
   },
 
   "LnL7/vim-nix",
@@ -66,16 +69,26 @@ return {
     "folke/todo-comments.nvim",
     config = function()
       require("todo-comments").setup()
-      vim.keymap.set("n", "]t", function()
-        require("todo-comments").jump_next({
-          keywords = { "TODO", "HACK", "WARN", "FIX", "PERF" },
-        })
-      end, { desc = "Next error/warning todo comment" })
-      vim.keymap.set("n", "[t", function()
-        require("todo-comments").jump_prev({
-          keywords = { "TODO", "HACK", "WARN", "FIX", "PERF" },
-        })
-      end, { desc = "Next error/warning todo comment" })
+      vim.keymap.set(
+        "n",
+        "]t",
+        function()
+          require("todo-comments").jump_next({
+            keywords = { "TODO", "HACK", "WARN", "FIX", "PERF" },
+          })
+        end,
+        { desc = "Next error/warning todo comment" }
+      )
+      vim.keymap.set(
+        "n",
+        "[t",
+        function()
+          require("todo-comments").jump_prev({
+            keywords = { "TODO", "HACK", "WARN", "FIX", "PERF" },
+          })
+        end,
+        { desc = "Next error/warning todo comment" }
+      )
     end,
   },
 
@@ -93,9 +106,7 @@ return {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
+    init = function() vim.g.mkdp_filetypes = { "markdown" } end,
     ft = { "markdown" },
   },
 
@@ -114,56 +125,8 @@ return {
   "BeneCollyridam/futhark-vim",
 
   {
-    "abecodes/tabout.nvim",
-    opts = {
-      enable = false,
-      tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
-      backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
-      act_as_tab = true, -- shift content if tab out is not possible
-      act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-      default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
-      default_shift_tab = "<C-d>", -- reverse shift default action,
-      enable_backwards = true, -- well ...
-      completion = false, -- if the tabkey is used in a completion pum
-      tabouts = {
-        { open = "'", close = "'" },
-        { open = '"', close = '"' },
-        { open = "`", close = "`" },
-        { open = "(", close = ")" },
-        { open = "[", close = "]" },
-        { open = "{", close = "}" },
-      },
-      ignore_beginning = false, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-      exclude = { "latex", "tex" }, -- tabout will ignore these filetypes
-    },
-  },
-
-  -- {
-  --   'akinsho/toggleterm.nvim',
-  --   version = "*",
-  --   opts = {
-  --     open_mapping = "<leader>tt",
-  --     direction = "float",
-  --     close_on_exit = false,
-  --     insert_mappings = false,
-  --     float_opts = {
-  --       border = "curved",
-  --     },
-  --   },
-  --   config = function(_, opts)
-  --     require("toggleterm").setup(opts)
-  --     local Terminal = require('toggleterm.terminal').Terminal
-  --     local lazygit  = Terminal:new({ cmd = "lazygit", hidden = true })
-  --     function _lazygit_toggle()
-  --       lazygit:toggle()
-  --     end
-  --
-  --     vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
-  --   end
-  -- }
-
-  {
     "numToStr/FTerm.nvim",
+    enabled = false,
     opts = {
       border = "rounded",
     },
@@ -200,14 +163,10 @@ return {
       { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
       {
         "<leader>sl",
-        function()
-          require("telescope").extensions.lazygit.lazygit()
-        end,
+        function() require("telescope").extensions.lazygit.lazygit() end,
         desc = "[S]earch [L]azyGit",
       },
     },
-    config = function()
-      require("telescope").load_extension("lazygit")
-    end,
+    config = function() require("telescope").load_extension("lazygit") end,
   },
 }

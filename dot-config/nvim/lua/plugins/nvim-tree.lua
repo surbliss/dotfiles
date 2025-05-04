@@ -1,3 +1,4 @@
+-- TODO: Can move this into "opts"
 local config = function()
   local api = require("nvim-tree.api")
 

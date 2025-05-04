@@ -5,8 +5,9 @@ vim.g.loaded_netrwPlugin = 1
 -- [[ Options ]]
 -- See :help option-list
 -- Must happen before plugins are required
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- Mapped in init.lua instead
+-- vim.g.mapleader = " "
+-- vim.g.maplocalleader = " "
 
 -- No continuation of commented lines with 'o' or 'O'
 -- vim.opt.formatoptions:remove("o")

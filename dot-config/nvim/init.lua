@@ -1,3 +1,7 @@
+-- Make sure to set leader before loading plugins
+vim.g.mapleader = " "
+vim.g.maplocalleader = "," -- Cannot map Tab, unfortunately...
+
 require("core.options")
 require("core.keymaps")
 require("core.commands")
@@ -36,10 +40,6 @@ end
 -- Put lazy.nvim into the runtimepath for neovim (so require sources plugins)
 vim.opt.runtimepath:prepend(lazypath)
 
--- Make sure to set leader before loading plugins
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
@@ -47,7 +47,7 @@ require("lazy").setup({
     -- 'lua/plugins/plugin-configs' folder will not be imported
     { import = "plugins" },
   },
-  change_detection = {
-    notify = false,
-  },
+  install = { colorscheme = { "catppuccin-mocha" } },
+  change_detection = { notify = false },
+  checker = { enabled = true },
 })

@@ -1,3 +1,4 @@
+-- FIX: So many uneeded comments...
 return { -- Shows pending keybinds
   "folke/which-key.nvim",
   event = "VimEnter",

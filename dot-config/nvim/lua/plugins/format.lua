@@ -1,6 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
+    event = "BufWrite",
     opts = {
       default_format_opts = {
         lsp_format = "never",
@@ -12,19 +13,10 @@ return {
         if filetype == "fsharp" or filetype == "cs" then return nil end
 
         return { timeout_ms = 1500 }
-        -- lsp_format = "fallback",
       end,
-      -- default_format_opts = {
-      -- lsp_format = "fallback",
       formatters_by_ft = {
         lua = { "stylua" },
         haskell = { "fourmolu" },
-        -- cs = { "csharpier" }, -- Respects '.editorconfig' file, sooo
-        -- cs = { "clang-format" }, -- Now I have a '.clang-format' file
-        -- cs = { "astyle" },
-        -- cs = { "uncrustify" }, -- Happy with this one!
-        -- cs = { "dotnet csharpier", "astyle" },
-        -- cs = { "csharpier", "astyle", "brace_fix" },
         cs = { "csharpier", "brace_fix" },
         fsharp = { "fantomas" },
         nix = { "nixfmt" },
@@ -33,14 +25,10 @@ return {
         gleam = { "gleam" },
         typst = { "typstyle" },
       },
-    },
-    config = function(_, opts)
-      local conform = require("conform")
-      conform.setup(opts)
-      conform.formatters = {
+
+      formatters = {
         latexindent = {
           command = "latexindent",
-          -- args = { "--overwrite", "-m" },
           args = { "-m" },
         },
         csharpier = {
@@ -72,23 +60,26 @@ return {
         },
 
         uncrustify = {
-          -- args = {
-          --   "-c ~/.config/uncrustify/uncrustify.cfg"
-          -- }
           env = {
             UNCRUSTIFY_CONFIG = vim.fn.expand(
               "~/.config/uncrustify/uncrustify.cfg"
             ),
           },
         },
-      }
-      vim.keymap.set("n", "<leader>ff", function()
-        -- print(string.format("Current filetype: %s", vim.bo.filetype))
-        -- print(vim.inspect(conform.list_formatters()))
-        print("Formatting...")
-        conform.format({ timeout_ms = 10000 })
-        print("Code formatted!")
-      end, { desc = "[F]ormat document" })
-    end,
+      },
+    },
+    keys = {
+      {
+        "<leader>ff",
+        function()
+          -- print(string.format("Current filetype: %s", vim.bo.filetype))
+          -- print(vim.inspect(conform.list_formatters()))
+          print("Formatting...")
+          require("conform").format({ timeout_ms = 10000 })
+          print("Code formatted!")
+        end,
+        desc = "[F]ormat document",
+      },
+    },
   },
 }

@@ -1,42 +1,40 @@
 return {
   {
     "L3MON4D3/LuaSnip",
-    -- opts = {
-    --   enable_autosnippets = true,
-    --   store_selection_keys = "<Tab>",
-    --   update_events = "TextChanged, TextChangedI",
-    -- },
-    config = function()
+    opts = {
+      enable_autosnippets = true,
+      store_selection_keys = "<Tab>",
+      update_events = "TextChanged, TextChangedI",
+      -- TODO: Set snip_env for global abbreviations in snippets
+    },
+    config = function(_, opts)
       local luasnip = require("luasnip")
-
-      vim.keymap.set(
-        "n",
-        "<Leader>L",
-        -- "<Cmd>lua require('luasnip.loaders.from_lua').load({paths = '~/.config/nvim/luasnippets/'})<CR>"
-        -- To quickly reload snippets, without having to run home-manager switch.
-        "<Cmd>lua require('luasnip.loaders.from_lua').load({paths = '~/.config/nvim/snippets/'})<CR>"
-      )
-
-      luasnip.config.setup({
-        enable_autosnippets = true,
-        store_selection_keys = "<Tab>",
-        update_events = "TextChanged,TextChangedI",
-      })
+      luasnip.config.setup(opts)
       require("luasnip.loaders.from_lua").load({ paths = { "./snippets/" } })
-
+      -- FIX: Should maybe be set in blink config
       vim.keymap.set(
         { "i", "s" },
-        "<C-j>",
+        "<C-l>",
         function() luasnip.jump(1) end,
         { silent = true }
       )
       vim.keymap.set(
         { "i", "s" },
-        "<C-k>",
+        "<C-j>",
         function() luasnip.jump(-1) end,
         { silent = true }
       )
     end,
+    keys = {
+      {
+        "<leader>L",
+        function()
+          require("luasnip.loaders.from_lua").load({
+            paths = "~/.config/nvim/snippets/",
+          })
+        end,
+      },
+    },
   },
 
   {
@@ -52,8 +50,6 @@ return {
       cmdline = { enabled = false },
 
       completion = {
-        -- menu = { border = "rounded" },
-        -- documentation = { window = { border = "double" } },
         documentation = { auto_show = true, auto_show_delay_ms = 50 },
       },
 
@@ -63,30 +59,15 @@ return {
           enabled = true,
         },
       },
-      -- signature = { window = { border = "single" } },
-      -- Disable commandline completions
-      --
       fuzzy = {
         implementation = "lua",
       },
 
       snippets = {
         preset = "luasnip",
-        -- expand = function(snippet)
-        --   require("luasnip").lsp_expand(snippet)
-        -- end,
-        -- active = function(filter)
-        --   if filter and filter.direction then
-        --     return require("luasnip").jumpable(filter.direction)
-        --   end
-        --   return require("luasnip").in_snippet()
-        -- end,
-        -- jump = function(direction)
-        --   require("luasnip").jump(direction)
-        -- end,
       },
       sources = {
-        default = function(ctx)
+        default = function(_)
           local success, node = pcall(vim.treesitter.get_node)
           if vim.bo.filetype == "lua" then
             return { "lsp", "path", "snippets" }
@@ -104,9 +85,6 @@ return {
           end
         end,
       },
-      -- cmdline = {
-      --   sources = {},
-      -- },
     },
     signature = { enabled = true },
     opts_extend = { "sources.default" },

@@ -5,7 +5,6 @@ return {
     opts = {
       -- Specific for nixos
       exe = "Microsoft.CodeAnalysis.LanguageServer",
-      -- your configuration comes here; leave empty for default settings
       broad_search = true,
     },
   },

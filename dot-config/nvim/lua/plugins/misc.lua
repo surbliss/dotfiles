@@ -1,20 +1,14 @@
 -- Plugins that don't require separate files, for one reason or another
 return {
-
   ----------------------------------------------------------------------
   -- Synatx highlighting
   ----------------------------------------------------------------------
   "Treeniks/isabelle-syn.nvim",
 
   {
-    "kylechui/nvim-surround",
-    enabled = false,
-    event = "VeryLazy",
-    opts = {},
-  },
-
-  {
     "catppuccin/nvim",
+    lazy = false,
+    priority = 1000,
     config = function() vim.cmd.colorscheme("catppuccin-mocha") end,
   },
 
@@ -144,6 +138,7 @@ return {
   {
     -- nvim v0.8.0
     "kdheepak/lazygit.nvim",
+    enabled = false,
     lazy = true,
     cmd = {
       "LazyGit",
@@ -168,5 +163,15 @@ return {
       },
     },
     config = function() require("telescope").load_extension("lazygit") end,
+  },
+
+  ----------------------------------------------------------------------
+  -- Graveyard
+  ----------------------------------------------------------------------
+  {
+    "kylechui/nvim-surround",
+    -- enabled = false,
+    event = "VeryLazy",
+    opts = {},
   },
 }

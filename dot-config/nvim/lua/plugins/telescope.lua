@@ -42,11 +42,11 @@ return {
     nmap("<leader>sf", builtin.find_files, "[S]earch [F]iles")
     nmap("<leader>ss", builtin.builtin, "[S]earch [S]elect Telescope")
     nmap("<leader>sw", builtin.grep_string, "[S]earch current [W]ord")
-    nmap("<leader>sg", builtin.live_grep, "[S]earch by [G]rep")
+    nmap("<leader>st", builtin.live_grep, "[S]earch file-[T]ext by grep")
     nmap("<leader>sd", builtin.diagnostics, "[S]earch [D]iagnostics")
     nmap("<leader>sr", builtin.resume, "[S]earch [R]esume")
     nmap("<leader>s.", builtin.oldfiles, "[S]earch [.] (Recent Files)")
-    -- nmap("<leader>sg", builtin.git_files, "[S]earch [G]it Files")
+    nmap("<leader>sg", builtin.git_files, "[S]earch [G]it Files")
     nmap("<leader>sb>", builtin.buffers, "[S]earch existing [B]uffers")
     nmap("<leader>se", ":Telescope emoji<CR>", "[S]earch [E]mojis")
     nmap(

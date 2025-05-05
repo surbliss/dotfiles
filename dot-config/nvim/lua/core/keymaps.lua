@@ -96,9 +96,9 @@ lmap("wj", "<C-W>j", "[W]indow down")
 lmap("wk", "<C-W>k", "[W]indow up")
 lmap("wh", "<C-W>h", "[W]indow left")
 lmap("wl", "<C-W>l", "[W]indow right")
-lmap("ww", ":w<Enter>", "[W]rite")
-lmap("qq", ":q<Enter>", "[Q]uit")
-lmap("wq", ":w<Enter>:q<Enter>", "[W]rite and [Q]uit")
+lcmap("ww", "w", "[W]rite")
+lcmap("qq", "q", "[Q]uit")
+lcmap("wq", "wq", "[W]rite and [Q]uit")
 
 -- FIX: Idk why this is here
 vim.lsp.get_clients()

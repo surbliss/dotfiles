@@ -115,3 +115,5 @@ vim.diagnostic.config({
 -- end
 
 -- local original_deprecate = vim.deprecate
+
+vim.cmd([[au BufNewFile,BufRead *.fo setlocal ft=fasto]])

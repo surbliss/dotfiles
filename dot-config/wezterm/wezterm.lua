@@ -163,6 +163,14 @@ wezterm.on("gui-startup", function(cmd)
     cwd = sudir .. "/exam/Breakout/DIKUArcade/DIKUArcade",
     args = args,
   })
+  window:spawn_tab({
+    cwd = sudir .. "/exam/Breakout/Breakout/",
+    args = args,
+  })
+  window:spawn_tab({
+    cwd = sudir .. "/exam/Breakout/Breakout/",
+    args = args,
+  })
 
   local tab, build_pane, window = mux.spawn_window({
     workspace = "config",

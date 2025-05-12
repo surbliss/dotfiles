@@ -89,3 +89,15 @@ vim.cmd("cnoreabbrev template Template")
 
 vim.api.nvim_create_user_command("ToggleCheckbox", toggle, {})
 vim.keymap.set("n", "<leader>tc", ":ToggleCheckbox<CR>")
+
+----------------------------------------------------------------------
+-- Custom filetypes
+----------------------------------------------------------------------
+vim.filetype.add({
+  extension = {
+    fsl = "ocaml",
+    fsp = "menhir",
+    fo = "fasto",
+    ispc = "ispc",
+  },
+})

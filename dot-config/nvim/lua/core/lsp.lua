@@ -24,6 +24,7 @@ vim.lsp.config("*", {
 })
 vim.lsp.enable(lsp_servers)
 
+-- Disble annoying ltex notificatoins
 vim.diagnostic.config({
   -- signs = {  },
   severity_sort = true,

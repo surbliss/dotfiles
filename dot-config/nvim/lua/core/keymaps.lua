@@ -82,8 +82,8 @@ lmap("K", vim.lsp.buf.hover) -- KK to focus hover window
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Switch buffers quickly
-vim.keymap.set("n", "<leader>n", vim.cmd.bnext)
-vim.keymap.set("n", "<leader>p", vim.cmd.bprev)
+-- vim.keymap.set("n", "<leader>n", vim.cmd.bnext)
+-- vim.keymap.set("n", "<leader>p", vim.cmd.bprev)
 -- Floating terminal
 -- vim.keymap.set("n", "tt", "<cmd>Floaterminal<cr>", { desc = "[T]oggle [T]erminal" })
 
@@ -99,6 +99,8 @@ lmap("wl", "<C-W>l", "[W]indow right")
 lcmap("ww", "w", "[W]rite")
 lcmap("qq", "q", "[Q]uit")
 lcmap("wq", "wq", "[W]rite and [Q]uit")
+lmap("wp", vim.cmd.bprev, "[P]revious Buffer")
+lmap("wn", vim.cmd.bnext, "[N]ext Buffer")
 
 -- FIX: Idk why this is here
 vim.lsp.get_clients()

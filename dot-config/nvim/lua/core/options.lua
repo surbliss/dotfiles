@@ -86,12 +86,6 @@ vim.opt.hidden = false
 -- Combined with mapping <Esc> to clear highlights
 vim.opt.hlsearch = true
 
-vim.filetype.add({
-  extension = {
-    ispc = "ispc",
-  },
-})
-
 vim.diagnostic.config({
   virtual_text = true,
   signs = true,
@@ -99,21 +93,3 @@ vim.diagnostic.config({
   update_in_insert = true,
   severity_sort = false,
 })
-
--- local original_validate = vim.validate
--- Hax to fix deprecation warning
--- vim.validate = function(arg1, arg2, ...)
---   if arg2 == nil and type(arg1) == "table" then
---     local key = next(arg1)
---     assert(next(arg1, key) == nil) -- Only one entry in table
---     assert(arg1[key]) -- Key has value
---     local args = arg1[key]
---     original_validate(key, args[1], args[2], args[3], args[4])
---     return
---   end
---   original_validate(arg1, arg2, ...)
--- end
-
--- local original_deprecate = vim.deprecate
-
-vim.cmd([[au BufNewFile,BufRead *.fo setlocal ft=fasto]])

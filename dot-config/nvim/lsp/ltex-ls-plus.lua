@@ -55,7 +55,7 @@ return {
     "rst",
     "tex",
     "text",
-    "typst",
+    -- "typst",
     "xhtml",
   },
   get_language_id = get_language_id,

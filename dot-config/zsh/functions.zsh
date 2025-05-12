@@ -119,6 +119,10 @@ function open() {
     esac
 }
 
+function typdf() {
+  typst watch "$1.typ" "$2.pdf" --open
+}
+
 
 # Alternative to 'open'
 

@@ -6,6 +6,7 @@ local act = wezterm.action
 config.use_fancy_tab_bar = false
 config.color_scheme = "Catppuccin Mocha"
 config.harfbuzz_features = { "ss01" } -- Script italics
+config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 1000 }
 config.font = wezterm.font_with_fallback({
   "0xProto Nerd Font",
   "0xProto Nerd Font Propo",
@@ -84,10 +85,23 @@ config.keys = {
     action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
   },
   {
+    key = "s",
+    mods = "ALT",
+    action = act.SplitPane({
+      direction = "Down",
+      size = { Cells = 6 },
+    }),
+  },
+  {
     key = "x",
     mods = "ALT",
     action = act.CloseCurrentPane({ confirm = true }),
   },
+  -- {
+  --   key = "z",
+  --   mods = "ALT",
+  --   action = wezterm.action.TogglePaneZoomState,
+  -- },
   { key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
   { key = "h", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Left", 1 }) },
   { key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
@@ -98,7 +112,18 @@ config.keys = {
   },
   { key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
   { key = "k", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Up", 1 }) },
-  { key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
+  -- { key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
+
+  -- Allows a small "watching" window at the bottom, e.g. typst or tests
+  {
+    key = "j",
+    mods = "ALT",
+    action = act.Multiple({
+      act.ActivatePaneDirection("Down"),
+      act.TogglePaneZoomState,
+    }),
+  },
+
   { key = "j", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Down", 1 }) },
   {
     key = "r",
@@ -117,85 +142,98 @@ config.keys = {
   },
   -- { key = "1", mods = "ALT", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
   -- FIX: Wouldn't work on windows...
+  -- {
+  --   key = "Tab",
+  --   mods = "ALT",
+  --   action = wezterm.action.ShowLauncherArgs({
+  --     flags = "FUZZY|WORKSPACES",
+  --     title = "Workspaces",
+  --   }),
+  -- },
   {
     key = "Tab",
     mods = "ALT",
-    action = wezterm.action.ShowLauncherArgs({
-      flags = "FUZZY|WORKSPACES",
-      title = "Workspaces",
-    }),
+    action = wezterm.action.ShowLauncher,
   },
   -- { key = "1", mods = "ALT", action = wezterm.action.ShowLauncher },
 }
 
--- Workspaces
-wezterm.on("gui-startup", function(cmd)
-  -- allow `wezterm start -- something` to affect what we spawn
-  -- in our initial window
-  local args = {}
-  if cmd then args = cmd.args end
+-- -- Workspaces
+-- wezterm.on("gui-startup", function(cmd)
+--   -- allow `wezterm start -- something` to affect what we spawn
+--   -- in our initial window
+--   local args = {}
+--   if cmd then args = cmd.args end
+--
+--   -- Set a workspace for coding on a current project
+--   -- Top pane is for the editor, bottom pane is for the build tool
+--   local project_dir = wezterm.home_dir .. "/Documents/1-projekter"
+--   local vtdir = project_dir .. "/vtdat"
+--   local sudir = project_dir .. "/su"
+--   local tab, build_pane, window = mux.spawn_window({ workspace = "default" })
+--
+--   local tab, build_pane, window = mux.spawn_window({
+--     workspace = "vtdat",
+--     cwd = vtdir,
+--     args = args,
+--   })
+--   local editor_pane = build_pane:split({
+--     direction = "Top",
+--     size = 0.9,
+--     cwd = vtdir,
+--   })
+--
+--   local tab, build_pane, window = mux.spawn_window({
+--     workspace = "su",
+--     cwd = sudir .. "/exam/Breakout/Breakout",
+--     args = args,
+--   })
+--   local tab, build_pane, window = mux.spawn_window({
+--     workspace = "su",
+--     cwd = sudir .. "/exam/Breakout/DIKUArcade/DIKUArcade",
+--     args = args,
+--   })
+--   window:spawn_tab({
+--     cwd = sudir .. "/exam/Breakout/Breakout/",
+--     args = args,
+--   })
+--   window:spawn_tab({
+--     cwd = sudir .. "/exam/Breakout/Breakout/",
+--     args = args,
+--   })
+--
+--   local tab, build_pane, window = mux.spawn_window({
+--     workspace = "config",
+--     cwd = wezterm.home_dir .. "/dotfiles/dot-config",
+--     args = args,
+--   })
+--
+--   local tab, build_pane, window = mux.spawn_window({
+--     workspace = "nixos",
+--     cwd = "/etc/nixos",
+--     args = args,
+--   })
+--
+--   -- may as well kick off a build in that pane
+--   -- build_pane:send_text("cargo build\n")
+--
+--   -- A workspace for interacting with a local machine that
+--   -- runs some docker containers for home automation
+--   -- local tab, pane, window = mux.spawn_window({
+--   --   workspace = "automation",
+--   --   args = { "ssh", "vault" },
+--   -- })
+--   -- -- We want to startup in the coding workspace
+--   mux.set_active_workspace("default")
+-- end)
 
-  -- Set a workspace for coding on a current project
-  -- Top pane is for the editor, bottom pane is for the build tool
-  local project_dir = wezterm.home_dir .. "/Documents/1-projekter"
-  local vtdir = project_dir .. "/vtdat"
-  local sudir = project_dir .. "/su"
-  local tab, build_pane, window = mux.spawn_window({ workspace = "default" })
-
-  local tab, build_pane, window = mux.spawn_window({
-    workspace = "vtdat",
-    cwd = vtdir,
-    args = args,
-  })
-  local editor_pane = build_pane:split({
-    direction = "Top",
-    size = 0.9,
-    cwd = vtdir,
-  })
-
-  local tab, build_pane, window = mux.spawn_window({
-    workspace = "su",
-    cwd = sudir .. "/exam/Breakout/Breakout",
-    args = args,
-  })
-  local tab, build_pane, window = mux.spawn_window({
-    workspace = "su",
-    cwd = sudir .. "/exam/Breakout/DIKUArcade/DIKUArcade",
-    args = args,
-  })
-  window:spawn_tab({
-    cwd = sudir .. "/exam/Breakout/Breakout/",
-    args = args,
-  })
-  window:spawn_tab({
-    cwd = sudir .. "/exam/Breakout/Breakout/",
-    args = args,
-  })
-
-  local tab, build_pane, window = mux.spawn_window({
-    workspace = "config",
-    cwd = wezterm.home_dir .. "/dotfiles/dot-config",
-    args = args,
-  })
-
-  local tab, build_pane, window = mux.spawn_window({
-    workspace = "nixos",
-    cwd = "/etc/nixos",
-    args = args,
-  })
-
-  -- may as well kick off a build in that pane
-  -- build_pane:send_text("cargo build\n")
-
-  -- A workspace for interacting with a local machine that
-  -- runs some docker containers for home automation
-  -- local tab, pane, window = mux.spawn_window({
-  --   workspace = "automation",
-  --   args = { "ssh", "vault" },
-  -- })
-  -- -- We want to startup in the coding workspace
-  mux.set_active_workspace("default")
-end)
+config.launch_menu = {
+  {
+    label = "ips",
+    args = { "cd ~/Documents/1-projekter/ips" },
+    -- args = { "ls" },
+  },
+}
 
 return config
 -- vim: ts=2 sts=4 sw=2 et

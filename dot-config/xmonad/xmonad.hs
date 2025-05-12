@@ -1,9 +1,9 @@
--- {-# OPTIONS_GHC -Wall #-}
+-- { OPTIONS_GHC -Wall #-}
 import Control.Arrow ((>>>))
 import Control.Monad (when)
 import Control.Monad.RWS (MonadWriter (pass))
 import Data.Function ((&))
-import Data.Map qualified as M
+import qualified Data.Map as M
 import XMonad
 import XMonad.Actions.CycleRecentWS
 -- import XMonad.Hooks.DynamicLog
@@ -17,15 +17,20 @@ import XMonad.Actions.NoBorders (toggleBorder)
 import XMonad.Actions.Promote
 import XMonad.Actions.SpawnOn
 import XMonad.Hooks.EwmhDesktops
+-- import XMonad.Layout.ToggleLayouts (ToggleLayout (Toggle, ToggleLayout), toggleLayouts)
+-- import XMonad.ManageHook (composeAll)
+
+import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosition)
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.RefocusLast (isFloat)
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.WindowSwallowing
 import XMonad.Layout.FixedColumn (FixedColumn (FixedColumn))
 import XMonad.Layout.LimitWindows (limitWindows)
 import XMonad.Layout.Magnifier (magnifiercz')
-import XMonad.Layout.Magnifier qualified as Mag
+import qualified XMonad.Layout.Magnifier as Mag
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle as MT (Toggle (..))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL))
@@ -34,17 +39,12 @@ import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
--- import XMonad.Layout.ToggleLayouts (ToggleLayout (Toggle, ToggleLayout), toggleLayouts)
--- import XMonad.ManageHook (composeAll)
 import XMonad.Operations
-import XMonad.StackSet qualified as W
+import qualified XMonad.StackSet as W
+import XMonad.Util.Cursor
 import XMonad.Util.EZConfig
 import XMonad.Util.Hacks (trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
 import XMonad.Util.SpawnOnce
-
-import XMonad.Hooks.RefocusLast (isFloat)
-import XMonad.Hooks.InsertPosition (insertPosition, Position(Below), Focus(Newer))
-import XMonad.Util.Cursor
 
 ------------------------------------------------------------------------
 -- VARIABLES
@@ -130,6 +130,9 @@ myKeys :: [(String, X ())]
 myKeys =
   [ ("M-S-r", spawn "xmonad --restart"),
     ("M-S-q", kill),
+    -- Colemak
+    ("M-e", windows W.focusDown),
+    ("M-n", windows W.focusUp),
     ("<XF86MonBrightnessUp>", spawn "brillo -q -A 5"),
     ("<XF86MonBrightnessDown>", spawn "brillo -q -U 5"),
     -- l for upper limit on volume
@@ -268,33 +271,34 @@ myStartupHook = do
   -- Should be done in a better way...
   spawnOnce "feh --bg-fill .background-image"
 
-
 myManageHook =
   --
-  not <$> willFloat --> insertPosition Below Newer
- <+>
-  -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
-  -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
-  -- composeOne 
-  -- composeOne 
-  composeOne
-  -- className == WM_NAME from xprop
-    [ className =? "obsidian" -?> doShift "7"
-      , title =? "Oracle VM VirtualBox Manager" -?> doCenterFloat
-      , className =? "discord" -?> doShift "8"
-      -- , className =? "feh" -?> doCenterFloat
-      -- , title =? "Navigator" -?> doShift "2"
-      -- , className =? "zen-twilight" -?> doShift "2"
-      -- , className =? "Zathura" -?> doShift "4"
-      -- title =? "Zen Twilight" -?> doShift "2",
-      -- title =? "zen-twilight" -?> doShift "2"
-      -- title =? "Extension: (Bitwarden Password Manager) - Bitwarden \033%G\342\200\224\033%@ Mozilla Firefox" --> doCenterFloat,
-      -- title =? "isabelle-jedit-JEdit_Main" --> doShift (myWorkspaces !! 5),
-      -- , className =? "SDL_App" --> doFloat
-      -- , not <$> isFloat  --> doF W.swapDown -- Makes new windows not spawn as master pane (unless they are floats)
-      -- , isFloat --> doF W.shiftMaster
-      -- , return True --> doF W.swapDown -- Makes new windows not spawn as master pane (unless they are floats)
-    ]
+  not
+    <$> willFloat
+      --> insertPosition Below Newer
+      <+>
+      -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- composeOne
+      -- composeOne
+      composeOne
+        -- className == WM_NAME from xprop
+        [ className =? "obsidian" -?> doShift "7",
+          title =? "Oracle VM VirtualBox Manager" -?> doCenterFloat,
+          className =? "discord" -?> doShift "8"
+          -- , className =? "feh" -?> doCenterFloat
+          -- , title =? "Navigator" -?> doShift "2"
+          -- , className =? "zen-twilight" -?> doShift "2"
+          -- , className =? "Zathura" -?> doShift "4"
+          -- title =? "Zen Twilight" -?> doShift "2",
+          -- title =? "zen-twilight" -?> doShift "2"
+          -- title =? "Extension: (Bitwarden Password Manager) - Bitwarden \033%G\342\200\224\033%@ Mozilla Firefox" --> doCenterFloat,
+          -- title =? "isabelle-jedit-JEdit_Main" --> doShift (myWorkspaces !! 5),
+          -- , className =? "SDL_App" --> doFloat
+          -- , not <$> isFloat  --> doF W.swapDown -- Makes new windows not spawn as master pane (unless they are floats)
+          -- , isFloat --> doF W.shiftMaster
+          -- , return True --> doF W.swapDown -- Makes new windows not spawn as master pane (unless they are floats)
+        ]
 
 -- Type signature?
 myConfig =

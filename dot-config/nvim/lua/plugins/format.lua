@@ -16,7 +16,7 @@ return {
       end,
       formatters_by_ft = {
         lua = { "stylua" },
-        haskell = { "fourmolu" },
+        haskell = { "ormolu" },
         cs = { "csharpier", "brace_fix" },
         fsharp = { "fantomas" },
         nix = { "nixfmt" },
@@ -36,6 +36,25 @@ return {
           args = { "--write-stdout" },
         },
 
+        ormolu = {
+          prepend_args = {
+            "-p",
+            "Flow",
+            -- -- flow fixities
+            -- "--fixity",
+            -- "infixl 0 |>",
+            -- "--fixity",
+            -- "infixl 0 !>",
+            -- "--fixity",
+            -- "infixr 0 <|",
+            -- "--fixity",
+            -- "infixr 0 <!",
+            -- "--fixity",
+            -- "infixl 9 .>",
+            -- "--fixity",
+            -- "infixr 9 <.",
+          },
+        },
         nixfmt = { args = { "--width=80", "--strict" } },
 
         -- Run after 'csharpier' to achieve K&R-style.
@@ -76,6 +95,7 @@ return {
           -- print(vim.inspect(conform.list_formatters()))
           print("Formatting...")
           require("conform").format({ timeout_ms = 10000 })
+          vim.cmd("write")
           print("Code formatted!")
         end,
         desc = "[F]ormat document",

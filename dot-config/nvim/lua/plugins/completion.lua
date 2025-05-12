@@ -1,6 +1,7 @@
 return {
   {
     "L3MON4D3/LuaSnip",
+    version = "v2.*",
     opts = {
       enable_autosnippets = true,
       store_selection_keys = "<Tab>",
@@ -8,20 +9,45 @@ return {
       -- TODO: Set snip_env for global abbreviations in snippets
     },
     config = function(_, opts)
-      local luasnip = require("luasnip")
-      luasnip.config.setup(opts)
-      require("luasnip.loaders.from_lua").load({ paths = { "./snippets/" } })
+      local ls = require("luasnip")
+      ls.config.setup(opts)
+      require("luasnip.loaders.from_lua").load({
+        paths = { vim.fn.stdpath("config") .. "/snippets" },
+      })
       -- FIX: Should maybe be set in blink config
+
       vim.keymap.set(
-        { "i", "s" },
-        "<C-l>",
-        function() luasnip.jump(1) end,
+        { "i" },
+        "<C-Y>",
+        function() ls.expand() end,
         { silent = true }
       )
       vim.keymap.set(
         { "i", "s" },
+        "<C-n>",
+        function() ls.jump(1) end,
+        { silent = true }
+      )
+      vim.keymap.set(
+        { "i", "s" },
+        "<C-e>",
+        function() ls.jump(-1) end,
+        { silent = true }
+      )
+      vim.keymap.set({ "i", "s" }, "<C-l>", function()
+        if ls.choice_active() then ls.change_choice(1) end
+      end, { silent = true })
+
+      vim.keymap.set(
+        { "i", "s" },
         "<C-j>",
-        function() luasnip.jump(-1) end,
+        function() ls.jump(1) end,
+        { silent = true }
+      )
+      vim.keymap.set(
+        { "i", "s" },
+        "<C-k>",
+        function() ls.jump(-1) end,
         { silent = true }
       )
     end,
@@ -33,6 +59,7 @@ return {
             paths = "~/.config/nvim/snippets/",
           })
         end,
+        { desc = "[L]oad snippets" },
       },
     },
   },

@@ -15,7 +15,6 @@ return {
     notify = {
       enabled = false,
     },
-    -- TODO: Take a look at lsp-settings
   },
   dependencies = {
     "MunifTanjim/nui.nvim",

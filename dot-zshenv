@@ -11,4 +11,6 @@ export PATH=$PATH:$HOME/.dotnet/tools
 # Makes terminal English, despite locale being Danish
 export LC_MESSAGES="en_US.UTF8"
 
+export MANPAGER="nvim +Man!"
+
 # vim: filetype=zsh

@@ -18,7 +18,7 @@ alias polybar-refresh="pkill polybar; polybar -c ~/.config/polybar/config.ini de
 # alias popcp="cp mothApp.fsx ../../virtual-box-share/pop-3/src/";
 alias dotstow="stow -R -d ~/dotfiles . --dotfiles"
 alias cat="bat"
-alias nix dev="nix develop --command zsh"
+alias nix-dev="nix develop --command zsh"
 alias lg="lazygit"
 
 ##############################
@@ -34,6 +34,7 @@ alias gu="git pull"
 alias gl="git log --all --graph"
 alias gb="git branch"
 alias gw="git switch"
+alias vimr="nvim -R"
 # Not needed, used so rarely
 # alias gi="git init"
 # alias gcl="git clone"

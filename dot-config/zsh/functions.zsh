@@ -2,6 +2,11 @@
 function arkiver() {
     if [ $# -eq 1 ]; then
         if [ -e "$1" ]; then
+	    if [ -e "$1/.direnv" ]; then
+	      echo "Removing .direnv cache"
+	      trash "$1/.direnv"
+	      trash -f "$1/.envrc"
+	    fi
             echo "Flytter $1 til 4-arkiv"
             mv -i "$1" ~/Documents/4-arkiv/ # -i so asks before overwrite
         else
@@ -12,6 +17,13 @@ function arkiver() {
     fi
 }
 
+function tester() {
+  if [ $# -eq 1 ]; then
+    if [ -e "$1/.direnv" ]; then
+      echo "dirty"
+    fi
+  fi
+}
 
 # expand-multiple-dots.zsh, see 
 # https://github.com/parkercoates/dotfiles/blob/main/.zsh/expand-multiple-dots.zsh
@@ -118,9 +130,8 @@ function open() {
             ;;
     esac
 }
-
 function typdf() {
-  typst watch "$1.typ" "$2.pdf" --open
+  typst watch "main.typ" "$1.pdf" --open
 }
 
 

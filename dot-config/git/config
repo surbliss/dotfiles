@@ -41,8 +41,11 @@ singleKey = true
 last = log -1 HEAD
 # Inverse of 'add'
 unstage = restore --staged
+
 # To remove a file added later to .gitignore
-untrack = rm --cached
+### Old version, but apparently deletes the file if you later git pull D:
+# untrack = rm --cached
+untrack = update-index --skip-worktree <file>
 # Undo last commit but keep changes staged
 uncommit = reset --soft HEAD^
 # Amend the previous commit without changing its message

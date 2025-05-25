@@ -131,8 +131,8 @@ myKeys =
   [ ("M-S-r", spawn "xmonad --restart"),
     ("M-S-q", kill),
     -- Colemak
-    ("M-e", windows W.focusDown),
-    ("M-n", windows W.focusUp),
+    ("M-e", windows W.focusUp),
+    ("M-n", windows W.focusDown),
     ("<XF86MonBrightnessUp>", spawn "brillo -q -A 5"),
     ("<XF86MonBrightnessDown>", spawn "brillo -q -U 5"),
     -- l for upper limit on volume
@@ -171,15 +171,15 @@ myKeys =
     -- TODO: Fix so we can also logout/lock screen. loginctl terminate-session
     -- doesnt work on XMonad
     ("M-0", spawn "rofi -show p -modi 'p:rofi-power-menu --choices=shutdown/reboot/suspend/hibernate'"),
-    ("M-e", spawn "rofi modi emoji -show emoji -kb-custom1 Ctrl+c -emoji-mode insert_no_copy"),
+    -- ("M-e", spawn "rofi modi emoji -show emoji -kb-custom1 Ctrl+c -emoji-mode insert_no_copy"),
     -- ("M-o", spawn "firefox"),
     ("M-o", spawnOn "2" "zen-twilight"),
     -- ("M-p", spawn "yazi"),
-    ("M-p", spawn (myTerminal ++ " -e yazi")),
+    ("M-p", spawn (myTerminal ++ " -e yazi"))
     -- ("M-i", spawn (myTerminal ++ " yazi")),
     -- ("C-M-l", spawn "slock") ,
     -- ("C-M-l", spawn "betterlockscreen --lock blur") , -- Cant unlock!
-    ("M-n", spawn "gtk-launch obsidian")
+    -- ("M-n", spawn "gtk-launch obsidian")
     -- ("M-n", spawnOn "7" "env LC_MESSAGES=da_DK.UTF-8 obsidian")
     -- , ("M-w", sendMessage ToggleStruts)
   ]

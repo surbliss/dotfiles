@@ -101,6 +101,7 @@ lcmap("qq", "q", "[Q]uit")
 lcmap("wq", "wq", "[W]rite and [Q]uit")
 lmap("wp", vim.cmd.bprev, "[P]revious Buffer")
 lmap("wn", vim.cmd.bnext, "[N]ext Buffer")
+lmap("m", "@@", "Last [M]acro")
 
 -- FIX: Idk why this is here
 vim.lsp.get_clients()

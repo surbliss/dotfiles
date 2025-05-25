@@ -11,7 +11,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 -- local rep = require("luasnip.extras").rep
 
 -- from nvim/lua/
-local helpers = require("utils.luasnip-helpers")
+local helpers = require("utils.snippet")
 local as = helpers.as
 local ast = helpers.ast
 return {

@@ -11,7 +11,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 -- local rep = require("luasnip.extras").rep
 
 -- from nvim/lua/
-local helpers = require("utils.luasnip-helpers")
+local helpers = require("utils.snippet")
 -- Autosnippet, only for math environments
 local asm = helpers.asm
 return {

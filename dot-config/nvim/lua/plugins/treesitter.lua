@@ -8,6 +8,7 @@ return {
   opts = {
     auto_install = true,
     ignore_install = { "latex" },
+    -- ensure_installed = { "norg" },
     highlight = {
       enable = true,
       disable = { "latex" },
@@ -114,8 +115,34 @@ return {
     },
   },
   config = function(_, opts)
+    -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1449
+    require("nvim-treesitter.install").compilers = { "gcc" }
     require("nvim-treesitter.configs").setup(opts)
     vim.treesitter.language.register("bash", "zsh")
+    -- local function printnode()
+    --   local node = vim.treesitter.get_node()
+    --   if node == nil then
+    --     print(node)
+    --   else
+    --     print(node:type())
+    --   end
+    -- end
+
+    -- local function printprevnode()
+    --   local pos = vim.api.nvim_win_get_cursor(0) -- Pos is (1,0)-indexed
+    --   local row, col = pos[1], pos[2]
+    --   node = vim.treesitter.get_node({ pos = { row - 1, col - 2 } })
+    --   if node == nil then
+    --     print(node)
+    --   else
+    --     print(node:type())
+    --   end
+    -- end
+    -- For debugging, uncomment only when needed
+    -- vim.keymap.set("n", "<leader>tp", printprevnode)
+    -- vim.keymap.set("n", "<leader>tt", printnode)
+    -- vim.keymap.set("i", "<C-.>", printnode)
+    -- vim.keymap.set("i", "<C-,>", printprevnode)
     -- require("nvim-treesitter.parsers").filetype_to_parsername.zsh = "bash"
   end,
   build = ":TSUpdate",

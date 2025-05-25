@@ -67,8 +67,9 @@ return {
   {
     "saghen/blink.cmp",
     version = "*",
+    build = "nix run .#build-plugin",
     opts = {
-      keymap = { preset = "super-tab" },
+      keymap = { preset = "default" },
       appearance = {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = "mono",
@@ -76,44 +77,32 @@ return {
 
       cmdline = { enabled = false },
 
-      completion = {
-        documentation = { auto_show = true, auto_show_delay_ms = 50 },
-      },
+      signature = { enabled = true, trigger = { enabled = true } },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
 
-      signature = {
-        enabled = true,
-        trigger = {
-          enabled = true,
-        },
-      },
-      fuzzy = {
-        implementation = "lua",
-      },
-
-      snippets = {
-        preset = "luasnip",
-      },
-      sources = {
-        default = function(_)
-          local success, node = pcall(vim.treesitter.get_node)
-          if vim.bo.filetype == "lua" then
-            return { "lsp", "path", "snippets" }
-          elseif
-            success
-            and node
-            and vim.tbl_contains(
-              { "comment", "line_comment", "block_comment" },
-              node:type()
-            )
-          then
-            return { "buffer", "snippets" }
-          else
-            return { "lsp", "path", "snippets" }
-          end
-        end,
-      },
+      snippets = { preset = "luasnip" },
+      -- sources = { default = { "lsp", "buffer", "path", "snippets" } },
+      sources = { default = { "lsp", "path", "snippets" } },
+      --     default = function(_)
+      --       local success, node = pcall(vim.treesitter.get_node)
+      --       if vim.bo.filetype == "lua" then
+      --         return { "lsp", "path", "snippets" }
+      --       elseif
+      --         success
+      --         and node
+      --         and vim.tbl_contains(
+      --           { "comment", "line_comment", "block_comment" },
+      --           node:type()
+      --         )
+      --       then
+      --         return { "buffer", "snippets" }
+      --       else
+      --         return { "lsp", "path", "snippets" }
+      --       end
+      --     end,
+      --   },
     },
-    signature = { enabled = true },
+    -- signature = { enabled = true },
     opts_extend = { "sources.default" },
   },
 }

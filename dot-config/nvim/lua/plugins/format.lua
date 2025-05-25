@@ -64,7 +64,9 @@ return {
           args = {
             "-0pe", -- -0 reads entire file, -p prints, -e executes the script
             -- "s/\\n\\s*\\{/ {/g",
-            "s/\\n\\s*\\{/ {/g; s/}\\s*\\n\\s*else/} else/g",
+            -- "s/\\n\\s*\\{/ {/g; s/}\\s*\\n\\s*else/} else/g",
+            -- GPT Try
+            [[s/\n\s*{\s*(?=\n|\s*$)/ {/g; s/}\s*\n\s*else/} else/g]],
           },
           stdin = true,
         },

@@ -4,7 +4,7 @@ return {
     version = "v2.*",
     opts = {
       enable_autosnippets = true,
-      store_selection_keys = "<Tab>",
+      -- store_selection_keys = "<Tab>",
       update_events = "TextChanged, TextChangedI",
       -- TODO: Set snip_env for global abbreviations in snippets
     },
@@ -68,8 +68,33 @@ return {
     "saghen/blink.cmp",
     version = "*",
     build = "nix run .#build-plugin",
+    dependencies = { "L3MON4D3/LuaSnip" },
     opts = {
-      keymap = { preset = "default" },
+      keymap = {
+        -- preset = "default",
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        -- Hide with Esc
+        ["<C-i>"] = { "show_signature", "hide_signature", "fallback" },
+        ["<C-y>"] = { "select_and_accept" },
+        ["<Up>"] = { "select_prev", "fallback" },
+        ["<Down>"] = { "select_next", "fallback" },
+        ["<C-k>"] = {
+          "select_prev",
+          "fallback_to_mappings",
+        },
+        ["<C-j>"] = {
+          "select_next",
+          "fallback_to_mappings",
+        },
+
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+
+        ["<C-l>"] = { "snippet_forward", "fallback" },
+        ["<C-h>"] = { "snippet_backward", "fallback" },
+
+        -- ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+      },
       appearance = {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = "mono",
@@ -82,7 +107,17 @@ return {
 
       snippets = { preset = "luasnip" },
       -- sources = { default = { "lsp", "buffer", "path", "snippets" } },
-      sources = { default = { "lsp", "path", "snippets" } },
+      sources = {
+        default = { "lsp", "path", "snippets" },
+        -- FIX: NOt correct naming (if option even exists)
+        -- providers = {
+        --   snippets = {
+        --     opts = {
+        --       show_auto_snippets = false,
+        --     },
+        --   },
+        -- },
+      },
       --     default = function(_)
       --       local success, node = pcall(vim.treesitter.get_node)
       --       if vim.bo.filetype == "lua" then

@@ -62,16 +62,30 @@ return {
         { nargs = 0, desc = cmd_desc }
       )
     end
+    -- Automatically try to pin to main.typ
+    local current_dir = vim.fn.expand("%:p:h")
+    local main_file = current_dir .. "/main.typ"
+    if vim.fn.filereadable(main_file) == 0 then
+      vim.notify("main.typ not found", vim.log.levels.WARN)
+      return
+    end
+    vim.cmd("badd " .. main_file)
+    local main_bufnr = vim.fn.bufnr(main_file)
+    client:exec_cmd({
+      title = "pin",
+      command = "tinymist.pinMain",
+      arguments = { main_file },
+    }, { bufnr = main_bufnr })
+    -- end,
+    -- })
+
     vim.keymap.set(
       "n",
       "<leader>tp",
       function()
         client:exec_cmd({
-
           title = "pin",
-
           command = "tinymist.pinMain",
-
           arguments = { vim.api.nvim_buf_get_name(0) },
         }, { bufnr = bufnr })
       end,
@@ -83,11 +97,8 @@ return {
       "<leader>tu",
       function()
         client:exec_cmd({
-
           title = "unpin",
-
           command = "tinymist.pinMain",
-
           arguments = { vim.v.null },
         }, { bufnr = bufnr })
       end,
@@ -95,3 +106,38 @@ return {
     )
   end,
 }
+
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   callback = function()
+--     local current_dir = vim.fn.expand("%:h")
+--     local main_file = current_dir .. "/main.typ"
+--
+--     if vim.fn.filereadable(main_file) == 0 then
+--       print("main.typ not found")
+--       return
+--     end
+--
+--     -- Open main.typ buffer if not already open
+--     vim.cmd("badd " .. main_file)
+--     local main_bufnr = vim.fn.bufnr(main_file)
+--
+--     -- Get tinymist client and run the pin command on main.typ
+--     local clients = vim.lsp.get_active_clients({ name = "tinymist" })
+--     if #clients > 0 then
+--       local client = clients[1]
+--       client:exec_cmd({
+--         title = "pin",
+--         command = "tinymist.pinMain",
+--         arguments = { main_file },
+--       }, { bufnr = main_bufnr })
+--     end
+--   end,
+-- })
+--
+-- -- function()
+-- --   client:exec_cmd({
+-- --     title = "pin",
+-- --     command = "tinymist.pinMain",
+-- --     arguments = { vim.api.nvim_buf_get_name(0) },
+-- --   }, { bufnr = bufnr })
+-- -- end,

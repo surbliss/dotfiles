@@ -131,8 +131,9 @@ myKeys =
   [ ("M-S-r", spawn "xmonad --restart"),
     ("M-S-q", kill),
     -- Colemak
-    ("M-e", windows W.focusUp),
-    ("M-n", windows W.focusDown),
+    -- ("M-S-l", spawn "rofi-rbw"),
+    -- ("M-e", windows W.focusUp),
+    -- ("M-n", windows W.focusDown),
     ("<XF86MonBrightnessUp>", spawn "brillo -q -A 5"),
     ("<XF86MonBrightnessDown>", spawn "brillo -q -U 5"),
     -- l for upper limit on volume

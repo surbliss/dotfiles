@@ -38,3 +38,4 @@ alias vimr="nvim -R"
 # Not needed, used so rarely
 # alias gi="git init"
 # alias gcl="git clone"
+alias crop="magick mogrify -trim" # Delete surrounding white background

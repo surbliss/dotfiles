@@ -131,7 +131,8 @@ function open() {
     esac
 }
 function typdf() {
-  typst watch "main.typ" "$1.pdf" --open
+  # typst watch "main.typ" "$1.pdf" --open
+  wezterm cli split-pane --bottom --cells 8 -- typst watch "main.typ" "$1.pdf" --open && wezterm cli activate-pane-direction Up
 }
 
 

@@ -43,4 +43,9 @@ pkgs.mkShell {
       { i(1), i(1) }
     )
   ),
-}, {}
+}, {
+
+  s({ trig = "ess", descr = "= string;" }, fmt('= "{}";', { i(1) })),
+  s({ trig = "etr", descr = "= true;" }, { t { "= true;", "" } }),
+  s({ trig = "efa", descr = "= false;" }, { t { "= false;", "" } }),
+}

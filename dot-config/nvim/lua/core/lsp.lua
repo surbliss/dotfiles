@@ -13,6 +13,7 @@ local lsp_servers = {
   "gleam-lsp",
   "fsautocomplete",
   "tinymist",
+  "ty",
   -- "pylyzer",
 }
 
@@ -25,6 +26,7 @@ vim.lsp.config("*", {
 vim.lsp.enable(lsp_servers)
 
 -- Disble annoying ltex notificatoins
+vim.diagnostic.update_in_insert = false
 vim.diagnostic.config({
   -- signs = {  },
   severity_sort = true,

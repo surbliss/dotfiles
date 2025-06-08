@@ -87,8 +87,8 @@ vim.cmd("cnoreabbrev template Template")
 --   vim.cmd("Template " .. (opts.args or ""))
 -- end, { nargs = "*" })
 
-vim.api.nvim_create_user_command("ToggleCheckbox", toggle, {})
-vim.keymap.set("n", "<leader>tc", ":ToggleCheckbox<CR>")
+-- vim.api.nvim_create_user_command("ToggleCheckbox", toggle, {})
+-- vim.keymap.set("n", "<leader>tc", ":ToggleCheckbox<CR>")
 
 ----------------------------------------------------------------------
 -- Custom filetypes

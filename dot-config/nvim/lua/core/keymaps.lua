@@ -9,22 +9,22 @@
 
 -- "leader" map. Use vim.keymap.set if other options than desc are needed.
 local function lmap(key, command, desc)
-  vim.keymap.set("n", "<leader>" .. key, command, { desc = desc })
+   vim.keymap.set("n", "<leader>" .. key, command, { desc = desc })
 end
 
 -- Command
 local function cmap(key, command, desc)
-  vim.keymap.set("n", key, "<Cmd>" .. command .. "<Enter>", { desc = desc })
+   vim.keymap.set("n", key, "<Cmd>" .. command .. "<Enter>", { desc = desc })
 end
 
 -- Leader command
 local function lcmap(key, command, desc)
-  vim.keymap.set(
-    "n",
-    "<leader>" .. key,
-    "<Cmd>" .. command .. "<Enter>",
-    { desc = desc }
-  )
+   vim.keymap.set(
+      "n",
+      "<leader>" .. key,
+      "<Cmd>" .. command .. "<Enter>",
+      { desc = desc }
+   )
 end
 
 ----------------------------------------------------------------------
@@ -56,14 +56,14 @@ vim.keymap.set("n", "gp", '"0p', { desc = "[P]aste last yank", silent = true })
 -- Diagnostic keymaps
 -- vim.keymap.set(
 lmap(
-  "pd",
-  function() vim.diagnostic.jump({ count = -1, float = true }) end,
-  "[P]revious [D]iagnostic"
+   "pd",
+   function() vim.diagnostic.jump { count = -1, float = true } end,
+   "[P]revious [D]iagnostic"
 )
 lmap(
-  "nd",
-  function() vim.diagnostic.jump({ count = 1, float = true }) end,
-  "[N]ext [D]iagnostic"
+   "nd",
+   function() vim.diagnostic.jump { count = 1, float = true } end,
+   "[N]ext [D]iagnostic"
 )
 
 lmap("e", vim.diagnostic.open_float, "[E]rror messages")

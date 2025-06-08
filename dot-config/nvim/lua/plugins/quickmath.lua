@@ -1,3 +1,3 @@
 return {
-	"jbyuki/quickmath.nvim",
+   "jbyuki/quickmath.nvim",
 }

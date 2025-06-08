@@ -1,9 +1,9 @@
 return {
-  -- Using the registry for inputs
-  s(
-    "flake-template",
-    fmta(
-      [[
+   -- Using the registry for inputs
+   s(
+      "flake-template",
+      fmta(
+         [[
 {
   description = "A flake for <>";
   outputs =
@@ -20,14 +20,14 @@ return {
       # overlay = overlay.nix;
     };
 }]],
-      { i(1), i(1) }
-    )
-  ),
+         { i(1), i(1) }
+      )
+   ),
 
-  s(
-    "shell-template",
-    fmta(
-      [[
+   s(
+      "shell-template",
+      fmta(
+         [[
 { pkgs }:
 let
   packages = with pkgs; [ ];
@@ -40,12 +40,12 @@ pkgs.mkShell {
       echo "Hello <>!"
     '';
 }]],
-      { i(1), i(1) }
-    )
-  ),
+         { i(1), i(1) }
+      )
+   ),
 }, {
 
-  s({ trig = "ess", descr = "= string;" }, fmt('= "{}";', { i(1) })),
-  s({ trig = "etr", descr = "= true;" }, { t { "= true;", "" } }),
-  s({ trig = "efa", descr = "= false;" }, { t { "= false;", "" } }),
+   s({ trig = "ess", descr = "= string;" }, fmt('= "{}";', { i(1) })),
+   s({ trig = "etr", descr = "= true;" }, { t { "= true;", "" } }),
+   s({ trig = "efa", descr = "= false;" }, { t { "= false;", "" } }),
 }

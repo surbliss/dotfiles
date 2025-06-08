@@ -1,5 +1,5 @@
 -- Abbreviations used in this article and the LuaSnip docs
-local ls = require "luasnip"
+local ls = require("luasnip")
 local s = ls.snippet
 -- local sn = ls.snippet_node
 local t = ls.text_node
@@ -14,24 +14,24 @@ local fmta = require("luasnip.extras.fmt").fmta
 -- end
 -- AutoSnippet function "as":
 local function as(trigger, nodes, opts)
-  -- Only trigger commands in mathzones
-  opts = opts or {}
-  -- Add snippetType = "autosnippet" to the first parameter
-  if type(trigger) == "table" then
-    trigger.snippetType = "autosnippet"
-  else
-    trigger = { trig = trigger, snippetType = "autosnippet" }
-  end
-  return s(trigger, nodes, opts)
+   -- Only trigger commands in mathzones
+   opts = opts or {}
+   -- Add snippetType = "autosnippet" to the first parameter
+   if type(trigger) == "table" then
+      trigger.snippetType = "autosnippet"
+   else
+      trigger = { trig = trigger, snippetType = "autosnippet" }
+   end
+   return s(trigger, nodes, opts)
 end
 
 return {
-  as({ trig = "{{", wordTrig = false }, fmta("{<>}", { i(1) })),
-  as({ trig = "[[", wordTrig = false }, fmta("[<>]", { i(1) })),
-  as({ trig = "((", wordTrig = false }, fmta("(<>)", { i(1) })),
-  as({ trig = "{}", wordTrig = false }, fmta("{<>}", { i(1) })),
-  as({ trig = "[]", wordTrig = false }, fmta("[<>]", { i(1) })),
-  as({ trig = "()", wordTrig = false }, fmta("(<>)", { i(1) })),
-  as("mm", fmta("$<>$", { i(1) })),
-  as("$$", fmta("$<>$", { i(1) })),
+   as({ trig = "{{", wordTrig = false }, fmta("{<>}", { i(1) })),
+   as({ trig = "[[", wordTrig = false }, fmta("[<>]", { i(1) })),
+   as({ trig = "((", wordTrig = false }, fmta("(<>)", { i(1) })),
+   as({ trig = "{}", wordTrig = false }, fmta("{<>}", { i(1) })),
+   as({ trig = "[]", wordTrig = false }, fmta("[<>]", { i(1) })),
+   as({ trig = "()", wordTrig = false }, fmta("(<>)", { i(1) })),
+   as("mm", fmta("$<>$", { i(1) })),
+   as("$$", fmta("$<>$", { i(1) })),
 }

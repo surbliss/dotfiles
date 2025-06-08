@@ -1,4 +1,4 @@
 return {
-	cmd = { "haskell-language-server", "--lsp" },
-	filetypes = { "haskell", "lhaskell", "cabal" },
+   cmd = { "haskell-language-server", "--lsp" },
+   filetypes = { "haskell", "lhaskell", "cabal" },
 }

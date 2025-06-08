@@ -1,5 +1,5 @@
 return {
-	cmd = { "futhark", "lsp" },
-	settings = {},
-	filetypes = { "futhark", "fut" },
+   cmd = { "futhark", "lsp" },
+   settings = {},
+   filetypes = { "futhark", "fut" },
 }

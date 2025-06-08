@@ -1,5 +1,5 @@
 -- Abbreviations used in this article and the LuaSnip docs
-local ls = require "luasnip"
+local ls = require("luasnip")
 local s = ls.snippet
 -- local sn = ls.snippet_node
 -- local t = ls.text_node
@@ -18,10 +18,10 @@ local fmt = require("luasnip.extras.fmt").fmt
 local line_begin = require("luasnip.extras.expand_conditions").line_begin
 
 return {
-  s(
-    "aoc-template",
-    fmt(
-      [[
+   s(
+      "aoc-template",
+      fmt(
+         [[
 from aocd import get_data
 
 data = get_data(year=2024, day={})
@@ -34,15 +34,15 @@ def part1(text:str) -> {}:
 print(part1(test))
 print(part1(data))
 ]],
-      { i(1), i(2), i(3) }
-    ),
-    { condition = line_begin }
-  ),
+         { i(1), i(2), i(3) }
+      ),
+      { condition = line_begin }
+   ),
 
-  s(
-    "doctemp",
-    fmt(
-      [[
+   s(
+      "doctemp",
+      fmt(
+         [[
   """Return {}.
 
   Parameters
@@ -52,7 +52,7 @@ print(part1(data))
   -------
   """
   ]],
-      { i(1) }
-    )
-  ),
+         { i(1) }
+      )
+   ),
 }

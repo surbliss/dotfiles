@@ -1,4 +1,4 @@
 return {
-	cmd = { "gleam", "lsp" },
-	filetypes = { "gleam" },
+   cmd = { "gleam", "lsp" },
+   filetypes = { "gleam" },
 }

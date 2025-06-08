@@ -8,9 +8,9 @@
 column_width = 80
 # line_endings = "Unix"
 indent_type = "Spaces"
-indent_width = 2
+indent_width = 3 # See luarocks styleguide
 # quote_style = "AutoPreferDouble"
-# call_parentheses = "Always"
+call_parentheses = "NoSingleTable"
 # space_after_function_names = "Never"
 collapse_simple_statement = "Always"
 

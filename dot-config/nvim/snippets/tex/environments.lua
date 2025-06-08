@@ -1,5 +1,5 @@
 -- Abbreviations used in this article and the LuaSnip docs
-local ls = require("luasnip")
+local ls = require "luasnip"
 local s = ls.snippet
 -- local sn = ls.snippet_node
 local t = ls.text_node
@@ -154,7 +154,7 @@ return {
     { condition = line_begin }
   ),
 
-  as(",i", { t("\\item") }, { condition = line_begin }),
+  as(",i", { t "\\item" }, { condition = line_begin }),
 
   -- Primært til programmering (MLA)
   as(
@@ -228,11 +228,7 @@ return {
   -- Sections:
   as("secc", fmta("\\section{<>} %", { i(1) }), { condition = line_begin }),
   as("subb", fmta("\\subsection{<>} %", { i(1) }), { condition = line_begin }),
-  as(
-    "ssubb",
-    fmta("\\subsubsection{<>} %", { i(1) }),
-    { condition = line_begin }
-  ),
+  as("ssubb", fmta("\\subsubsection{<>} %", { i(1) }), { condition = line_begin }),
   as("codd", fmta("\\code{<>}", { i(1) })),
   as("shll", fmta("\\shell{<>}", { i(1) })),
 }

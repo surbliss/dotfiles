@@ -1,132 +1,132 @@
 return {
-  --   -- USE INTERNAL vim.lsp.config() AND vim.lsp.enable() INSTEAD
-  --
-  --   -- {
-  --   --   "OmniSharp/omnisharp-vim",
-  --   --   config = function()
-  --   --     vim.g.Omnisharp_server_use_mono = 1
-  --   --     vim.g.Omnisharp_server_use_net6 = 1
-  --   --   end,
-  --   -- },
-  --
-  --   {
-  --     "williamboman/mason.nvim",
-  --     opts = {
-  --
-  --       registries = {
-  --         "github:mason-org/mason-registry",
-  --         "github:Crashdummyy/mason-registry",
-  --       },
-  --     },
-  --   },
-  --
-  --   {
-  --     "neovim/nvim-lspconfig",
-  --     dependencies = { "saghen/blink.cmp" },
-  --
-  --     opts = {
-  --
-  --       servers = {
-  --         lua_ls = {
-  --           settings = {
-  --             Lua = {
-  --               workspace = { checkThirdparty = false },
-  --               telemetry = { enable = false },
-  --             },
-  --           },
-  --         },
-  --
-  --         ltex = {
-  --           filetypes = { "tex", "latex" },
-  --           settings = { ltex = { language = "da_DK" } },
-  --         },
-  --
-  --         ruff = {
-  --           on_attach = function(client, bufnr)
-  --             -- Disable hover in favor of Pyright
-  --             client.server_capabilities.hoverProvider = false
-  --           end,
-  --         },
-  --
-  --         pyright = {
-  --           settings = {
-  --             pyright = {
-  --               disableOrganizeImports = true,
-  --             },
-  --           },
-  --         },
-  --
-  --         -- omnisharp = {},
-  --         csharp_ls = {
-  --           cmd = { "csharp-ls" },
-  --           -- cmd = { "csharp-ls", "dotnet csharp-ls" },
-  --         },
-  --         -- csharp_ls = {
-  --         --   cmd = { "csharp-ls" },
-  --         --   -- cmd = { "/home/angryluck/.dotnet/tools/csharp-ls" },
-  --         --   filetypes = { "cs" },
-  --         -- },
-  --         --
-  --         nixd = {
-  --           nixpkgs = {
-  --             expr = "import <nixpkgs> { }",
-  --           },
-  --           -- formatting = {
-  --           --   command = { "nixfmt" },
-  --           -- },
-  --         },
-  --
-  --         hls = {
-  --           filetypes = { "haskell", "lhaskell", "cabal" },
-  --           -- haskell = {
-  --           --   formattingProvider = "fourmolu",
-  --           -- },
-  --         },
-  --
-  --         futhark_lsp = {},
-  --
-  --         clangd = {},
-  --       },
-  --     },
-  --
-  --     config = function(_, opts)
-  --       -- Format on save
-  --       -- vim.api.nvim_create_autocmd("LspAttach", {
-  --       -- callback = function(args)
-  --       --   local client = vim.lsp.get_client_by_id(args.data.client_id)
-  --       --   if not client then
-  --       --     return
-  --       --   end
-  --       --   ---@diagnostic disable-next-line: missing-parameter, param-type-mismatch
-  --       --   if client.supports_method("textDocument/formatting") then
-  --       --     -- Format the current buffer on save
-  --       --     vim.api.nvim_create_autocmd("BufWritePre", {
-  --       --       buffer = args.buf,
-  --       --       callback = function()
-  --       --         vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-  --       --       end,
-  --       --     })
-  --       --   end
-  --       -- end,
-  --       -- })
-  --
-  --       ---@diagnostic disable-next-line: unused-function
-  --       local on_attach = function(client, bufnr)
-  --         if client.name == "ruff_lsp" then
-  --           -- Disable hover in favor of Pyright
-  --           client.server_capabilities.hoverProvider = false
-  --         end
-  --       end
-  --
-  --       local lspconfig = require("lspconfig")
-  --       vim.lsp.set_log_level("error")
-  --       -- vim.lsp.set_log_level("debug")
-  --       for server, config in pairs(opts.servers) do
-  --         -- passing config.capabilities to blink.cmp merges with the capabilities in your
-  --         -- `opts[server].capabilities, if you've defined it
-  --         config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-  --         lspconfig[server].setup(config)
-  --       end
-  --     end,
-  --   },
+	--   -- USE INTERNAL vim.lsp.config() AND vim.lsp.enable() INSTEAD
+	--
+	--   -- {
+	--   --   "OmniSharp/omnisharp-vim",
+	--   --   config = function()
+	--   --     vim.g.Omnisharp_server_use_mono = 1
+	--   --     vim.g.Omnisharp_server_use_net6 = 1
+	--   --   end,
+	--   -- },
+	--
+	--   {
+	--     "williamboman/mason.nvim",
+	--     opts = {
+	--
+	--       registries = {
+	--         "github:mason-org/mason-registry",
+	--         "github:Crashdummyy/mason-registry",
+	--       },
+	--     },
+	--   },
+	--
+	--   {
+	--     "neovim/nvim-lspconfig",
+	--     dependencies = { "saghen/blink.cmp" },
+	--
+	--     opts = {
+	--
+	--       servers = {
+	--         lua_ls = {
+	--           settings = {
+	--             Lua = {
+	--               workspace = { checkThirdparty = false },
+	--               telemetry = { enable = false },
+	--             },
+	--           },
+	--         },
+	--
+	--         ltex = {
+	--           filetypes = { "tex", "latex" },
+	--           settings = { ltex = { language = "da_DK" } },
+	--         },
+	--
+	--         ruff = {
+	--           on_attach = function(client, bufnr)
+	--             -- Disable hover in favor of Pyright
+	--             client.server_capabilities.hoverProvider = false
+	--           end,
+	--         },
+	--
+	--         pyright = {
+	--           settings = {
+	--             pyright = {
+	--               disableOrganizeImports = true,
+	--             },
+	--           },
+	--         },
+	--
+	--         -- omnisharp = {},
+	--         csharp_ls = {
+	--           cmd = { "csharp-ls" },
+	--           -- cmd = { "csharp-ls", "dotnet csharp-ls" },
+	--         },
+	--         -- csharp_ls = {
+	--         --   cmd = { "csharp-ls" },
+	--         --   -- cmd = { "/home/angryluck/.dotnet/tools/csharp-ls" },
+	--         --   filetypes = { "cs" },
+	--         -- },
+	--         --
+	--         nixd = {
+	--           nixpkgs = {
+	--             expr = "import <nixpkgs> { }",
+	--           },
+	--           -- formatting = {
+	--           --   command = { "nixfmt" },
+	--           -- },
+	--         },
+	--
+	--         hls = {
+	--           filetypes = { "haskell", "lhaskell", "cabal" },
+	--           -- haskell = {
+	--           --   formattingProvider = "fourmolu",
+	--           -- },
+	--         },
+	--
+	--         futhark_lsp = {},
+	--
+	--         clangd = {},
+	--       },
+	--     },
+	--
+	--     config = function(_, opts)
+	--       -- Format on save
+	--       -- vim.api.nvim_create_autocmd("LspAttach", {
+	--       -- callback = function(args)
+	--       --   local client = vim.lsp.get_client_by_id(args.data.client_id)
+	--       --   if not client then
+	--       --     return
+	--       --   end
+	--       --   ---@diagnostic disable-next-line: missing-parameter, param-type-mismatch
+	--       --   if client.supports_method("textDocument/formatting") then
+	--       --     -- Format the current buffer on save
+	--       --     vim.api.nvim_create_autocmd("BufWritePre", {
+	--       --       buffer = args.buf,
+	--       --       callback = function()
+	--       --         vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+	--       --       end,
+	--       --     })
+	--       --   end
+	--       -- end,
+	--       -- })
+	--
+	--       ---@diagnostic disable-next-line: unused-function
+	--       local on_attach = function(client, bufnr)
+	--         if client.name == "ruff_lsp" then
+	--           -- Disable hover in favor of Pyright
+	--           client.server_capabilities.hoverProvider = false
+	--         end
+	--       end
+	--
+	--       local lspconfig = require("lspconfig")
+	--       vim.lsp.set_log_level("error")
+	--       -- vim.lsp.set_log_level("debug")
+	--       for server, config in pairs(opts.servers) do
+	--         -- passing config.capabilities to blink.cmp merges with the capabilities in your
+	--         -- `opts[server].capabilities, if you've defined it
+	--         config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+	--         lspconfig[server].setup(config)
+	--       end
+	--     end,
+	--   },
 }

@@ -1,82 +1,82 @@
 return {
-   -- -- Noice broke verything ;(
-   -- {
-   --   "VonHeikemen/fine-cmdline.nvim",
-   --   dependencies = {
-   --     "MunifTanjim/nui.nvim",
-   --   },
-   --
-   --   opts = {
-   --     -- popup = {
-   --     --   position = { row = "50%", col = "50%" },
-   --     -- },
-   --
-   --     popup = {
-   --       relative = "editor",
-   --       position = {
-   --         row = "50%",
-   --         col = "50%",
-   --       },
-   --       size = {
-   --         width = "60%",
-   --       },
-   --       border = {
-   --         style = "rounded",
-   --         -- text = { top = "bajer" },
-   --       },
-   --       win_options = {
-   --         winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-   --       },
-   --     },
-   --   },
-   --
-   --   config = function(_, opts)
-   --     require("fine-cmdline").setup(opts)
-   --     vim.api.nvim_set_keymap("n", ":", "<cmd>FineCmdline<CR>", { noremap = true })
-   --     vim.api.nvim_set_keymap("v", ":", "<cmd>FineCmdline '<,'><CR>", { noremap = true })
-   --   end,
-   -- },
-   --
-   -- {
-   --
-   --   "VonHeikemen/searchbox.nvim",
-   --   dependencies = {
-   --     "MunifTanjim/nui.nvim",
-   --   },
-   --   opts = {
-   --     -- popup = { position = { row = "50%", col = "50%" } },
-   --
-   --     popup = {
-   --       relative = "editor",
-   --       position = {
-   --         row = "50%",
-   --         col = "50%",
-   --       },
-   --       size = {
-   --         width = "60%",
-   --       },
-   --       border = {
-   --         style = "rounded",
-   --         text = {
-   --           top = false,
-   --         },
-   --         --   {
-   --         --   top = "",
-   --         --   top_align = "left",
-   --         -- },
-   --       },
-   --       win_options = {
-   --         winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-   --       },
-   --     },
-   --   },
-   --
-   --   config = function(_, opts)
-   --     require("searchbox").setup(opts)
-   --     vim.keymap.set("n", "/", ":SearchBoxMatchAll prompt='/ '<CR>")
-   --     vim.keymap.set("v", "/", ":SearchBoxMatchAll prompt='/ 'visual_mode=true<CR>")
-   --     vim.keymap.set("n", "?", ":SearchBoxMatchAll prompt='? 'reverse=true<CR>")
-   --     vim.keymap.set("v", "?", ":SearchBoxMatchAll prompt='? 'reverse=true visual_mode=true<CR>")
-   --   end,
-   -- },
+	-- -- Noice broke verything ;(
+	-- {
+	--   "VonHeikemen/fine-cmdline.nvim",
+	--   dependencies = {
+	--     "MunifTanjim/nui.nvim",
+	--   },
+	--
+	--   opts = {
+	--     -- popup = {
+	--     --   position = { row = "50%", col = "50%" },
+	--     -- },
+	--
+	--     popup = {
+	--       relative = "editor",
+	--       position = {
+	--         row = "50%",
+	--         col = "50%",
+	--       },
+	--       size = {
+	--         width = "60%",
+	--       },
+	--       border = {
+	--         style = "rounded",
+	--         -- text = { top = "bajer" },
+	--       },
+	--       win_options = {
+	--         winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+	--       },
+	--     },
+	--   },
+	--
+	--   config = function(_, opts)
+	--     require("fine-cmdline").setup(opts)
+	--     vim.api.nvim_set_keymap("n", ":", "<cmd>FineCmdline<CR>", { noremap = true })
+	--     vim.api.nvim_set_keymap("v", ":", "<cmd>FineCmdline '<,'><CR>", { noremap = true })
+	--   end,
+	-- },
+	--
+	-- {
+	--
+	--   "VonHeikemen/searchbox.nvim",
+	--   dependencies = {
+	--     "MunifTanjim/nui.nvim",
+	--   },
+	--   opts = {
+	--     -- popup = { position = { row = "50%", col = "50%" } },
+	--
+	--     popup = {
+	--       relative = "editor",
+	--       position = {
+	--         row = "50%",
+	--         col = "50%",
+	--       },
+	--       size = {
+	--         width = "60%",
+	--       },
+	--       border = {
+	--         style = "rounded",
+	--         text = {
+	--           top = false,
+	--         },
+	--         --   {
+	--         --   top = "",
+	--         --   top_align = "left",
+	--         -- },
+	--       },
+	--       win_options = {
+	--         winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+	--       },
+	--     },
+	--   },
+	--
+	--   config = function(_, opts)
+	--     require("searchbox").setup(opts)
+	--     vim.keymap.set("n", "/", ":SearchBoxMatchAll prompt='/ '<CR>")
+	--     vim.keymap.set("v", "/", ":SearchBoxMatchAll prompt='/ 'visual_mode=true<CR>")
+	--     vim.keymap.set("n", "?", ":SearchBoxMatchAll prompt='? 'reverse=true<CR>")
+	--     vim.keymap.set("v", "?", ":SearchBoxMatchAll prompt='? 'reverse=true visual_mode=true<CR>")
+	--   end,
+	-- },
 }

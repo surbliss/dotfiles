@@ -1,47 +1,47 @@
-local helpers = require("utils.snippet")
+local helpers = require "utils.snippet"
 -- Autosnippet, only for math environments
 local asm = helpers.asm
 return {
   -- Greek letters
-  asm(";a", { t("\\alpha") }),
-  asm(";b", { t("\\beta") }),
-  asm(";g", { t("\\gamma") }),
-  asm(";G", { t("\\Gamma") }),
-  asm(";d", { t("\\delta") }),
-  asm(";D", { t("\\Delta") }),
+  asm(";a", { t "\\alpha" }),
+  asm(";b", { t "\\beta" }),
+  asm(";g", { t "\\gamma" }),
+  asm(";G", { t "\\Gamma" }),
+  asm(";d", { t "\\delta" }),
+  asm(";D", { t "\\Delta" }),
   -- Next two are swapped on purpose - always use varepsilon!
-  asm(";e", { t("\\varepsilon") }),
-  asm(";ve", { t("\\epsilon") }),
-  asm(";z", { t("\\zeta") }),
-  asm(";t", { t("\\theta") }),
-  asm(";vt", { t("\\vartheta") }),
-  asm(";T", { t("\\Theta") }),
-  asm(";i", { t("\\iota") }),
-  asm(";k", { t("\\kappa") }),
-  asm(";l", { t("\\lambda") }),
-  asm(";L", { t("\\Lambda") }),
-  asm(";m", { t("\\mu") }),
-  asm(";n", { t("\\nu") }),
-  asm(";x", { t("\\xi") }),
-  asm(";X", { t("\\Xi") }),
-  asm(";pi", { t("\\pi") }),
-  asm(";Pi", { t("\\Pi") }),
-  asm(";r", { t("\\rho") }),
-  asm(";vr", { t("\\varrho") }),
-  asm(";s", { t("\\sigma") }),
-  asm(";S", { t("\\Sigma") }),
-  asm(";t", { t("\\tau") }),
-  asm(";u", { t("\\upsilon") }),
-  asm(";U", { t("\\Upsilon") }),
-  asm(";ph", { t("\\phi") }),
+  asm(";e", { t "\\varepsilon" }),
+  asm(";ve", { t "\\epsilon" }),
+  asm(";z", { t "\\zeta" }),
+  asm(";t", { t "\\theta" }),
+  asm(";vt", { t "\\vartheta" }),
+  asm(";T", { t "\\Theta" }),
+  asm(";i", { t "\\iota" }),
+  asm(";k", { t "\\kappa" }),
+  asm(";l", { t "\\lambda" }),
+  asm(";L", { t "\\Lambda" }),
+  asm(";m", { t "\\mu" }),
+  asm(";n", { t "\\nu" }),
+  asm(";x", { t "\\xi" }),
+  asm(";X", { t "\\Xi" }),
+  asm(";pi", { t "\\pi" }),
+  asm(";Pi", { t "\\Pi" }),
+  asm(";r", { t "\\rho" }),
+  asm(";vr", { t "\\varrho" }),
+  asm(";s", { t "\\sigma" }),
+  asm(";S", { t "\\Sigma" }),
+  asm(";t", { t "\\tau" }),
+  asm(";u", { t "\\upsilon" }),
+  asm(";U", { t "\\Upsilon" }),
+  asm(";ph", { t "\\phi" }),
   -- Could be ";vph", but two letters seems nicer
-  asm(";vp", { t("\\varphi") }),
-  asm(";Ph", { t("\\Phi") }),
-  asm(";c", { t("\\chi") }),
-  asm(";ps", { t("\\psi") }),
-  asm(";Ps", { t("\\Psi") }),
-  asm(";o", { t("\\omega") }),
-  asm(";O", { t("\\Omega") }),
+  asm(";vp", { t "\\varphi" }),
+  asm(";Ph", { t "\\Phi" }),
+  asm(";c", { t "\\chi" }),
+  asm(";ps", { t "\\psi" }),
+  asm(";Ps", { t "\\Psi" }),
+  asm(";o", { t "\\omega" }),
+  asm(";O", { t "\\Omega" }),
 
   asm("ff", fmta("\\frac{<>}{<>}", { i(1), i(2) })),
   asm("tf", fmta("\\tfrac{<>}{<>}", { i(1), i(2) })),
@@ -77,8 +77,8 @@ return {
 
   -- Misc
   asm("sum", fmta("\\sum_{<>}^{<>} ", { i(1, "i=1"), i(2, "") })),
-  asm("->", t("\\to ")),
-  asm("**", t("\\cdot ")),
+  asm("->", t "\\to "),
+  asm("**", t "\\cdot "),
 
   asm({
     trig = "([%a])(%d)",
@@ -87,12 +87,7 @@ return {
     wordTrig = false,
     -- snippetType = "autosnippet",
   }, {
-    f(
-      function(_, snip)
-        return string.format("%s_%s", snip.captures[1], snip.captures[2])
-      end,
-      {}
-    ),
+    f(function(_, snip) return string.format("%s_%s", snip.captures[1], snip.captures[2]) end, {}),
     i(0),
   }),
 
@@ -102,12 +97,7 @@ return {
     regTrig = true,
     wordTrig = false,
   }, {
-    f(
-      function(_, snip)
-        return string.format("%s_{%s}", snip.captures[1], snip.captures[2])
-      end,
-      {}
-    ),
+    f(function(_, snip) return string.format("%s_{%s}", snip.captures[1], snip.captures[2]) end, {}),
     i(0),
   }),
 
@@ -118,14 +108,9 @@ return {
     wordTrig = true,
     priority = 100,
   }, {
-    f(
-      function(_, snip)
-        return string.format("%s_{%s", snip.captures[1], snip.captures[2])
-      end,
-      {}
-    ),
+    f(function(_, snip) return string.format("%s_{%s", snip.captures[1], snip.captures[2]) end, {}),
     i(1),
-    t("}"),
+    t "}",
     i(0),
   }),
 }

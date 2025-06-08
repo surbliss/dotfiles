@@ -13,10 +13,12 @@ vim.g.loaded_netrwPlugin = 1
 -- vim.opt.formatoptions:remove("o")
 
 vim.api.nvim_create_autocmd("FileType", {
-   pattern = "*",
-   callback = function() vim.opt_local.formatoptions:remove("o") end,
-   group = vim.api.nvim_create_augroup("FormatOptionsGroup", { clear = true }),
-   desc = "Remove 'o' from formatoptions for all filetypes",
+	pattern = "*",
+	callback = function()
+		vim.opt_local.formatoptions:remove("o")
+	end,
+	group = vim.api.nvim_create_augroup("FormatOptionsGroup", { clear = true }),
+	desc = "Remove 'o' from formatoptions for all filetypes",
 })
 
 vim.opt.termguicolors = true
@@ -86,11 +88,11 @@ vim.opt.hidden = false
 -- Combined with mapping <Esc> to clear highlights
 vim.opt.hlsearch = true
 
-vim.diagnostic.config {
-   virtual_text = true,
-   signs = true,
-   underline = true,
-   update_in_insert = true,
-   severity_sort = false,
-}
+vim.diagnostic.config({
+	virtual_text = true,
+	signs = true,
+	underline = true,
+	update_in_insert = true,
+	severity_sort = false,
+})
 vim.opt.smartindent = false

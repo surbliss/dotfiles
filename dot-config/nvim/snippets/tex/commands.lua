@@ -1,5 +1,5 @@
 -- Abbreviations used in this article and the LuaSnip docs
-local ls = require("luasnip")
+local ls = require "luasnip"
 local s = ls.snippet
 -- local sn = ls.snippet_node
 -- local t = ls.text_node
@@ -11,7 +11,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 -- local rep = require("luasnip.extras").rep
 
 -- from nvim/lua/
-local helpers = require("utils.snippet")
+local helpers = require "utils.snippet"
 local as = helpers.as
 local ast = helpers.ast
 return {

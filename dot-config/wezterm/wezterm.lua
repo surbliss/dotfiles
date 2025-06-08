@@ -1,4 +1,4 @@
-local wezterm = require("wezterm")
+local wezterm = require "wezterm"
 local config = wezterm.config_builder()
 local mux = wezterm.mux
 local act = wezterm.action
@@ -6,156 +6,113 @@ local act = wezterm.action
 config.use_fancy_tab_bar = false
 config.color_scheme = "Catppuccin Mocha"
 config.harfbuzz_features = { "ss01" } -- Script italics
-config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 1000 }
-config.font = wezterm.font_with_fallback({
+config.font = wezterm.font_with_fallback {
   "0xProto Nerd Font",
   "0xProto Nerd Font Propo",
   "0xProto Nerd Font Mono",
   "0xProto", -- different than the nerd font versions...
   "Symbols Nerd Font",
   "Symbols Nerd Font Mono",
-  { family = "Font Awesome 6 Free", weight = "Black" },
-  { family = "Font Awesome 6 Free", weight = "Regular" },
-  -- "Noto Color Emoji",
-  -- "DejaVu Sans Mono",
-  -- "Symbols Nerd Font",
-  -- -- "Inconsolata",
-  -- "Nerd Font Symbols",
-  -- "Noto Fonts Emoji",
-})
--- config.font = wezterm.font_with_fallback {
---     { family = "0xProto", weight = "Bold" },
---     "Inconsolata" }
+  "Font Awesome 6 Brands",
+  "Font Awesome 6 Free",
+  "Noto Color Emoji",
+}
+-- NOTE: Precisely 80 characters:
 -- 45678901234567890123456789012345678901234567890123456789012345678901234567890
--- TODO: Make font size larger, but make new layout in Xmonad to work with
--- higher font-size
 config.font_size = 12.0
--- config.cell_width = 0.9
-
--- config.font_size = 10.0
--- config.cell_width = 1.0
 config.hide_tab_bar_if_only_one_tab = true
 config.adjust_window_size_when_changing_font_size = false
-config.use_fancy_tab_bar = false
 
 -- Try to reduce battery usage
 config.front_end = "WebGpu"
 config.animation_fps = 1
 config.cursor_blink_rate = 0
 
-config.keys = {
-  -- Can't remap these to 'ctrl', conflicts :/
-  { key = "n", mods = "ALT", action = act.ActivateTabRelative(1) },
-  { key = "p", mods = "ALT", action = act.ActivateTabRelative(-1) },
-  { key = "n", mods = "SHIFT|CTRL", action = act.MoveTabRelative(1) },
-  { key = "p", mods = "SHIFT|CTRL", action = act.MoveTabRelative(-1) },
-  { key = "1", mods = "CTRL", action = act.ActivateTab(0) },
-  { key = "2", mods = "CTRL", action = act.ActivateTab(1) },
-  { key = "3", mods = "CTRL", action = act.ActivateTab(2) },
-  { key = "4", mods = "CTRL", action = act.ActivateTab(3) },
-  { key = "5", mods = "CTRL", action = act.ActivateTab(4) },
-  { key = "6", mods = "CTRL", action = act.ActivateTab(5) },
-  { key = "7", mods = "CTRL", action = act.ActivateTab(6) },
-  { key = "8", mods = "CTRL", action = act.ActivateTab(7) },
-  { key = "9", mods = "CTRL", action = act.ActivateTab(8) },
-  { key = "1", mods = "ALT", action = act.ActivateTab(0) },
-  { key = "2", mods = "ALT", action = act.ActivateTab(1) },
-  { key = "3", mods = "ALT", action = act.ActivateTab(2) },
-  { key = "4", mods = "ALT", action = act.ActivateTab(3) },
-  { key = "5", mods = "ALT", action = act.ActivateTab(4) },
-  { key = "6", mods = "ALT", action = act.ActivateTab(5) },
-  { key = "7", mods = "ALT", action = act.ActivateTab(6) },
-  { key = "8", mods = "ALT", action = act.ActivateTab(7) },
-  { key = "9", mods = "ALT", action = act.ActivateTab(8) },
-  { key = "t", mods = "ALT", action = act.SpawnTab("CurrentPaneDomain") },
-  { key = "t", mods = "ALT", action = act.SpawnTab("CurrentPaneDomain") },
-  { key = "t", mods = "SHIFT|ALT", action = act.ShowTabNavigator },
-  { key = "w", mods = "ALT", action = act.CloseCurrentTab({ confirm = true }) },
-  -- { key = "Backspace", mods = "CTRL", action = act.CloseCurrentTab({ confirm = true }) },
-  { key = "Enter", mods = "SHIFT|SUPER", action = act.SpawnWindow },
+----------------------------------------------------------------------
+-- Keymaps
+----------------------------------------------------------------------
+-- Helper function for making mappings less verbose.
+-- NOTE: These bindings are probably only good when using homerowmods
+config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 2000 }
+config.disable_default_key_bindings = true
+local WEZMOD = "CTRL|SUPER"
+local function wezmap(key, mod, action)
+  if mod == nil then
+    mod = ""
+  else
+    mod = mod .. "|"
+  end
+  return { key = key, mods = mod .. WEZMOD, action = action }
+end
+-- Leadermap
+local function lmap(key, action)
+  return { key = key, mods = "LEADER", action = action }
+end
+-- NOTE: Wezterm "gobbles" these keymaps, so no need to worry they do something
+-- differnt additionally in application.
 
-  {
-    key = '"',
-    mods = "SHIFT|ALT",
-    action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
-  },
-  {
-    key = "%",
-    mods = "SHIFT|ALT",
-    action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
-  },
+config.keys = {
+  wezmap("h", nil, act.ActivateTabRelativeNoWrap(-1)),
+  wezmap("h", "SHIFT", act.MoveTabRelative(-1)),
+  wezmap("l", nil, act.ActivateTabRelativeNoWrap(1)),
+  wezmap("l", "SHIFT", act.MoveTabRelative(1)),
+  wezmap("t", nil, act.SpawnTab "CurrentPaneDomain"),
+  wezmap("w", nil, act.CloseCurrentTab { confirm = true }),
+  -- Small status-window-split for running proccesses with potential errors
+  wezmap("s", nil, act.SplitPane { direction = "Down", size = { Cells = 8 } }),
+  wezmap("x", nil, act.CloseCurrentPane { confirm = true }),
+  -- wezmap("t", act.ShowTabNavigator, "SHIFT"),
+  wezmap("1", nil, act.ActivateTab(0)),
+  wezmap("2", nil, act.ActivateTab(1)),
+  wezmap("3", nil, act.ActivateTab(2)),
+  wezmap("4", nil, act.ActivateTab(3)),
+  wezmap("5", nil, act.ActivateTab(4)),
+  wezmap("6", nil, act.ActivateTab(5)),
+  wezmap("7", nil, act.ActivateTab(6)),
+  wezmap("8", nil, act.ActivateTab(7)),
+  wezmap("9", nil, act.ActivateTab(8)),
   {
     key = "s",
     mods = "ALT",
-    action = act.SplitPane({
-      direction = "Down",
-      size = { Cells = 6 },
-    }),
+    action = act.SplitPane { direction = "Down", size = { Cells = 6 } },
   },
-  {
-    key = "x",
-    mods = "ALT",
-    action = act.CloseCurrentPane({ confirm = true }),
-  },
+  { key = "Enter", mods = "SHIFT|SUPER", action = act.SpawnWindow },
+  -- wezmap("-", act.SplitVertical),
+  -- No need to be able to split horizontally
+  -- { key = "|", mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
   -- {
   --   key = "z",
   --   mods = "ALT",
   --   action = wezterm.action.TogglePaneZoomState,
   -- },
-  { key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
-  { key = "h", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Left", 1 }) },
-  { key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
-  {
-    key = "l",
-    mods = "SHIFT|ALT",
-    action = act.AdjustPaneSize({ "Right", 1 }),
-  },
-  { key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
-  { key = "k", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Up", 1 }) },
-  -- { key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
+  wezmap("k", nil, act.ActivatePaneDirection "Up"),
+  wezmap("k", "SHIFT", act.AdjustPaneSize { "Up", 1 }),
+  wezmap(
+    "j",
+    nil,
+    act.Multiple { act.ActivatePaneDirection "Down", act.TogglePaneZoomState }
+  ),
 
-  -- Allows a small "watching" window at the bottom, e.g. typst or tests
-  {
-    key = "j",
-    mods = "ALT",
-    action = act.Multiple({
-      act.ActivatePaneDirection("Down"),
-      act.TogglePaneZoomState,
-    }),
-  },
+  wezmap("j", "SHIFT", act.AdjustPaneSize { "Down", 1 }),
 
-  { key = "j", mods = "SHIFT|ALT", action = act.AdjustPaneSize({ "Down", 1 }) },
-  {
-    key = "r",
-    mods = "ALT",
-    action = act.PromptInputLine({
+  wezmap(
+    "r",
+    nil,
+    act.PromptInputLine {
       description = "Enter a new name for tab",
       action = wezterm.action_callback(function(window, _, line)
         if line then window:active_tab():set_title(line) end
       end),
-    }),
-  },
+    }
+  ),
+
   {
     key = "Enter",
     mods = "CTRL",
-    action = act.SendString("\x1b[13;5u"),
+    -- Escape code to trigger zsh autocomplete-enter
+    action = act.SendString "\x1b[13;5u",
   },
-  -- { key = "1", mods = "ALT", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
-  -- FIX: Wouldn't work on windows...
-  -- {
-  --   key = "Tab",
-  --   mods = "ALT",
-  --   action = wezterm.action.ShowLauncherArgs({
-  --     flags = "FUZZY|WORKSPACES",
-  --     title = "Workspaces",
-  --   }),
-  -- },
-  {
-    key = "Tab",
-    mods = "ALT",
-    action = wezterm.action.ShowLauncher,
-  },
-  -- { key = "1", mods = "ALT", action = wezterm.action.ShowLauncher },
+  wezmap("Tab", nil, act.ShowLauncher),
 }
 
 -- -- Workspaces
@@ -234,6 +191,18 @@ config.launch_menu = {
     -- args = { "ls" },
   },
 }
+config.skip_close_confirmation_for_processes_named = {
+  "bash",
+  "sh",
+  "zsh",
+  "fish",
+  "tmux",
+  "nu",
+  "cmd.exe",
+  "pwsh.exe",
+  "powershell.exe",
+  "typst", -- NOTE: Assuming typst runs fast enough, that forcefully closing it wont cause problems...
+}
 
 return config
--- vim: ts=2 sts=4 sw=2 et
+-- vim: cc=120

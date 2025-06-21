@@ -1,0 +1,6 @@
+typst:
+  ppi: 400
+speaker_notes:
+  always_publish: true
+bindings:
+    go_to_slide: ["<number>G", "<number>gg"]

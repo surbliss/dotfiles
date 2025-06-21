@@ -3,6 +3,12 @@ set synctex true
 
 map u scroll half-up
 map d scroll half-down
+map b scroll full-up
+map f scroll full-down
+map <Up> scroll half-up
+map <Down> scroll half-down
+map <Left> scroll full-up
+map <Right> scroll full-down
 map m toggle_page_mode # Single/double pages
 # map <C-d> toggle_page_mode
 

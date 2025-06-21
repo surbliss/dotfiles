@@ -4,7 +4,7 @@ import Control.Monad (when)
 import Control.Monad.RWS (MonadWriter (pass))
 import Data.Function ((&))
 import qualified Data.Map as M
-import XMonad
+import XMonad hiding ((|||))
 import XMonad.Actions.CycleRecentWS
 -- import XMonad.Hooks.DynamicLog
 
@@ -27,6 +27,7 @@ import XMonad.Hooks.RefocusLast (isFloat)
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.WindowSwallowing
+import XMonad.Layout hiding ((|||))
 import XMonad.Layout.FixedColumn (FixedColumn (FixedColumn))
 import XMonad.Layout.LimitWindows (limitWindows)
 import XMonad.Layout.Magnifier (magnifiercz')
@@ -38,6 +39,8 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
+import XMonad.Layout.Tabbed
+import XMonad.Layout.TallMastersCombo
 import XMonad.Layout.ThreeColumns
 import XMonad.Operations
 import qualified XMonad.StackSet as W
@@ -93,6 +96,21 @@ myTerminal = "wezterm"
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = False
 
+myTabConfig :: Theme
+myTabConfig =
+  def
+    { activeColor = lavender,
+      inactiveColor = base,
+      urgentColor = red,
+      activeBorderColor = base,
+      inactiveBorderColor = base,
+      urgentBorderColor = red,
+      activeTextColor = base,
+      inactiveTextColor = flamingo,
+      urgentTextColor = base,
+      fontName = "xft:Vanilla Caramel:size=12"
+    }
+
 myClickJustFocuses :: Bool
 myClickJustFocuses = False
 
@@ -132,7 +150,22 @@ myKeys =
     ("M-S-q", kill),
     -- Colemak
     -- ("M-S-l", spawn "rofi-rbw"),
-    -- ("M-e", windows W.focusUp),
+    -- ("M-e", sendMessage FocusSubMaster >> windows W.focusDown),
+    -- Only works well when *exactly* tabbed subpanes
+    ( "M-w",
+      sendMessage FocusSubMaster
+        >> windows W.swapDown
+        >> sendMessage FocusSubMaster
+    ),
+    ( "M-e",
+      sendMessage FocusSubMaster
+        >> windows W.swapDown
+        >> sendMessage FocusSubMaster
+        >> windows W.focusMaster
+    ),
+    ( "M-n",
+      sendMessage FocusSubMaster
+    ),
     -- ("M-n", windows W.focusDown),
     ("<XF86MonBrightnessUp>", spawn "brillo -q -A 5"),
     ("<XF86MonBrightnessDown>", spawn "brillo -q -U 5"),
@@ -232,8 +265,10 @@ myLayout =
   smartBorders $
     avoidStruts $
       spacingRaw True (Border 0 bw bw bw) True (Border bw bw bw bw) True $
-        tiled ||| threeCol
+        tiled ||| tmsCombineTwoDefault tiled simpleTabbed
   where
+    -- tiled ||| threeCol
+
     -- myLayout =
     --     toggleLayouts Full $
     --         avoidStruts $
@@ -280,6 +315,18 @@ myManageHook =
       <+>
       -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
       -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- See https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Hooks-ManageHelpers.html
+      -- composeOne
+      -- composeOne
+      -- composeOne
+      -- composeOne
+      -- composeOne
+      -- composeOne
       -- composeOne
       -- composeOne
       composeOne
@@ -316,6 +363,7 @@ myConfig =
       manageHook = manageSpawn <+> myManageHook, -- <+> manageDocks
       startupHook = myStartupHook,
       mouseBindings = myMouseBindings,
+      -- tabBar = myTabConfig,
       handleEventHook =
         windowedFullscreenFixEventHook
         -- <> swallowEventHook (className =? "wezterm" <||> className =? "st-256color" <||> className =? "XTerm") (return True)

@@ -13,9 +13,10 @@ config.font = wezterm.font_with_fallback {
   "0xProto", -- different than the nerd font versions...
   "Symbols Nerd Font",
   "Symbols Nerd Font Mono",
-  "Font Awesome 6 Brands",
-  "Font Awesome 6 Free",
   "Noto Color Emoji",
+  "Noto Sans", -- Some eu-symbols missing in 0xProto
+  "Font Awesome 6 Brands", -- NOTE: Breaks EU-symbols like ½ and ¤, so put at bottom
+  "Font Awesome 6 Free",
 }
 -- NOTE: Precisely 80 characters:
 -- 45678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -71,12 +72,30 @@ config.keys = {
   wezmap("7", nil, act.ActivateTab(6)),
   wezmap("8", nil, act.ActivateTab(7)),
   wezmap("9", nil, act.ActivateTab(8)),
+  wezmap("d", "SHIFT", act.ShowDebugOverlay),
   {
     key = "s",
     mods = "ALT",
     action = act.SplitPane { direction = "Down", size = { Cells = 6 } },
   },
+  {
+    key = "v",
+    mods = "CTRL",
+    action = act.PasteFrom "Clipboard",
+  },
+  {
+    key = "v",
+    mods = "SHIFT|CTRL",
+    action = act.PasteFrom "Clipboard",
+  },
+  {
+    key = "c",
+    mods = "SHIFT|CTRL",
+    action = act.CopyTo "Clipboard",
+  },
   { key = "Enter", mods = "SHIFT|SUPER", action = act.SpawnWindow },
+  { key = "Space", mods = "SHIFT|CTRL", action = act.QuickSelect },
+  wezmap("y", nil, act.ActivateCopyMode),
   -- wezmap("-", act.SplitVertical),
   -- No need to be able to split horizontally
   -- { key = "|", mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
@@ -94,7 +113,22 @@ config.keys = {
   ),
 
   wezmap("j", "SHIFT", act.AdjustPaneSize { "Down", 1 }),
-
+  wezmap("+", nil, act.IncreaseFontSize),
+  wezmap("-", nil, act.DecreaseFontSize),
+  wezmap("_", "SHIFT", act.DecreaseFontSize),
+  wezmap("0", nil, act.ResetFontSize),
+  wezmap(
+    "\\",
+    nil,
+    act.Multiple {
+      act.ResetFontSize,
+      act.IncreaseFontSize,
+      act.IncreaseFontSize,
+      act.IncreaseFontSize,
+      act.IncreaseFontSize,
+      act.IncreaseFontSize,
+    }
+  ),
   wezmap(
     "r",
     nil,
@@ -113,6 +147,12 @@ config.keys = {
     action = act.SendString "\x1b[13;5u",
   },
   wezmap("Tab", nil, act.ShowLauncher),
+  -- {
+  --   key = "s",
+  --   mods = "CTRL",
+  --   -- Escape code to trigger zsh autocomplete-enter
+  --   action = act.SendString "<C-o>w",
+  -- },
 }
 
 -- -- Workspaces
@@ -125,8 +165,7 @@ config.keys = {
 --   -- Set a workspace for coding on a current project
 --   -- Top pane is for the editor, bottom pane is for the build tool
 --   local project_dir = wezterm.home_dir .. "/Documents/1-projekter"
---   local vtdir = project_dir .. "/vtdat"
---   local sudir = project_dir .. "/su"
+--   local vtdir = project_dir .. "/vtdat"r .. "/su"
 --   local tab, build_pane, window = mux.spawn_window({ workspace = "default" })
 --
 --   local tab, build_pane, window = mux.spawn_window({
@@ -205,4 +244,4 @@ config.skip_close_confirmation_for_processes_named = {
 }
 
 return config
--- vim: cc=120
+-- vim: cc=120 sw=2:

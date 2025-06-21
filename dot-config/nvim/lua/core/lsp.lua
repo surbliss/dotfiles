@@ -23,7 +23,7 @@ vim.lsp.config("*", {
    root_markers = { ".git" },
    single_file_support = true,
 })
-vim.lsp.enable(lsp_servers)
+if vim.o.modifiable then vim.lsp.enable(lsp_servers) end
 
 -- Disble annoying ltex notificatoins
 vim.diagnostic.update_in_insert = false

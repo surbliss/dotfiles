@@ -99,5 +99,6 @@ vim.filetype.add {
       fsp = "menhir",
       fo = "fasto",
       ispc = "ispc",
+      xkb = "c",
    },
 }

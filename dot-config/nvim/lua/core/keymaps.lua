@@ -104,5 +104,32 @@ lmap("wn", vim.cmd.bnext, "[N]ext Buffer")
 lmap("m", "@@", "Last [M]acro")
 lmap("zz", "<C-z>", "[ZZ]leep (background open buffer)")
 
+local bracket_pairs = {
+   ["["] = "]",
+   ["("] = ")",
+   ["{"] = "}",
+   ["<"] = ">",
+}
+
+local function wrap_line(startpair)
+   local endpair = bracket_pairs[startpair] or startpair
+   return "I" .. startpair .. "<Esc>A" .. endpair .. "<Esc>"
+end
+
+local function wrap_selection(startpair)
+   local endpair = bracket_pairs[startpair] or startpair
+   return "<Esc>`<i" .. startpair .. "<Esc>`>la" .. endpair .. "<Esc>"
+end
+
+vim.keymap.set("n", "<leader>v", function()
+   local char = vim.fn.getcharstr()
+   return wrap_line(char)
+end, { expr = true, desc = "[V]rap line" })
+
+vim.keymap.set("v", "<leader>v", function()
+   local char = vim.fn.getcharstr()
+   return wrap_selection(char)
+end, { expr = true, desc = "[V]rap selection" })
+
 -- FIX: Idk why this is here
 vim.lsp.get_clients()

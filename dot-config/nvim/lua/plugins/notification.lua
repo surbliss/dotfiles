@@ -17,4 +17,8 @@ return {
          },
       },
    },
+   -- init = function()
+   --    -- Disable fidget if nomodifiable is set globally
+   --    if not vim.o.modifiable then return false end
+   -- end,
 }

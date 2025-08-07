@@ -24,6 +24,7 @@ return {
             tex = { "latexindent" },
             gleam = { "gleam" },
             typst = { "typstyle" },
+            rust = { "rustfmt" },
          },
 
          formatters = {
@@ -91,7 +92,7 @@ return {
       },
       keys = {
          {
-            "<leader>ff",
+            "<leader>bf",
             function()
                -- print(string.format("Current filetype: %s", vim.bo.filetype))
                -- print(vim.inspect(conform.list_formatters()))
@@ -100,7 +101,7 @@ return {
                vim.cmd("write")
                print("Code formatted!")
             end,
-            desc = "[F]ormat document",
+            desc = "[B]uffer [F]ormat",
          },
       },
    },

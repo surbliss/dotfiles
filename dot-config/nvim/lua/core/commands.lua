@@ -90,6 +90,41 @@ vim.cmd("cnoreabbrev template Template")
 -- vim.api.nvim_create_user_command("ToggleCheckbox", toggle, {})
 -- vim.keymap.set("n", "<leader>tc", ":ToggleCheckbox<CR>")
 
+vim.api.nvim_create_user_command("Tpdf", function()
+   local Path = require("pathlib")
+   local filepath = vim.api.nvim_buf_get_name(0)
+   filepath = Path(filepath)
+   local pdfpath = filepath:parent() / "out" / (filepath:stem() .. ".pdf")
+   -- if not pdfpath:exists() then
+   --    print("No such path: " .. pdfpath)
+   --    return
+   -- end
+   --
+   vim.system { "zathura", pdfpath:tostring() }
+
+   -- if filepath:match("%.typ$") then
+   --    local pdf_path, count = filepath:gsub("%/%.typ$", "%1/out/%2.pdf")
+   --    if count == 0 then
+   --       print(pdf_path)
+   --       return
+   --    end
+   --
+   --    vim.system { "sioyek", pdf_path }
+   -- end
+end, {})
+
+local dj_active = false
+vim.api.nvim_create_user_command("Dj", function()
+   if dj_active then
+      vim.keymap.del("", "j")
+      vim.keymap.del("", "d")
+   else
+      vim.keymap.set("", "d", "j", { noremap = true, nowait = true })
+      vim.keymap.set("", "j", "d", { noremap = true })
+   end
+   dj_active = not dj_active
+end, {})
+
 ----------------------------------------------------------------------
 -- Custom filetypes
 ----------------------------------------------------------------------

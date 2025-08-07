@@ -1,0 +1,151 @@
+# theme = "custom-jellybeans"
+theme = "catppuccin_mocha"
+# theme = "kanagawa"
+# theme = "tokyonight"
+
+[editor]
+bufferline = "multiple"
+scrolloff = 5
+cursorline = true
+rulers = [80]
+gutters = ["diagnostics", "line-numbers", "diff"]
+line-number = "relative"
+true-color = true
+color-modes = true
+completion-timeout = 5
+completion-trigger-len = 1
+completion-replace = false
+default-yank-register = "+"
+end-of-line-diagnostics = "hint"
+popup-border = "all"
+
+[editor.smart-tab]
+supersede-menu = true
+
+[editor.indent-guides]
+character = "┊"
+render = true
+skip-levels = 1
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.whitespace.characters]
+tab = "→"
+space = "·"
+nbsp = "⍽"
+nnbsp = "␣"
+newline = "⏎"
+tabpad = "·"  # Tabs will look like "→···" (depending on tab width)
+
+[editor.lsp]
+display-messages = true
+display-progress-messages = true
+# display-inlay-hints = true # This is super awful, and makes lines too long
+
+# [editor.gutters]
+# layout = ["diff", "diagnostics", "line-numbers"]
+
+[editor.statusline]
+left = ["mode", "selections", "spacer", "spinner"]
+center = [
+  "version-control",
+  "spacer",
+  "separator",
+  "file-name",
+  "file-modification-indicator",
+]
+right = [
+  "diagnostics",
+  "separator",
+  "total-line-numbers",
+  "position-percentage",
+  "spacer",
+]
+
+[editor.statusline.mode]
+normal = "NORMAL"
+insert = "INSERT"
+select = "SELECT"
+# [editor.inline-diagnostics]
+# cursor-line = "error"
+# other-lines = "disable"
+
+[keys.normal]
+# X = ["extend_to_line_bounds", "select_line_below"]
+"+" = ["extend_to_line_bounds", "select_line_below"]
+x = "select_line_below"
+A-x = "select_line_above"
+g.k = ":buffer-close"
+g.o = ":buffer-close-others"
+# C-j = "jump_view_right"
+# C-k = "jump_view_left"
+# C-h = "jump_view_left"
+# C-l = "jump_view_right"
+# V = ["collapse_selection", "extend_to_line_end"]
+M = "@;mim"
+A-m = "@;mam"
+# Redo last command
+# C-r = ":<C-r>:"
+# Maps the enter key to open_below then re-enter normal mode
+"ret" = ["open_below", "normal_mode", "toggle_comments"]
+g.e = ["collapse_selection", "extend_to_file_end"]
+g.g = ["collapse_selection", "extend_to_file_start"]
+# Smarttab stuff
+tab = "move_parent_node_end"
+S-tab = "move_parent_node_start"
+C-W = { b = ":buffer-close-others" }
+
+
+[keys.normal."'"]
+t = "@:sh touch <C-r>%<C-w>"
+# r = "@:sh rm <C-r>%"
+d = "@:sh mkdir <C-r>%<C-w>"
+m = "@:sh mv <C-r>% <C-r>%"
+c = "@:sh cp <C-r>% <C-r>%<C-w>"
+
+[keys.normal.space]
+w.w = ":write"
+w.q = ":write-quit"
+# w.b = ":write"
+q.q = ":quit"
+# q.b = ":buffer-close"
+# Duplicate line, and comment original
+x = "@x\"yy\"ypk<C-c>jgh"
+# L = ":config-reload"
+# t = ":sh cargo run"
+# FIX
+# x = [ "yan"]
+
+# [keys.normal.C-w]
+# b = ":buffer-close-others"
+#
+
+# S[n]ippets
+[keys.normal.space.n]
+c = "@O<esc>jghlki#[derive(Component<esc>"
+d = "@O<esc>jghlki#[derive("
+b = "@O<esc>jghlki#[derive(Bundle<esc>"
+r = "@O<esc>jghlki#[require("
+
+
+[keys.select]
+# X = "select_line_above"
+# A-x = "extend_to_line_bounds"
+# X = ["extend_to_line_bounds", "select_line_below"]
+"+" = ["extend_to_line_bounds", "select_line_below"]
+x = "select_line_below"
+A-x = "select_line_above"
+tab = "extend_parent_node_end"
+S-tab = "extend_parent_node_start"
+
+[keys.insert]
+C-ret = ["add_newline_below", "move_line_down"]
+C-t = "@<esc>A;<ret>"
+C-space = "@ <esc>hi"
+S-tab = "move_parent_node_start"

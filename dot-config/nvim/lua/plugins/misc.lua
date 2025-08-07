@@ -3,14 +3,6 @@ return {
    ----------------------------------------------------------------------
    -- Synatx highlighting
    ----------------------------------------------------------------------
-   "Treeniks/isabelle-syn.nvim",
-
-   {
-      "catppuccin/nvim",
-      lazy = false,
-      priority = 1000,
-      config = function() vim.cmd.colorscheme("catppuccin-mocha") end,
-   },
 
    "LnL7/vim-nix",
 

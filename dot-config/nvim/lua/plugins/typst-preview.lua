@@ -9,7 +9,7 @@ return {
    keys = {
       {
          "<leader>ts",
-         "<cmd>TypstPreview<cr>",
+         "<cmd>TypstPreviewToggle<cr>",
          desc = "[T]ypst [S]how Preview",
       },
       {

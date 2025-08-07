@@ -37,23 +37,23 @@ return {
       local nmap = function(key, cmd, desc)
          vim.keymap.set("n", key, cmd, { desc = desc })
       end
-      nmap("<leader>sh", builtin.help_tags, "[S]earch [H]elp")
-      nmap("<leader>sk", builtin.keymaps, "[S]earch [K]eymaps")
-      nmap("<leader>sf", builtin.find_files, "[S]earch [F]iles")
-      nmap("<leader>ss", builtin.builtin, "[S]earch [S]elect Telescope")
-      nmap("<leader>sw", builtin.grep_string, "[S]earch current [W]ord")
-      nmap("<leader>st", builtin.live_grep, "[S]earch file-[T]ext by grep")
-      nmap("<leader>sd", builtin.diagnostics, "[S]earch [D]iagnostics")
-      nmap("<leader>sr", builtin.resume, "[S]earch [R]esume")
-      nmap("<leader>s.", builtin.oldfiles, "[S]earch [.] (Recent Files)")
-      nmap("<leader>sg", builtin.git_files, "[S]earch [G]it Files")
-      nmap("<leader>sb>", builtin.buffers, "[S]earch existing [B]uffers")
-      nmap("<leader>se", ":Telescope emoji<CR>", "[S]earch [E]mojis")
-      nmap(
-         "<leader>fb",
-         function() require("telescope").extensions.file_browser.file_browser() end,
-         "[F]ile [B]rowser"
-      )
+      nmap("<leader>fh", builtin.help_tags, "[F]ind [H]elp")
+      nmap("<leader>fk", builtin.keymaps, "[F]ind [K]eymaps")
+      nmap("<leader>ff", builtin.find_files, "[F]ind [F]iles")
+      nmap("<leader>fs", builtin.builtin, "[F]ind [S]elect Telescope")
+      nmap("<leader>fw", builtin.grep_string, "[F]ind current [W]ord")
+      nmap("<leader>ft", builtin.live_grep, "[F]ind file-[T]ext by grep")
+      nmap("<leader>fd", builtin.diagnostics, "[F]ind [D]iagnostics")
+      nmap("<leader>fr", builtin.resume, "[F]ind [R]esume")
+      nmap("<leader>f.", builtin.oldfiles, "[F]ind [.] (Recent Files)")
+      nmap("<leader>fg", builtin.git_files, "[F]ind [G]it Files")
+      nmap("<leader>fb>", builtin.buffers, "[F]ind existing [B]uffers")
+      nmap("<leader>fe", ":Telescope emoji<CR>", "[F]ind [E]mojis")
+      -- nmap(
+      --    "<leader>fb",
+      --    function() require("telescope").extensions.file_browser.file_browser() end,
+      --    "[F]ile [B]rowser"
+      -- )
 
       local fuzzy_find = function()
          builtin.current_buffer_fuzzy_find(
@@ -71,7 +71,7 @@ return {
             prompt_title = "Live Grep in Open Files",
          }
       end
-      nmap("<leader>s/", live_grep, "[S]earch [/] in Open Files")
+      nmap("<leader>f/", live_grep, "[F]ind [/] in Open Files")
 
       -- local find_files = function()
       --   builtin.find_files({ cwd = vim.fn.stdpath("config") })
@@ -82,12 +82,12 @@ return {
          builtin.find_files { cwd = "~/dotfiles/dot-config/nvim/" }
       end
 
-      nmap("<leader>sn", find_neovim_files, "[S]earch [N]eovim files")
+      nmap("<leader>fn", find_neovim_files, "[F]ind [N]eovim files")
 
       local find_config_files = function()
          builtin.find_files { cwd = "~/dotfiles/" }
       end
 
-      nmap("<leader>sc", find_config_files, "[S]earch [C]onfig files")
+      nmap("<leader>fc", find_config_files, "[F]ind [C]onfig files")
    end,
 }

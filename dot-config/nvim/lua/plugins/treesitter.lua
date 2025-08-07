@@ -51,6 +51,7 @@ return {
       -- },
       indent = {
          enable = true,
+         disable = { "typst" },
       },
       incremental_selection = {
          enable = true,

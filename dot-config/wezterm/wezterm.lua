@@ -1,10 +1,11 @@
 local wezterm = require "wezterm"
 local config = wezterm.config_builder()
-local mux = wezterm.mux
+-- local mux = wezterm.mux
 local act = wezterm.action
 
 config.use_fancy_tab_bar = false
 config.color_scheme = "Catppuccin Mocha"
+-- config.color_scheme = "Jellybeans"
 config.harfbuzz_features = { "ss01" } -- Script italics
 config.font = wezterm.font_with_fallback {
   "0xProto Nerd Font",
@@ -14,7 +15,7 @@ config.font = wezterm.font_with_fallback {
   "Symbols Nerd Font",
   "Symbols Nerd Font Mono",
   "Noto Color Emoji",
-  "Noto Sans", -- Some eu-symbols missing in 0xProto
+  "Noto Sans",             -- Some eu-symbols missing in 0xProto
   "Font Awesome 6 Brands", -- NOTE: Breaks EU-symbols like ½ and ¤, so put at bottom
   "Font Awesome 6 Free",
 }
@@ -34,7 +35,7 @@ config.cursor_blink_rate = 0
 ----------------------------------------------------------------------
 -- Helper function for making mappings less verbose.
 -- NOTE: These bindings are probably only good when using homerowmods
-config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 2000 }
+-- config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 2000 }
 config.disable_default_key_bindings = true
 local WEZMOD = "CTRL|SUPER"
 local function wezmap(key, mod, action)
@@ -73,28 +74,31 @@ config.keys = {
   wezmap("8", nil, act.ActivateTab(7)),
   wezmap("9", nil, act.ActivateTab(8)),
   wezmap("d", "SHIFT", act.ShowDebugOverlay),
-  {
-    key = "s",
-    mods = "ALT",
-    action = act.SplitPane { direction = "Down", size = { Cells = 6 } },
-  },
-  {
-    key = "v",
-    mods = "CTRL",
-    action = act.PasteFrom "Clipboard",
-  },
+  -- {
+  --   key = "s",
+  --   mods = "ALT",
+  --   action = act.SplitPane { direction = "Down", size = { Cells = 6 } },
+  -- },
+  --   {
+  --     key = "v",
+  --     mods = "CTRL",
+  --     action = act.PasteFrom "Clipboard",
+  --   },
   {
     key = "v",
     mods = "SHIFT|CTRL",
     action = act.PasteFrom "Clipboard",
   },
   {
-    key = "c",
-    mods = "SHIFT|CTRL",
-    action = act.CopyTo "Clipboard",
-  },
+    key = "Backspace", mods = "CTRL", action = act.SendKey { key = "w", mods = "CTRL" }
+  }
+  , {
+  key = "c",
+  mods = "SHIFT|CTRL",
+  action = act.CopyTo "Clipboard",
+},
   { key = "Enter", mods = "SHIFT|SUPER", action = act.SpawnWindow },
-  { key = "Space", mods = "SHIFT|CTRL", action = act.QuickSelect },
+  { key = "Space", mods = "SHIFT|CTRL",  action = act.QuickSelect },
   wezmap("y", nil, act.ActivateCopyMode),
   -- wezmap("-", act.SplitVertical),
   -- No need to be able to split horizontally
@@ -149,7 +153,7 @@ config.keys = {
   wezmap("Tab", nil, act.ShowLauncher),
   -- {
   --   key = "s",
-  --   mods = "CTRL",
+  --   --   mods = "CTRL",
   --   -- Escape code to trigger zsh autocomplete-enter
   --   action = act.SendString "<C-o>w",
   -- },

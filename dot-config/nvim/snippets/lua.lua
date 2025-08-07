@@ -47,16 +47,8 @@ return {
 ----------------------------------------------------------------------
 {
   s({ trig = "ss", descr = "String in table" }, fmt('"{}"{}', { i(1), p(comma_if_field) })),
-  s({ trig = "tt", descr = "Table" }, fmta("{<>}", { i(1) })),
-  s(
-    { trig = "ett", descr = "= Table" },
-    fmta("= {<>}<>", { i(1), p(comma_if_field) }),
-    { condition = conds.line_begin }
-  ),
-  s(
-    { trig = "ess", descr = "= String" },
-    fmt('= "{}"{}', { i(1), p(comma_if_field) }),
-    { condition = conds.line_begin }
-  ),
+  s({ trig = "tt", descr = "Table" }, fmta("{<>}<>", { i(1), p(comma_if_field) })),
+  s({ trig = "ett", descr = "= Table" }, fmta("= {<>}<>", { i(1), p(comma_if_field) })),
+  s({ trig = "ess", descr = "= String" }, fmt('= "{}"{}', { i(1), p(comma_if_field) })),
   s({ trig = "ee", descr = "= ..." }, fmt("= {}{}", { i(1), p(comma_if_field) })),
 }

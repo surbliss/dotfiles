@@ -94,15 +94,21 @@ vim.keymap.set("n", "g<cr>", "i<cr><esc>", { desc = "Insert new line" })
 ----------------------------------------------------------------------
 lmap("wj", "<C-W>j", "[W]indow down")
 lmap("wk", "<C-W>k", "[W]indow up")
+lmap("jj", "<C-W>j", "Window down")
+lmap("kk", "<C-W>k", "Window up")
 lmap("wh", "<C-W>h", "[W]indow left")
 lmap("wl", "<C-W>l", "[W]indow right")
 lcmap("ww", "w", "[W]rite")
+lcmap("ss", "w", "[S]ave")
 lcmap("qq", "q", "[Q]uit")
+lcmap("sq", "wq", "[S]ave and [Q]uit")
 lcmap("wq", "wq", "[W]rite and [Q]uit")
-lmap("wp", vim.cmd.bprev, "[P]revious Buffer")
-lmap("wn", vim.cmd.bnext, "[N]ext Buffer")
+lmap("bp", vim.cmd.bprev, "[P]revious [B]uffer")
+lmap("bn", vim.cmd.bnext, "[N]ext [B]uffer")
 lmap("m", "@@", "Last [M]acro")
 lmap("zz", "<C-z>", "[ZZ]leep (background open buffer)")
+lmap("dj", "<cmd>Dj<Cr>", "Toggle d/j swap")
+lmap("ip", "i<space><esc>vp")
 
 local bracket_pairs = {
    ["["] = "]",

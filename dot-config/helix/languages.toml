@@ -1,0 +1,133 @@
+# add it to your ~/.config/helix/languages.toml
+[[language]]
+name = "kanata"
+scope = "source.kanata"
+file-types = ["kbd"]
+comment-tokens = [";;"]
+block-comment-tokens = [{ start = "#|", end = "|#" }]
+
+
+[[language]]
+name = "ini"
+# scope = "source.ini"
+file-types = [
+  "ini",
+  "desktop",
+  { glob = "mimeapps.list" },
+  # Podman quadlets
+  "container",
+  "volume",
+  "kube",
+  "network",
+  { glob = ".editorconfig" },
+  { glob = ".npmrc" },
+  { glob = "hgrc" },
+  { glob = "npmrc" },
+  { glob = "rclone.conf" },
+  "properties",
+  "cfg",
+  "directory",
+  { glob = "config" },
+]
+# injection-regex = "ini"
+# comment-token = "#"
+# indent = { tab-width = 4, unit = "\t" }
+
+
+[[language]]
+name = "nix"
+auto-format = true
+
+[[language]]
+name = "toml"
+auto-format = true
+# language-servers = ["tombi"]  # Taplo not working so good
+
+[[language]]
+name = "typst"
+auto-format = true
+
+[[language]]
+name = "lua"
+auto-format = true
+
+[[language]]
+name = "bash"
+# Copied from offical
+file-types = [
+  { glob = "dot-zshenv" },
+  { glob = "dot-zshrc" },
+  "sh",
+  "bash",
+  "ash",
+  "dash",
+  "ksh",
+  "mksh",
+  "zsh",
+  "zshenv",
+  "zlogin",
+  "zlogout",
+  "zprofile",
+  "zshrc",
+  "eclass",
+  "ebuild",
+  "bazelrc",
+  "Renviron",
+  "zsh-theme",
+  "cshrc",
+  "tcshrc",
+  "bashrc_Apple_Terminal",
+  "zshrc_Apple_Terminal",
+  { glob = "i3/config" },
+  { glob = "sway/config" },
+  { glob = "tmux.conf" },
+  { glob = ".bash_history" },
+  { glob = ".bash_login" },
+  { glob = ".bash_logout" },
+  { glob = ".bash_profile" },
+  { glob = ".bashrc" },
+  { glob = ".profile" },
+  { glob = ".zshenv" },
+  { glob = ".zlogin" },
+  { glob = ".zlogout" },
+  { glob = ".zprofile" },
+  { glob = ".zshrc" },
+  { glob = ".zimrc" },
+  { glob = "APKBUILD" },
+  { glob = ".bash_aliases" },
+  { glob = ".Renviron" },
+  { glob = ".xprofile" },
+  { glob = ".xsession" },
+  { glob = ".xsessionrc" },
+  { glob = ".yashrc" },
+  { glob = ".yash_profile" },
+  { glob = ".hushlogin" },
+]
+
+[[language]]
+name = "rust"
+# text-width = 80
+language-servers = ["snippets-ls", "rust-analyzer"]
+
+[language.auto-pairs]
+'(' = ")"
+'{' = "}"
+'[' = "]"
+'"' = '"'
+'<' = ">"
+
+[[grammar]]
+name = "kanata"
+source = { git = "https://github.com/postsolar/tree-sitter-kanata/", rev = "master" }
+
+[[grammar]]
+name = "typst"
+source.git = "https://github.com/uben0/tree-sitter-typst"
+source.rev = "master"
+
+[language-server.tinymist.config]
+formatterMode = "typstyle"
+
+[language-server.snippets-ls]
+command = "snippets-ls"
+args = ["-config", "home/angryluck/.config/helix/snippets/rust.json"]

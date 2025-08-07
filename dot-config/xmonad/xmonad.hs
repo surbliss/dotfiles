@@ -157,15 +157,18 @@ myKeys =
         >> windows W.swapDown
         >> sendMessage FocusSubMaster
     ),
-    ( "M-e",
-      sendMessage FocusSubMaster
-        >> windows W.swapDown
-        >> sendMessage FocusSubMaster
-        >> windows W.focusMaster
-    ),
-    ( "M-n",
-      sendMessage FocusSubMaster
-    ),
+    -- ( "M-e",
+    --   sendMessage FocusSubMaster
+    --     >> windows W.swapDown
+    --     >> sendMessage FocusSubMaster
+    --     >> windows W.focusMaster
+    -- ),
+    -- Colemak (atpv3) bindings
+    ("M-Up", windows W.focusUp),
+    -- NOTE: Disabled to force learning new bindings
+    -- ("M-e", windows W.focusUp),
+    -- ("M-n", windows W.focusDown),
+    ("M-Down", windows W.focusDown),
     -- ("M-n", windows W.focusDown),
     ("<XF86MonBrightnessUp>", spawn "brillo -q -A 5"),
     ("<XF86MonBrightnessDown>", spawn "brillo -q -U 5"),
@@ -333,7 +336,8 @@ myManageHook =
         -- className == WM_NAME from xprop
         [ className =? "obsidian" -?> doShift "7",
           title =? "Oracle VM VirtualBox Manager" -?> doCenterFloat,
-          className =? "discord" -?> doShift "8"
+          className =? "discord" -?> doShift "8",
+          className =? "age-of-bajer" -?> doCenterFloat
           -- , className =? "feh" -?> doCenterFloat
           -- , title =? "Navigator" -?> doShift "2"
           -- , className =? "zen-twilight" -?> doShift "2"

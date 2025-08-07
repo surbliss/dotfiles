@@ -14,6 +14,8 @@ local lsp_servers = {
    "fsautocomplete",
    "tinymist",
    "ty",
+   "rust_analyzer",
+   "isabelle",
    -- "pylyzer",
 }
 
@@ -25,8 +27,19 @@ vim.lsp.config("*", {
 })
 if vim.o.modifiable then vim.lsp.enable(lsp_servers) end
 
+-- To prevent lua errors
+vim.api.nvim_create_autocmd("TextChanged", {
+   pattern = "*.lua",
+   callback = function()
+      -- Clear and refresh diagnostics to prevent stale line references
+      vim.schedule(function()
+         vim.diagnostic.reset()
+         vim.diagnostic.show()
+      end)
+   end,
+})
+
 -- Disble annoying ltex notificatoins
-vim.diagnostic.update_in_insert = false
 vim.diagnostic.config {
    -- signs = {  },
    severity_sort = true,
@@ -34,11 +47,17 @@ vim.diagnostic.config {
    update_in_insert = false, -- false so diags are updated on InsertLeave
    -- virtual_text = { current_line = true, severity = { min = "INFO", max = "WARN" } },
    -- virtual_lines = { current_line = true, severity = { min = "ERROR" } },
-   underline = { severity = { min = "WARN" } },
+   underline = { severity = { min = vim.diagnostic.severity.WARN } },
    -- Severities: HINT, INFO, WARN and ERROR
    -- virtual_text = { current_line = true },
-   virtual_text = { current_line = false, severity = { min = "ERROR" } },
-   virtual_lines = { current_line = true, severity = { min = "ERROR" } },
+   virtual_text = {
+      current_line = false,
+      severity = { min = vim.diagnostic.severity.ERROR },
+   },
+   virtual_lines = {
+      current_line = true,
+      severity = { min = vim.diagnostic.severity.ERROR },
+   },
    -- severity_sort = true,
    -- vim.keymap.set("n", "<leader>vl", function()
    --   vim.diagnostic.config({

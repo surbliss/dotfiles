@@ -12,17 +12,23 @@ email = thomas.dev@surlykke.dk
 
 [pull]
 # default = "current"
-autoSetupRemote = true
+# autoSetupRemote = true
 rebase = false
 
 [push]
-autoSetupRemote = true
+# autoSetupRemote = true
 default = current
 followTags = true
 
 [interactive]
 diffFilter = diff-so-fancy --patch
 singleKey = true
+
+[branch]
+autoSetupMerge = always
+
+[merge]
+ff = true
 
 [alias]
 ; a = add .
@@ -53,7 +59,7 @@ amend = commit --amend --no-edit
 # Fix typos/errors in previous commit message
 recommit = commit --amend
 
-# Compact, colorful graph of commits
+graph = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%ar) %C(bold blue)[%an]%Creset%C(yellow)%d%Creset' --abbrev-commit# Compact, colorful graph of commits
 ; lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
 # Show changed files in the last commit

@@ -17,6 +17,55 @@ function arkiver() {
     fi
 }
 
+function indbakke() {
+    if [ $# -eq 1 ]; then
+        if [ -e "$1" ]; then
+            echo "Flytter $1 til 0-inbox"
+            mv -i "$1" ~/Documents/0-inbox/ # -i so asks before overwrite
+        else
+            echo "Error: $1 doesn't exist"
+        fi
+    else
+        echo "Wrong number of arguments ($#)"
+    fi
+}
+
+
+
+function ind() {
+    if [ $# -eq 1 ]; then
+        if [ -e "$1" ]; then
+            echo "Flytter $1 til 00.01-Indbakke"
+            mv -i "$1" ~/Documents/00-09_Meta/00_System/00.01_Indbakke/ # -i so asks before overwrite
+        else
+            echo "Error: $1 doesn't exist"
+        fi
+    else
+        echo "Wrong number of arguments ($#)"
+    fi
+}
+
+
+
+function ark() {
+    if [ $# -eq 1 ]; then
+        if [ -e "$1" ]; then
+	    if [ -e "$1/.direnv" ]; then
+	      echo "Removing .direnv cache"
+	      trash "$1/.direnv"
+	      trash -f "$1/.envrc"
+	    fi
+            echo "Flytter $1 til 00.99-Arkiv"
+            mv -i "$1" ~/Documents/00-09_Meta/00_System/00.99_Arkiv/ # -i so asks before overwrite
+        else
+            echo "Error: $1 doesn't exist"
+        fi
+    else
+        echo "Wrong number of arguments ($#)"
+    fi
+}
+
+
 function tester() {
   if [ $# -eq 1 ]; then
     if [ -e "$1/.direnv" ]; then
@@ -151,6 +200,59 @@ function zathura() {
     setsid zathura "$1" &>/dev/null
 }
 
-reload() {
+function jd() {
+  # Empty input goes to root directory (/Documents)
+  if [[ -z $1 ]]
+  then
+    cd ~/Documents
+    return 0
+  fi
+  # Only allow numbers, or decimal-separated numbers
+  if [[ ! $1 =~ ^[0-9.]+$ ]]; then
+    echo "Wrong number-format"
+    return 1
+  fi
+  local depth
+  local name="*$1*"
+  local first_digit=${1:0:1}
+  if [[ $1 =~ ^[0-9]$ ]]
+  then 
+    depth=0
+    name="${1}0*"
+  elif [[ $1 == *.* ]]
+  then
+    depth=2
+  else
+    depth=1
+  fi
+  local result=$(find ~/Documents/$first_digit* -maxdepth $depth -mindepth $depth -name "$name" -type d)
+  if [[ -z $result ]]; then
+    echo "No directory found"
+    return 1
+  fi
+  if [[ $(echo "$result" | wc -l) -gt 1 ]]; then
+    echo "Match not unique:"
+    echo "$result"
+    return 1
+  fi
+  cd $result
+}
+
+# alias sd="cd \$(find * -type d | fzf)"
+
+function sd() {
+    RES=$(find * -maxdepth 0 -type d   | fzf --query=$1 -1 -0)
+    if [[ ! -z $RES ]]; then
+        cd $RES
+    fi
+}
+
+
+# Open application separately from terminal
+function sep(){
+    ("$@" >/dev/null 2>&1 &)
+    }
+
+function reload() {
   source $ZDOTDIR/.zshrc
 }

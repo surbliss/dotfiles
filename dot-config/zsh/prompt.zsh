@@ -72,12 +72,14 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%}%G"
 
 GIT_PROMPT_EXECUTABLE="haskell"
 
+BACKGROUND_PROCESSES="%(1j.%F{red}bg count: %j%f .)"
+
 # NOTE: Text containing $(git_super_status) to be single quotes ', otherwise it
 # is not continously updated
 PROMPT_DIR="%F{cyan}%B%3~ %b%f"
 # PROMPT_SEP="%F{green}%(!.#. )%f"
 PROMPT_SEP="%B%F{green}%(!.#.>)%f%b "
-PROMPT='$SHELL_PROMPT$PROMPT_DIR$(git_super_status)$PROMPT_SEP'
+PROMPT='$SHELL_PROMPT$PROMPT_DIR$(git_super_status)$BACKGROUND_PROCESSES$PROMPT_SEP'
 # RPROMPT='$(git_super_status)'
 
 
@@ -86,7 +88,7 @@ function precmd() {
   ### Checks if anything from nix store has been added to path, which should
   # only happen when we are in a nix shell, nix develop or direnv
   if [[ "$PATH" == */nix/store/* ]]; then
-    SHELL_PROMPT="%F{blue}󱄅  %f"
+    SHELL_PROMPT="%F{blue}󱄅 %f"
   else
     SHELL_PROMPT=""
   fi

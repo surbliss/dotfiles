@@ -61,6 +61,6 @@ alias vim="hx"
 # alias vim="nvim"
 
 # alias bach="sep isabelle jedit -l Collections ~/Documents/1-projekter/bachelor-project/Modular_Decomposition/Modular_Decomposition.thy && exit"
-alias bach="sep isabelle jedit -d ~/Documents/1-projekter/bachelor-project/Modular_Decomposition/ -R Modular_Decomposition && exit"
+alias bach="sep isabelle jedit -d ~/Documents/1-projekter/bachelor-project/Modular_Decomposition -R Modular_Decomposition && exit"
 # alias bach="sep isabelle jedit -d ~/Documents/1-projekter/bachelor-project/Modular_Decomposition -R Modular_Decomposition && exit"
 # alias sd="cd \$(find * -type d | fzf)" # Made a better function

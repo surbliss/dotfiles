@@ -33,10 +33,14 @@ file-types = [
 # comment-token = "#"
 # indent = { tab-width = 4, unit = "\t" }
 
+[[language]]
+name = "kdl"
+# auto-format = true
 
 [[language]]
 name = "nix"
 auto-format = true
+
 
 [language.auto-pairs]
 '(' = ")"
@@ -48,7 +52,12 @@ auto-format = true
 [[language]]
 name = "toml"
 auto-format = true
-# language-servers = ["tombi"]  # Taplo not working so good
+language-servers = ["taplo"] # Taplo not working so good
+
+[[language]]
+name = "c-sharp"
+formatter = { command = "csharpier", args = ["format"] }
+auto-format = true
 
 [[language]]
 name = "typst"

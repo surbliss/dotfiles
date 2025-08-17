@@ -211,6 +211,7 @@ myKeys =
     -- ("M-e", spawn "rofi modi emoji -show emoji -kb-custom1 Ctrl+c -emoji-mode insert_no_copy"),
     -- ("M-o", spawn "firefox"),
     ("M-o", spawnOn "2" "zen-twilight"),
+    ("M-u", spawn  "qutebrowser"),
     -- ("M-p", spawn "yazi"),
     ("M-p", spawn (myTerminal ++ " -e yazi"))
     -- ("M-i", spawn (myTerminal ++ " yazi")),

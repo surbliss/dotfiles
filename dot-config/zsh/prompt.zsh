@@ -76,10 +76,10 @@ BACKGROUND_PROCESSES="%(1j.%F{red}bg count: %j%f .)"
 
 # NOTE: Text containing $(git_super_status) to be single quotes ', otherwise it
 # is not continously updated
-PROMPT_DIR="%F{cyan}%B%3~ %b%f"
+PROMPT_DIR="%F{blue}%B%3~ %b%f"
 # PROMPT_SEP="%F{green}%(!.#. )%f"
 PROMPT_SEP="%B%F{green}%(!.#.>)%f%b "
-PROMPT='$SHELL_PROMPT$PROMPT_DIR$(git_super_status)$BACKGROUND_PROCESSES$PROMPT_SEP'
+PROMPT='$SHELL_PROMPT$PROMPT_DIR$(git_super_status)$BACKGROUND_PROCESSES$NEWLINE  $PROMPT_SEP'
 # RPROMPT='$(git_super_status)'
 
 
@@ -95,3 +95,4 @@ function precmd() {
   ### More advanced version, if nix/store is somehow added to path
   # if [[ "$PATH" == */nix/store/* && ( -n "$DIRENV_DIR" || -n "$IN_NIX_SHELL" || "$SHLVL" -gt 1 ) ]]; then
 }
+# RPROMPT="%F{blue}%f"

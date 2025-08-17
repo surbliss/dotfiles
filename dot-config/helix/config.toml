@@ -43,6 +43,10 @@ nnbsp = "␣"
 newline = "⏎"
 tabpad = "·"  # Tabs will look like "→···" (depending on tab width)
 
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+
 [editor.lsp]
 display-messages = true
 display-progress-messages = true
@@ -79,7 +83,7 @@ select = "SELECT"
 [keys.normal]
 # X = ["extend_to_line_bounds", "select_line_below"]
 "+" = ["extend_to_line_bounds", "select_line_below"]
-x = "select_line_below"
+# x = "select_line_below"
 A-x = "select_line_above"
 g.k = ":buffer-close"
 g.o = ":buffer-close-others"
@@ -100,14 +104,18 @@ g.g = ["collapse_selection", "extend_to_file_start"]
 tab = "move_parent_node_end"
 S-tab = "move_parent_node_start"
 C-W = { b = ":buffer-close-others" }
+"'" = "select_line_below"
+"S-'" ="extend_to_line_bounds"
+"A-'" = "select_line_above"
+C-h = "jump_view_left"
+C-l = "jump_view_right"
 
-
-[keys.normal."'"]
-t = "@:sh touch <C-r>%<C-w>"
-# r = "@:sh rm <C-r>%"
-d = "@:sh mkdir <C-r>%<C-w>"
-m = "@:sh mv <C-r>% <C-r>%"
-c = "@:sh cp <C-r>% <C-r>%<C-w>"
+# [keys.normal."'"]
+# t = "@:sh touch <C-r>%<C-w>"
+# # r = "@:sh rm <C-r>%"
+# d = "@:sh mkdir <C-r>%<C-w>"
+# m = "@:sh mv <C-r>% <C-r>%"
+# c = "@:sh cp <C-r>% <C-r>%<C-w>"
 
 [keys.normal.space]
 w.w = ":write"

@@ -38,6 +38,13 @@ file-types = [
 name = "nix"
 auto-format = true
 
+[language.auto-pairs]
+'(' = ")"
+'{' = "}"
+'[' = "]"
+'"' = '"'
+'=' = ";"
+
 [[language]]
 name = "toml"
 auto-format = true

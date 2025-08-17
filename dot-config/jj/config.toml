@@ -1,11 +1,72 @@
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+
+[templates]
+log_node = '''
+  label("node",
+    coalesce(
+      if(!self, label("elided", "~")),
+      if(current_working_copy, label("working_copy", "@")),
+      if(conflict, label("conflict", "×")),
+      if(immutable, label("immutable", "◆")),
+      if(empty, label("normal", "·")),
+      label("normal", "*")
+    )
+  )
+'''
+# label("normal", "*")
+# if(empty, label("normal", "○")),
+# label("normal", "·")
+
+log = '''
+  if(root,
+    format_root_commit(self),
+    label(if(current_working_copy, "working_copy"),
+      concat(
+        separate(" ",
+          format_short_change_id_with_hidden_and_divergent_info(self),
+          format_short_signature(author),
+          format_timestamp(committer.timestamp()),
+          if(empty, label("empty", "(empty)")),
+          if(description,
+            description.first_line(),
+            label(if(empty, "empty"), description_placeholder),
+          ),
+          bookmarks,
+          tags,
+          working_copies,
+          if(git_head, label("git_head", "HEAD")),
+          if(conflict, label("conflict", "conflict")),
+          if(config("ui.show-cryptographic-signatures").as_boolean(),
+            format_short_cryptographic_signature(signature)),
+        ) ++ "\n",
+      ),
+    )
+  )
+'''
+
 [template-aliases]
-'format_short_signature(signature)' = "signature.email().local()"
+"format_short_signature(author)" = "author.name()"
+"format_timestamp(timestamp)" = "timestamp.ago()"
+
+
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+log-recent = ["log", "-r", "heads() & recent()"]
+
+
+[revset-aliases]
+# the default log revset defined internally:
+# 'default()' = 'present(@) | ancestors(immutable_heads().., 2) | present(trunk())'
+# or a nicer default:
+"heads()" = "@ | ancestors(trunk()..(visible_heads()), 2) | trunk()"
+'default()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
+'recent()' = 'committer_date(after:"1 month ago")'
 
 [ui]
 paginate = "never"
 log-word-wrap = true
-default-command = "log"
+default-command = ["status"]
 
 # [ui.movement]
 # edit = true
@@ -13,3 +74,10 @@ default-command = "log"
 [user]
 name = "Thomas Holme Surlykke"
 email = "thomas.dev@surlykke.dk"
+
+paginate = "never"
+log-word-wrap = true
+
+[git]
+colocate = true
+write-change-id-header = true

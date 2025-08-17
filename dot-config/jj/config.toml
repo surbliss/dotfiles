@@ -1,0 +1,15 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+[template-aliases]
+'format_short_signature(signature)' = "signature.email().local()"
+
+[ui]
+paginate = "never"
+log-word-wrap = true
+default-command = "log"
+
+# [ui.movement]
+# edit = true
+
+[user]
+name = "Thomas Holme Surlykke"
+email = "thomas.dev@surlykke.dk"

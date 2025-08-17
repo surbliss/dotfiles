@@ -3,6 +3,7 @@ local config = wezterm.config_builder()
 -- local mux = wezterm.mux
 local act = wezterm.action
 
+config.term = "xterm-256color"
 config.use_fancy_tab_bar = false
 config.color_scheme = "Catppuccin Mocha"
 -- config.color_scheme = "Jellybeans"
@@ -18,10 +19,11 @@ config.font = wezterm.font_with_fallback {
   "Noto Sans",             -- Some eu-symbols missing in 0xProto
   "Font Awesome 6 Brands", -- NOTE: Breaks EU-symbols like ½ and ¤, so put at bottom
   "Font Awesome 6 Free",
+  "Font Awesome 6 Free Solid",
 }
 -- NOTE: Precisely 80 characters:
 -- 45678901234567890123456789012345678901234567890123456789012345678901234567890
-config.font_size = 12.0
+config.font_size = 10
 config.hide_tab_bar_if_only_one_tab = true
 config.adjust_window_size_when_changing_font_size = false
 
@@ -37,7 +39,8 @@ config.cursor_blink_rate = 0
 -- NOTE: These bindings are probably only good when using homerowmods
 -- config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 2000 }
 config.disable_default_key_bindings = true
-local WEZMOD = "CTRL|SUPER"
+-- local WEZMOD = "CTRL|SUPER"
+local WEZMOD = "ALT"
 local function wezmap(key, mod, action)
   if mod == nil then
     mod = ""
@@ -54,6 +57,11 @@ end
 -- differnt additionally in application.
 
 config.keys = {
+  wezmap("d", nil, act.ScrollByPage(0.5)),
+  wezmap("u", nil, act.ScrollByPage(-0.5)),
+  wezmap("f", nil, act.ScrollByPage(1)),
+  wezmap("b", nil, act.ScrollByPage(-1)),
+  -- wezmap("d", nil, act.ScrollByPage(-0.5)),
   wezmap("h", nil, act.ActivateTabRelativeNoWrap(-1)),
   wezmap("h", "SHIFT", act.MoveTabRelative(-1)),
   wezmap("l", nil, act.ActivateTabRelativeNoWrap(1)),
@@ -61,8 +69,8 @@ config.keys = {
   wezmap("t", nil, act.SpawnTab "CurrentPaneDomain"),
   wezmap("w", nil, act.CloseCurrentTab { confirm = true }),
   -- Small status-window-split for running proccesses with potential errors
-  wezmap("s", nil, act.SplitPane { direction = "Down", size = { Cells = 8 } }),
-  wezmap("x", nil, act.CloseCurrentPane { confirm = true }),
+  -- wezmap("s", nil, act.SplitPane { direction = "Down", size = { Cells = 8 } }),
+  wezmap("c", nil, act.CloseCurrentPane { confirm = true }),
   -- wezmap("t", act.ShowTabNavigator, "SHIFT"),
   wezmap("1", nil, act.ActivateTab(0)),
   wezmap("2", nil, act.ActivateTab(1)),
@@ -73,7 +81,7 @@ config.keys = {
   wezmap("7", nil, act.ActivateTab(6)),
   wezmap("8", nil, act.ActivateTab(7)),
   wezmap("9", nil, act.ActivateTab(8)),
-  wezmap("d", "SHIFT", act.ShowDebugOverlay),
+  -- wezmap("d", "SHIFT", act.ShowDebugOverlay),
   -- {
   --   key = "s",
   --   mods = "ALT",
@@ -97,6 +105,9 @@ config.keys = {
   mods = "SHIFT|CTRL",
   action = act.CopyTo "Clipboard",
 },
+
+
+
   { key = "Enter", mods = "SHIFT|SUPER", action = act.SpawnWindow },
   { key = "Space", mods = "SHIFT|CTRL",  action = act.QuickSelect },
   wezmap("y", nil, act.ActivateCopyMode),

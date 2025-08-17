@@ -5,7 +5,8 @@ config.bind("u", "scroll-page 0 -0.5")
 config.bind("<Ctrl-U>", "undo")
 config.bind("x", "tab-close")
 
-c.colors.webpage.darkmode.enabled = True
+# c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.preferred_color_scheme = "dark"
 
 c.content.blocking.adblock.lists = [
     "https://easylist.to/easylist/easylist.txt",
@@ -14,3 +15,4 @@ c.content.blocking.adblock.lists = [
     "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
     "https://easylist.to/easylist/fanboy-social.txt",
 ]
+

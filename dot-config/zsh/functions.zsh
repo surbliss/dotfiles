@@ -252,7 +252,12 @@ function sd() {
 function sep(){
     ("$@" >/dev/null 2>&1 &)
     }
+# tmp-open
+function topen(){
+   nix run nixpkgs#"$@"
+}
 
+    
 function reload() {
   source $ZDOTDIR/.zshrc
 }

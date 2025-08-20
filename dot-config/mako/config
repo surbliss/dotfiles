@@ -1,0 +1,65 @@
+# Mako notification daemon configuration
+# Place this file at ~/.config/mako/config
+
+# Basic appearance - complementing niri catppuccin theme
+background-color=#313244
+text-color=#cdd6f4
+border-color=#89b4fa
+border-size=2
+border-radius=12
+
+# Positioning and sizing
+width=320
+height=90
+margin=12
+padding=16
+
+# Font and text
+font=sans-serif 11
+markup=1
+format=<b>%s</b>\n%b
+
+# Behavior
+default-timeout=5000
+ignore-timeout=1
+max-visible=5
+sort=-time
+
+# Icons
+icons=1
+max-icon-size=32
+icon-location=left
+
+# Grouping
+group-by=app-name
+max-history=20
+
+# Different urgency levels
+[urgency=low]
+border-color=#a6e3a1
+background-color=#313244
+default-timeout=3000
+
+[urgency=normal]
+border-color=#89b4fa
+background-color=#313244
+default-timeout=5000
+
+[urgency=critical]
+border-color=#f38ba8
+background-color=#45475a
+text-color=#f38ba8
+default-timeout=0
+
+# Discord notifications (might catch some through xwayland)
+[app-name="discord"]
+border-color=#fab387
+format=<b>%s</b>\n%b
+
+[app-name="Discord"]
+border-color=#fab387
+format=<b>%s</b>\n%b
+
+# Firefox/browser notifications
+[app-name="firefox"]
+border-color=#89b4fa

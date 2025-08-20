@@ -95,11 +95,14 @@ layout {
 }
 // TODO: xdg-desktop-autostart?
 spawn-at-startup "waybar"
+
+spawn-at-startup "wbg" "/home/angryluck/Pictures/wallpapers/split_park.jpg"
+
 prefer-no-csd
 hotkey-overlay {
     skip-at-startup
 }
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+// screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 animations {
     off
     slowdown 0.5

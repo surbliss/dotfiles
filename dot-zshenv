@@ -7,7 +7,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1;
 export ZDOTDIR=$HOME/.config/zsh
 # export TERM=wezterm
 
-export PATH=$PATH:$HOME/.dotnet/tools
+# export PATH=$PATH:$HOME/.dotnet/tools
 
 # Makes terminal English, despite locale being Danish
 export LC_MESSAGES="en_US.UTF8"
@@ -16,5 +16,5 @@ export MANPAGER="nvim +Man!"
 
 # vim: filetype=zsh
 
-export _ZO_EXCLUDE_DIRS="$HOME/.config/*"
+# export _ZO_EXCLUDE_DIRS="$HOME/.config/*"
 

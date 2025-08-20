@@ -1,0 +1,57 @@
+# Better 'time' command
+TIMEFMT=$'================\nuser\t%*Us\nsystem\t%*Ss\ntotal\t%*Es'
+
+# Plugin-config
+bindkey '^ ' autosuggest-accept
+# See https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
+bindkey '^[[13;5u' autosuggest-execute # Maps to CTRL+Enter
+bindkey '^N' autosuggest-clear
+
+
+# Source config-files:
+source "$ZDOTDIR/aliases.zsh"
+source "$ZDOTDIR/functions.zsh"
+# source "$ZDOTDIR/prompt.zsh"
+
+
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+  zhm_history_prev
+  zhm_history_next
+  zhm_prompt_accept
+  zhm_accept
+  zhm_accept_or_insert_newline
+)
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
+  zhm_move_right
+)
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
+  zhm_move_next_word_start
+  zhm_move_next_word_end
+)
+
+
+# function precmd() {
+#   ### Checks if anything from nix store has been added to path, which should
+#   # only happen when we are in a nix shell, nix develop or direnv
+#   if [[ "$PATH" == */nix/store/* ]]; then
+#     SHELL_PROMPT="%F{blue}󱄅 %f"
+#   else
+#     SHELL_PROMPT=""
+#   fi
+#   ### More advanced version, if nix/store is somehow added to path
+#   # if [[ "$PATH" == */nix/store/* && ( -n "$DIRENV_DIR" || -n "$IN_NIX_SHELL" || "$SHLVL" -gt 1 ) ]]; then
+# }
+
+
+# export RPROMPT="$SHELL_PROMPT"
+export PURE_GIT_BRANCH=0
+export PURE_GIT_BRANCH_SHOW=0
+
+export PURE_GIT_STASH_SHOW=0
+export PURE_GIT_BRANCH_SHOW=0
+
+# prompt_pure_async_tasks() { }
+
+# zstyle :prompt:pure:environment:nix-shell show no
+# eval "$(direnv hook zsh)"
+# vim: filetype=zsh

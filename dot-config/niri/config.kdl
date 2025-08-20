@@ -1,0 +1,296 @@
+// See default-config.kdl for possible settings/original comments
+// NOTES:
+// - Omitting settings disables/defaults them
+// - A whole {...} node can be commented out with '/-'
+workspace "browser"
+workspace "coding"
+// workspace "terminal"
+input {
+    keyboard {
+        xkb {
+            // INFO: xkeyboard-config(7).
+            layout "dk,us"
+            variant "nodeadkeys,altgr-intl"
+            options "grp:win_space_toggle,compose:menu,caps:escape"
+        }
+        numlock
+    }
+    touchpad {
+        tap
+        // Disable while typing
+        dwt
+        natural-scroll
+        accel-speed 0.0
+        accel-profile "flat"
+        scroll-factor 0.5
+ // tap-button-map "left-left-right"
+    }
+    mouse {
+        accel-profile "flat"
+    }
+    // Idk if leaving this here does a difference
+    trackpoint {
+
+    }
+}
+// NOTE: Might not be "eDP-1" on other computers.
+output "eDP-1" {
+    mode "1920x1080"
+    scale 1.25
+    transform "normal"
+    position x=0 y=0
+}
+
+output "HDMI-A-1" {
+    mode "1920x1080"
+    scale 1.25
+}
+ // NOTE: Doesn't work (should add a virtual display)
+ output "HEADLESS-1" {
+     mode "1920x1080"
+     position x=1920 y=0
+ }
+
+layout {
+    gaps 6
+    center-focused-column "never"
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
+    preset-window-heights {
+        proportion 0.5
+        proportion 1.0
+    }
+    default-column-width {
+        proportion 0.5
+    }
+    focus-ring {
+        off
+        width 3
+        active-color "#b4befe"
+        inactive-color "#505050"
+    }
+    border {
+         width 4
+          active-color "#fab387"
+         inactive-color "#cba6f7"
+         urgent-color "#f38ba8"
+    }
+    // You can enable drop shadows for windows.
+    shadow {
+        // on
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+    struts {
+        // Set left and right equal to border width
+        left 4
+        top -4
+        bottom -4
+        right 4
+    }
+}
+// TODO: xdg-desktop-autostart?
+spawn-at-startup "waybar"
+spawn-at-startup "wbg" "/home/angryluck/Pictures/wallpapers/split_park.jpg"
+spawn-at-startup "wl-paste" "--primary" "--watch" "wl-copy"
+prefer-no-csd
+
+hotkey-overlay { skip-at-startup; }
+screenshot-path "~/Pictures/screenshots/%Y-%m-%d_%H.%M.%S.png"
+animations {
+    off
+    slowdown 0.5
+}
+window-rule {
+    geometry-corner-radius 4
+    clip-to-geometry true
+}
+window-rule {
+    match app-id="^zen-twilight$"
+    open-maximized true
+    open-on-workspace "browser"
+}
+window-rule {
+    match app-id="^zen-twilight$" title="^Picture-in-Picture$"
+    open-floating true
+    open-maximized false
+}
+window-rule {
+    match app-id="firefox$" title="^Picture-in-Picture$"
+    open-floating true
+}
+binds {
+    // Find key-names with 'wev'
+    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Shift+Plus { show-hotkey-overlay; }
+    Mod+T hotkey-overlay-title="Open a Terminal: alacritty" {
+        spawn "alacritty"
+    }
+    Mod+Return hotkey-overlay-title="Open a Terminal: wezterm" {
+        spawn "wezterm"
+    }
+    Mod+G hotkey-overlay-title="Run an Application: fuzzel" {
+        spawn "fuzzel"
+    }
+    Mod+0 hotkey-overlay-title="Lock the Screen: swaylock" {
+        spawn "sh" "-c" "niri msg action power-off-monitors && swaylock"
+    }
+    Mod+Ctrl+0 hotkey-overlay-title="Power menu: wlogout" {
+        spawn "wlogout"
+    }
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%-"
+    }
+    XF86MonBrightnessUp allow-when-locked=true {
+        spawn "brillo" "-q" "-A" "5"
+    }
+    XF86MonBrightnessDown allow-when-locked=true {
+        spawn "brillo" "-q" "-U" "5"
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    }
+    XF86AudioMicMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
+    }
+    Mod+O repeat=false { toggle-overview; }
+    // One workspace
+    Mod+Shift+Q { close-window; }
+    Mod+Left { focus-column-left; }
+    Mod+Down { focus-window-down; }
+    Mod+Up { focus-window-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-down-or-column-right; }
+    Mod+K { focus-window-up-or-column-left; }
+    Mod+L { focus-column-right; }
+    Mod+Shift+Left { move-column-left; }
+    Mod+Shift+Down { move-window-down; }
+    Mod+Shift+Up { move-window-up; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+H { move-column-left; }
+    // Mod+Shift+J { move-window-down-or-to-workspace-down; }
+    // Mod+Shift+K { move-window-up-or-to-workspace-up; }
+    Mod+Shift+K { consume-or-expel-window-left; }
+    Mod+Shift+J { consume-or-expel-window-right; }
+    Mod+Shift+E { move-window-down; }
+    Mod+Shift+L { move-column-right; }
+    // Monitors
+    Mod+Ctrl+Left { focus-monitor-left; }
+    Mod+Ctrl+Down { focus-monitor-down; }
+    Mod+Ctrl+Up { focus-monitor-up; }
+    Mod+Ctrl+Right { focus-monitor-right; }
+    Mod+Ctrl+L { focus-monitor-left; }
+    Mod+Ctrl+J { focus-monitor-down; }
+    Mod+Ctrl+K { focus-monitor-up; }
+    Mod+Ctrl+H { focus-monitor-right; }
+    Mod+Shift+Ctrl+Left { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Up { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
+    // Workspaces
+    Mod+D { focus-workspace-down; }
+    Mod+U { focus-workspace-up; }
+    Mod+Shift+D { move-column-to-workspace-down; }
+    Mod+Shift+U { move-column-to-workspace-up; }
+    Mod+Ctrl+D { move-workspace-down; }
+    Mod+Ctrl+U { move-workspace-up; }
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+    // Mouse
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+WheelScrollRight { focus-column-right; }
+    Mod+WheelScrollLeft { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft { move-column-left; }
+    Mod+Shift+WheelScrollDown { focus-column-right; }
+    Mod+Shift+WheelScrollUp { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp { move-column-left; }
+    // Switches focus between the current and the previous workspace.
+    Mod+B { focus-workspace-previous; }
+    // Mod+BracketLeft  { consume-window-into-column; }
+    // Mod+BracketRight { expel-window-from-column; }
+    Mod+Period { consume-or-expel-window-left; }
+    Mod+Comma { consume-or-expel-window-right; }
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+C { center-column; }
+    Mod+Ctrl+C { center-visible-columns; }
+    // Mod+Minus {
+    //     set-column-width "-10%"
+    // }
+    // Mod+Equal {
+    //     set-column-width "+10%"
+    // }
+    // // Finer height adjustments when in column with other windows.
+    // Mod+Shift+Minus {
+    //     set-window-height "-10%"
+    // }
+    // Mod+Shift+Equal {
+    //     set-window-height "+10%"
+    // }
+    Mod+V { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+W { toggle-column-tabbed-display; }
+    // Actions to switch layouts.
+    // Note: if you uncomment these, make sure you do NOT have
+    // a matching layout switch hotkey configured in xkb options above.
+    // Having both at once on the same hotkey will break the switching,
+    // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
+    // Mod+Space       { switch-layout "next"; }
+    // Mod+Shift+Space { switch-layout "prev"; }
+    Mod+Shift+S { screenshot; }
+    Mod+Shift+Ctrl+S { screenshot-window; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+Ctrl+Q { quit; }
+    Mod+Shift+P { power-off-monitors; }
+}
+// spawn "wlogout"
+spawn-at-startup "xwayland-satellite"
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    DISPLAY ":0"
+    _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.dpiaware=false -Dsun.java2d.uiScale=1"
+ }
+ switch-events {
+     lid-close { spawn "niri" "msg" "action" "power-off-monitors"; }
+     lid-open { spawn "niri" "msg" "action" "power-on-monitors"; }
+ }
+

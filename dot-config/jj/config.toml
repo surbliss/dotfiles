@@ -1,11 +1,105 @@
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+
+[templates]
+log_node = '''
+  label("node",
+    coalesce(
+      if(!self, label("elided", "~")),
+      if(current_working_copy, label("working_copy", "@")),
+      if(conflict, label("conflict", "×")),
+      if(immutable, label("immutable", "◆")),
+      if(empty, label("normal", "·")),
+      label("normal", "*")
+    )
+  )
+'''
+# label("normal", "*")
+# if(empty, label("normal", "○")),
+# label("normal", "·")
+
+log = '''
+  if(root,
+    format_root_commit(self),
+    label(if(current_working_copy, "working_copy"),
+      concat(
+        separate(" ",
+          format_short_change_id_with_hidden_and_divergent_info(self),
+          format_short_signature(author),
+          format_timestamp(committer.timestamp()),
+          if(empty, label("empty", "(empty)")),
+          if(description,
+            description.first_line(),
+            label(if(empty, "empty"), description_placeholder),
+          ),
+          bookmarks,
+          tags,
+          working_copies,
+          if(git_head, label("git_head", "HEAD")),
+          if(conflict, label("conflict", "conflict")),
+          if(config("ui.show-cryptographic-signatures").as_boolean(),
+            format_short_cryptographic_signature(signature)),
+          if(current_working_copy, "\n" ++ indent(" ", diff.summary()), "\n"),
+        ),
+      ),
+    )
+  )
+'''
+# if(current_working_copy, "\n" ++ indent(" ", diff.summary()), "\n"),
+# 
+
 [template-aliases]
-'format_short_signature(signature)' = "signature.email().local()"
+with_changes = '''
+  if(root,
+    format_root_commit(self),
+    label(if(current_working_copy, "working_copy"),
+      concat(
+        separate(" ",
+          format_short_change_id_with_hidden_and_divergent_info(self),
+          format_short_signature(author),
+          format_timestamp(committer.timestamp()),
+          if(empty, label("empty", "(empty)")),
+          if(description,
+            description.first_line(),
+            label(if(empty, "empty"), description_placeholder),
+          ),
+          bookmarks,
+          tags,
+          working_copies,
+          if(git_head, label("git_head", "HEAD")),
+          if(conflict, label("conflict", "conflict")),
+          if(config("ui.show-cryptographic-signatures").as_boolean(),
+            format_short_cryptographic_signature(signature)),
+           "\n" ++ indent(" ", diff.summary()),
+        ),
+      ),
+    )
+  )
+'''
+"format_short_signature(author)" = "author.name()"
+"format_timestamp(timestamp)" = "timestamp.ago()"
+
+
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+log-recent = ["log", "--revisions", "ends() & recent()"]
+changes = ["log", "--template", "with_changes"]
+newest = ["new", "heads(@-::) ~ @"]
+
+
+[revset-aliases]
+# the default log revset defined internally:
+# 'default()' = 'present(@) | ancestors(immutable_heads().., 2) | present(trunk())'
+# or a nicer default:
+"ends()" = "@ | ancestors(trunk()..(visible_heads()), 2) | trunk()"
+'default()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
+'recent()' = 'committer_date(after:"1 month ago")'
 
 [ui]
-paginate = "never"
+pager = ":builtin"
+paginate = "auto"
 log-word-wrap = true
-default-command = "log"
+default-command = ["log"]
 
 # [ui.movement]
 # edit = true
@@ -13,3 +107,56 @@ default-command = "log"
 [user]
 name = "Thomas Holme Surlykke"
 email = "thomas.dev@surlykke.dk"
+
+paginate = "never"
+log-word-wrap = true
+
+[git]
+colocate = true
+write-change-id-header = true
+
+
+# Rosewater 224 (light pink)
+# Flamingo 217 (light red)
+# Pink 218 (light magenta)
+# Mauve 177 (light purple)
+# Red 211 (pink/red)
+# Maroon 181 (light red)
+# Peach 216 (orange)
+# Yellow 229 (light yellow)
+# Green 157 (light green)
+# Teal 152 (cyan)
+# Sky 117 (light cyan)
+# Sapphire 116 (light blue)
+# Blue 111 (light blue)
+# Lavender 147 (light purple)
+
+# Neutrals:
+
+# Text 189 (light gray)
+# Subtext 1 146 (gray)
+# Subtext 0 103 (gray)
+# Overlay 2 103 (dark gray)
+# Overlay 1 102 (dark gray)
+# Overlay 0 60 (dark gray)
+# Surface 2 60 (dark gray)
+# Surface 1 59 (very dark gray)
+# Surface 0 59 (very dark gray)
+# Base 235 (very dark gray)
+# Mantle 234 (almost black)
+# Crust 233 (almost black)[colors]
+
+[colors]
+"diff removed" = "ansi-color-211"
+"diff added" = "ansi-color-157"
+"diff modified" = "ansi-color-229"
+author = "ansi-color-147"
+timestamp = "ansi-color-152"
+date = "ansi-color-147"
+prefix = "ansi-color-216"
+bookmarks = "ansi-color-177"
+"working_copy author" = "ansi-color-147"
+"working_copy timestamp" = "ansi-color-152"
+"working_copy date" = "ansi-color-147"
+"working_copy prefix" = "ansi-color-216"
+"working_copy bookmarks" = "ansi-color-177"

@@ -257,6 +257,7 @@ function trun(){
    nix run nixpkgs#"$@"
 }
 
+    
 function reload() {
   source $ZDOTDIR/.zshrc
 }

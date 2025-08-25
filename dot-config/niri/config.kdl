@@ -142,7 +142,7 @@ binds {
         spawn "sh" "-c" "niri msg action power-off-monitors && swaylock"
     }
     Mod+Ctrl+0 hotkey-overlay-title="Power menu: wlogout" {
-        spawn "wlogout"
+        spawn "wofi-power-menu"
     }
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"

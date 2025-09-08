@@ -21,6 +21,8 @@ zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+zinit light mafredri/zsh-async
 
 # Load completions
 autoload -U compinit && compinit
@@ -36,6 +38,7 @@ TIMEFMT=$'================\nuser\t%*Us\nsystem\t%*Ss\ntotal\t%*Es'
 # History
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
 
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
@@ -54,7 +57,8 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Autosuggestions
@@ -62,6 +66,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # # See https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
 bindkey '^[[13;5u' autosuggest-execute # Maps to CTRL+Enter
 bindkey '^A' autosuggest-accept
+bindkey '^ ' autosuggest-accept
 # See https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
 bindkey '^E' autosuggest-execute # Maps to CTRL+Enter
 bindkey '^N' autosuggest-clear
@@ -71,5 +76,11 @@ source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/functions.zsh
 
 
+
+# Env vars
+export HELIX_RUNTIME=~/.local/share/helix/runtime
+export HELIX_DEFAULT_RUNTIME=~/.local/share/helix/runtime
+
+eval "$(fzf --zsh)"
 export _ZO_EXCLUDE_DIRS="$HOME/.config/*"
 eval "$(zoxide init --cmd j zsh)"

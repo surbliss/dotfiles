@@ -79,6 +79,23 @@ with_changes = '''
 "format_short_signature(author)" = "author.name()"
 "format_timestamp(timestamp)" = "timestamp.ago()"
 
+'format_short_change_id(id)' = 'id.shortest(4)'
+# 'format_short_commit_id(id)' = 'id.shortest(4)'
+  # format_short_commit_id(commit_id),
+prompt = '''
+separate(" ",
+  format_short_change_id_with_hidden_and_divergent_info(self),
+  if(empty, label("empty", "(empty)"), ""),
+  if(description == "", label("description placeholder", "(no description)"), ""),
+  if(description.contains("megamerge"), label("mega", "(mega)"), ""),
+  if(description.starts_with("wip"), label("wip", "(wip)"), ""),
+  if(description.starts_with("todo"), label("todo", "(todo)"), ""),
+  if(description.starts_with("vibe"), label("vibe", "(vibe)"), ""),
+  if(description.starts_with("mega"), label("mega", "(mega)"), ""),
+  if(conflict, label("conflict", "(conflict)"), "")
+)
+'''
+
 
 [aliases]
 tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
@@ -94,6 +111,8 @@ newest = ["new", "heads(@-::) ~ @"]
 "ends()" = "@ | ancestors(trunk()..(visible_heads()), 2) | trunk()"
 'default()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
 'recent()' = 'committer_date(after:"1 month ago")'
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+
 
 [ui]
 pager = ":builtin"
@@ -160,3 +179,7 @@ bookmarks = "ansi-color-177"
 "working_copy date" = "ansi-color-147"
 "working_copy prefix" = "ansi-color-216"
 "working_copy bookmarks" = "ansi-color-177"
+wip = "yellow"
+todo = "blue"
+vibe = "cyan"
+mega = "red"

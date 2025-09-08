@@ -2,8 +2,8 @@
 // NOTES:
 // - Omitting settings disables/defaults them
 // - A whole {...} node can be commented out with '/-'
-workspace "browser"
 workspace "coding"
+workspace "browser"
 // workspace "terminal"
 input {
     keyboard {
@@ -36,14 +36,14 @@ input {
 // NOTE: Might not be "eDP-1" on other computers.
 output "eDP-1" {
     mode "1920x1080"
-    scale 1.25
+    scale 1.0
     transform "normal"
     position x=0 y=0
 }
 
 output "HDMI-A-1" {
     mode "1920x1080"
-    scale 1.25
+    scale 1.00
 }
  // NOTE: Doesn't work (should add a virtual display)
  output "HEADLESS-1" {
@@ -162,6 +162,7 @@ binds {
     XF86AudioMicMute allow-when-locked=true {
         spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
     }
+    Mod+E { spawn "wofi-emoji"; }
     Mod+O repeat=false { toggle-overview; }
     // One workspace
     Mod+Shift+Q { close-window; }
@@ -170,8 +171,12 @@ binds {
     Mod+Up { focus-window-up; }
     Mod+Right { focus-column-right; }
     Mod+H { focus-column-left; }
-    Mod+J { focus-window-down-or-column-right; }
-    Mod+K { focus-window-up-or-column-left; }
+    // Mod+J { focus-window-down-or-column-right; }
+    // Mod+J { focus-column-right; }
+    Mod+J {focus-window-down;}
+    // Mod+K { focus-window-up-or-column-left; }
+    // Mod+K { focus-column-left; }
+    Mod+K { focus-window-up; }
     Mod+L { focus-column-right; }
     Mod+Shift+Left { move-column-left; }
     Mod+Shift+Down { move-window-down; }
@@ -251,8 +256,9 @@ binds {
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Ctrl+F { expand-column-to-available-width; }
-    Mod+C { center-column; }
-    Mod+Ctrl+C { center-visible-columns; }
+    Mod+C { focus-window-down-or-top; }
+    // Mod+C { center-column; }
+    // Mod+Ctrl+C { center-visible-columns; }
     // Mod+Minus {
     //     set-column-width "-10%"
     // }

@@ -6,6 +6,15 @@ file-types = ["kbd"]
 comment-tokens = [";;"]
 block-comment-tokens = [{ start = "#|", end = "|#" }]
 
+[[language]]
+name = "haskell"
+auto-format = true
+roots = ["Setup.hs", "stack.yaml", "cabal.project"]
+
+[[language]]
+name = "cabal"
+auto-format = true
+roots = ["*.cabal", ".cabal", "Setup.hs", "stack.yaml", "cabal.project"]
 
 [[language]]
 name = "ini"
@@ -143,6 +152,12 @@ source.rev = "master"
 
 [language-server.tinymist.config]
 formatterMode = "typstyle"
+preview.background.enabled = true
+preview.background.args = [
+  "--data-plane-host=127.0.0.1:0",
+  "--invert-colors=never",
+  # "--open",
+]
 
 [language-server.snippets-ls]
 command = "snippets-ls"

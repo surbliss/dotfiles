@@ -1,0 +1,5 @@
+inherits = "rose_pine"
+
+variable = "iris"
+"markup.heading.1" = { fg = "love", modifiers = ["bold"] }
+string = "text"

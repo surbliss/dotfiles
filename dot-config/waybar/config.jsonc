@@ -37,15 +37,16 @@
     // "format": "{name}: {icon}",
     "format": "{icon}",
     "format-icons": {
-      "browser": "  ",
-      // "coding": "  ",
-      "coding": "  ",
-      // "2": "",
+      "config": "󱌢",
+      "browser": "",
+      "coding": "",
+      // "coding2": "  ",
       // "4": "",
       // "5": "",
-      "urgent": "  ",
+      "urgent": "  "
       // "focused": "",
-      "default": "  "
+      // "default": "  ",
+      // "empty": " "
     }
   },
   "custom/logout": {
@@ -192,7 +193,7 @@
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
   },
   "pulseaudio": {
-    "scroll-step": 1, // %, can be a float
+    "scroll-step": 5, // %, can be a float
     "format": "{volume}% {icon}",
     "format-bluetooth": "{volume}% {icon}",
     "format-bluetooth-muted": "{volume}% {icon}",
@@ -200,14 +201,14 @@
     "format-source": "{volume}% ",
     "format-source-muted": "",
     "format-icons": {
-      "headphone": "",
+      // "headphone": "",
       "hands-free": "",
       "headset": "",
       "phone": "",
       "portable": "",
       "car": "",
       "default": [
-        "",
+        // "",
         "",
         ""
       ]

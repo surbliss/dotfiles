@@ -1,0 +1,8 @@
+inherits = "kanagawa-dragon"
+
+# variable = "dragonOrange"
+type = "dragonYellow"
+# keyword.modifiers = ["italic"]
+keyword = { fg = "dragonViolet", modifiers = ["italic"] }
+# keyword = "dragonRed"
+# function = "dragonTeal"

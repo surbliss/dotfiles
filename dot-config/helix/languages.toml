@@ -69,8 +69,14 @@ formatter = { command = "csharpier", args = ["format"] }
 auto-format = true
 
 [[language]]
+name = "nim"
+formatter = { command = "nph", args = ["-"] }
+auto-format = true
+
+[[language]]
 name = "typst"
 auto-format = true
+roots = ["main.typ", "tinymist.lock"]
 
 [[language]]
 name = "lua"
@@ -152,13 +158,33 @@ source.rev = "master"
 
 [language-server.tinymist.config]
 formatterMode = "typstyle"
+exportPdf = "onType"
+outputPath = "$root/out/$name"
 preview.background.enabled = true
+projectResolution = "lockDatabase"
+
+# Need both commands, evnen though top one is default
 preview.background.args = [
-  "--data-plane-host=127.0.0.1:0",
+  "--data-plane-host=127.0.0.1:23635",
   "--invert-colors=never",
-  # "--open",
 ]
+typingContinueCommentsOnNewLine = false
 
 [language-server.snippets-ls]
 command = "snippets-ls"
 args = ["-config", "home/angryluck/.config/helix/snippets/rust.json"]
+
+
+[[language]]
+name = "elm"
+language-servers = ["elm-language-server"]
+
+[language-server.elm-language-server]
+command = "elm-language-server"
+args = ["--stdio"]
+
+[[lanuguage]]
+name = "nushell"
+formatter.command = "nufmt"
+formatter.args = ["-s"]
+auto-format = false         # Very unstable program (allegedly), careful!

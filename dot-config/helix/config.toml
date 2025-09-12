@@ -1,15 +1,17 @@
 # theme = "custom-jellybeans"
 # theme = "catppuccin_mocha"
 # theme = "customppuccin"
-theme = "kanagawa-dragon"
+# theme = "kanagawa-dragon-custom"
+# theme = "kanagawa"
 # theme = "tokyonight"
-# theme = "my-theme"
+theme = "gruvbox_material_dark_hard"
 
 [editor]
 bufferline = "multiple"
 scrolloff = 5
 cursorline = true
-rulers = [80]
+rulers = [88]
+text-width = 88
 gutters = ["diagnostics", "line-numbers", "diff"]
 line-number = "relative"
 true-color = true
@@ -90,10 +92,10 @@ select = "SELECT"
 # other-lines = "disable"
 
 [keys.normal]
-# X = ["extend_to_line_bounds", "select_line_below"]
-"+" = ["extend_to_line_bounds", "select_line_below"]
+X = ["extend_to_line_bounds", "select_line_below"]
+# "+" = ["extend_to_line_bounds", "select_line_below"]
 # x = "select_line_below"
-A-x = "select_line_above"
+A-x = ["extend_to_line_bounds", "select_line_above"]
 g.k = ":buffer-close"
 g.o = ":buffer-close-others"
 # C-j = "jump_view_right"
@@ -110,14 +112,17 @@ A-m = "@;mam"
 g.e = ["collapse_selection", "extend_to_file_end"]
 g.g = ["collapse_selection", "extend_to_file_start"]
 # Smarttab stuff
-tab = "move_parent_node_end"
-S-tab = "move_parent_node_start"
+# tab = "move_parent_node_end"
+# S-tab = "move_parent_node_start"
 C-W = { b = ":buffer-close-others" }
 "_" = "select_line_below"
 "S-'" = "extend_to_line_bounds"
 "A-'" = "select_line_above"
 C-h = "jump_view_left"
 C-l = "jump_view_right"
+### Shortcut for surround operations:
+m.w.s = "@miwms"
+
 
 # [keys.normal."'"]
 # t = "@:sh touch <C-r>%<C-w>"
@@ -136,13 +141,17 @@ q.q = ":quit"
 x = "@x\"yy\"ypk<C-c>jgh"
 # Run justfile
 J = ":echo %sh{just run %{buffer_name}}"
-f = "file_picker_in_current_buffer_directory"
+f = "file_picker_in_current_directory"
 F = "file_picker"
 # L = ":config-reload"
 # t = ":sh cargo run"
 # FIX
 # x = [ "yan"]
 
+##################################################
+# Insert header
+##################################################
+i.h = "@[<space>kix<esc><C-c>ghlt<ret>dhy49pxyo<esc>pki"
 # [keys.normal.C-w]
 # b = ":buffer-close-others"
 #
@@ -162,11 +171,14 @@ r = "@O<esc>jghlki#[require("
 "+" = ["extend_to_line_bounds", "select_line_below"]
 x = "select_line_below"
 A-x = "select_line_above"
-tab = "extend_parent_node_end"
-S-tab = "extend_parent_node_start"
+# tab = "extend_parent_node_end"
+# S-tab = "extend_parent_node_start"
 
 [keys.insert]
 C-ret = ["add_newline_below", "move_line_down"]
 C-t = "@<esc>A;<ret>"
 C-space = "@ <esc>hi"
-S-tab = "move_parent_node_start"
+# tab = ["save_selection", "smart_tab"]
+# S-tab = "move_parent_node_start"
+C-o = "jump_backward"
+C-i = "jump_forward"

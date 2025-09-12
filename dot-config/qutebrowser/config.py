@@ -16,3 +16,4 @@ c.content.blocking.adblock.lists = [
     "https://easylist.to/easylist/fanboy-social.txt",
 ]
 
+c.aliases["tp"] = "open 127.0.0.1:23635"

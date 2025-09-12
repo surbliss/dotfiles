@@ -75,3 +75,14 @@ alias bach="sep isabelle jedit -l Collections ~/Documents/1-projekter/bachelor-p
 alias -g ...="../.."
 alias -g ....="../../.."
 alias -g .....="../../../.."
+
+
+# See https://askubuntu.com/questions/1443640/disable-laptop-keyboard-on-demand-in-wayland
+# Tmp hack till I learn how to do a dev-rule
+# alias diskey="sep evtest --grab /dev/input/event11 > /dev/null &"
+# alias actkey="pkill evtest"
+
+
+# wlr-randr to check output-name 
+alias mirror="wl-present mirror eDP-1 --fullscreen-output HDMI-A-1"
+alias mirror-on="wl-present mirror eDP-1 --fullscreen-output"

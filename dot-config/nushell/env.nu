@@ -19,4 +19,4 @@
 
 
 # Should be at the end of env.nu
-zoxide init nushell --cmd j | save -f ($nu.default-config-dir | path join zoxide.nu)
+# zoxide init nushell --cmd j | save -f ($nu.default-config-dir | path join zoxide.nu)

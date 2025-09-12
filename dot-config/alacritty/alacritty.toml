@@ -1,3 +1,6 @@
+[general]
+import = ["themes/gruvbox_material_hard_dark.toml"]
+
 [window]
 padding = { x = 5, y = 5 }
 decorations = "none"

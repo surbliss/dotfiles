@@ -102,6 +102,7 @@ tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 log-recent = ["log", "--revisions", "ends() & recent()"]
 changes = ["log", "--template", "with_changes"]
 newest = ["new", "heads(@-::) ~ @"]
+sync = ["rebase", "--skip-emptied", "-d", "main"]
 
 
 [revset-aliases]

@@ -9,6 +9,7 @@ config.color_scheme = "Catppuccin Mocha"
 -- config.color_scheme = "Jellybeans"
 config.color_scheme = "Kanagawa Dragon (Gogh)"
 config.harfbuzz_features = { "ss01" } -- Script italics
+config.enable_wayland = true
 config.font = wezterm.font_with_fallback {
   "0xProto Nerd Font",
   "0xProto Nerd Font Propo",
@@ -96,7 +97,7 @@ config.keys = {
   {
     key = "v",
     mods = "CTRL",
-    action = act.PasteFrom "Clipboard",
+    action = act.PasteFrom "PrimarySelection",
   },
   {
     key = "V",

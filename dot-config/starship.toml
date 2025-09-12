@@ -1,0 +1,311 @@
+# format = """
+# $all
+# ${custom.jj}\
+# ...
+# """
+
+# #...
+format = """
+$nix_shell\
+$all
+"""
+# right_format = "$character"
+
+
+# [custom.jj]
+# command = "prompt"
+# format = "$output"
+# ignore_timeout = true
+# shell = ["starship-jj", "--ignore-working-copy", "starship"]
+# use_stdin = false
+# when = true
+# detect_folders = [".jj"]
+
+[nix_shell]
+impure_msg = ""
+symbol = " "
+format = '[$symbol](bold blue) '
+
+[fill]
+symbol = " "
+
+[custom.jj]
+command = "prompt"
+format = "$output"
+ignore_timeout = true
+shell = ["starship-jj", "--ignore-working-copy", "starship"]
+use_stdin = false
+when = true
+
+
+# # custom module for jj status
+# [custom.jj]
+# description = "The current jj status"
+# when = "jj --ignore-working-copy root"
+# # symbol = "🥋 "
+# symbol = "󱗆 "
+# style = "bold blue"
+# command = '''
+# jj log --revisions 'heads(::@ & bookmarks())' --no-graph --ignore-working-copy --color always --limit 1 -T 'bookmarks' &&\
+# echo -n " " && \
+# jj log --revisions '@' --no-graph --ignore-working-copy --color always --limit 1 --template '
+#   separate(" ",
+#       change_id.shortest(4),
+#         concat(
+#       if(conflict, "💥"),
+#       if(divergent, "🚧"),
+#       if(hidden, "👻"),
+#       if(immutable, "🔒"),
+#     ),
+#     raw_escape_sequence("\x1b[1;32m") ++ if(empty, "(empty)"),
+#     raw_escape_sequence("\x1b[1;32m") ++ coalesce(
+#       truncate_end(29, description.first_line(), "…"),
+#       "(no description set)",
+#     ) ++ raw_escape_sequence("\x1b[0m"),
+#   )
+# '
+# '''
+
+# optionally disable git modules when JJ is found.
+# note that you'll need to add ${custom.git_branch}, ${custom.git_commit} etc
+# into format: https://starship.rs/config/#default-prompt-format
+[git_status]
+disabled = true
+
+[custom.git_status]
+when = "! starship-jj --ignore-working-copy root"
+command = "starship module git_status"
+# This disables the default "(bold green)" style
+style = ""
+description = "Only show git_status if we're not in a jj repo"
+
+[git_commit]
+disabled = true
+tag_symbol = '  '
+
+[custom.git_commit]
+when = "! starship-jj --ignore-working-copy root"
+command = "starship module git_commit"
+style = ""
+description = "Only show git_commit if we're not in a jj repo"
+
+[git_metrics]
+disabled = true
+
+[custom.git_metrics]
+when = "! starship-jj --ignore-working-copy root"
+command = "starship module git_metrics"
+description = "Only show git_metrics if we're not in a jj repo"
+style = ""
+
+[git_branch]
+disabled = true
+symbol = " "
+format = '[$symbol$branch]($style)'
+style = "177"
+
+[custom.git_branch]
+when = "! starship-jj --ignore-working-copy root"
+command = "starship module git_branch"
+description = "Only show git_branch if we're not in a jj repo"
+style = ""
+
+
+[git_state]
+disabled = true
+
+[custom.git_state]
+when = "! jj --ignore-working-copy root"
+command = "starship module git_state"
+description = "Only show git_state if we're not in a jj repo"
+style = ""
+
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[bun]
+symbol = " "
+
+[c]
+symbol = " "
+
+[cpp]
+symbol = " "
+
+[cmake]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[deno]
+symbol = " "
+
+[directory]
+truncation_symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[gcloud]
+symbol = "  "
+
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+format = '[$symbol($version)]($style) '
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+format = '[$symbol($version)]($style) '
+disabled = true
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+[pixi]
+symbol = "󰏗 "
+
+[python]
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = "󱘗 "
+format = '[$symbol($version)]($style) '
+version_format = "${major}.${minor}.${patch}"
+
+[scala]
+symbol = " "
+
+[swift]
+symbol = " "
+
+[zig]
+symbol = " "
+
+[gradle]
+symbol = " "

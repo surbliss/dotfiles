@@ -6,10 +6,24 @@ file-types = ["kbd"]
 comment-tokens = [";;"]
 block-comment-tokens = [{ start = "#|", end = "|#" }]
 
+# [[language]]
+# name = "haskell"
+# auto-format = true
+# roots = ["Setup.hs", "stack.yaml", "cabal.project", "src/"]
+
 [[language]]
 name = "haskell"
+scope = "source.haskell"
+injection-regex = "hs|haskell"
+file-types = ["hs", "hs-boot", "hsc"]
+roots = ["Setup.hs", "stack.yaml", "cabal.project", "hie.yaml", "src/"]
+shebangs = ["runhaskell", "stack"]
+comment-token = "--"
+block-comment-tokens = { start = "{-", end = "-}" }
+language-servers = ["haskell-language-server"]
+indent = { tab-width = 2, unit = "  " }
 auto-format = true
-roots = ["Setup.hs", "stack.yaml", "cabal.project"]
+
 
 [[language]]
 name = "cabal"
@@ -49,6 +63,9 @@ name = "kdl"
 [[language]]
 name = "nix"
 auto-format = true
+text-width = 80
+formatter.command = "nixfmt"
+formatter.args = ["--width=80", "--strict", "--verify"]
 
 
 [language.auto-pairs]
@@ -73,10 +90,6 @@ name = "nim"
 formatter = { command = "nph", args = ["-"] }
 auto-format = true
 
-[[language]]
-name = "typst"
-auto-format = true
-roots = ["main.typ", "tinymist.lock"]
 
 [[language]]
 name = "lua"
@@ -151,17 +164,44 @@ language-servers = ["snippets-ls", "rust-analyzer"]
 name = "kanata"
 source = { git = "https://github.com/postsolar/tree-sitter-kanata/", rev = "master" }
 
-[[grammar]]
+# [[grammar]]
+# name = "typst"
+# source.git = "https://github.com/uben0/tree-sitter-typst"
+# source.rev = "master"
+
+[[language]]
+# name = "typst"
+# auto-format = true
+# formatter = ["typstyle"]
+# roots = ["main.typ", "report.typ", "tinymist.lock", "out/"]
+# language-servers = ["tinymist"]
+### Defaults, as of 02/11-2025
 name = "typst"
-source.git = "https://github.com/uben0/tree-sitter-typst"
-source.rev = "master"
+scope = "source.typst"
+injection-regex = "typ(st)?"
+file-types = ["typst", "typ"]
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = ["tinymist"]
+indent = { tab-width = 2, unit = "  " }
+### Mine
+auto-format = true
+formatter = ["typstyle"]
+roots = ["main.typ"]
+
+[language-server.tinymist]
+command = "tinymist"
+# args = ["lsp"]
 
 [language-server.tinymist.config]
 formatterMode = "typstyle"
 exportPdf = "onType"
 outputPath = "$root/out/$name"
 preview.background.enabled = true
-projectResolution = "lockDatabase"
+formatterPrintWidth = 80
+lint.enabled = true
+projectResolution = "projectResolution"
+typstExtraArgs = ["main.typ"]
 
 # Need both commands, evnen though top one is default
 preview.background.args = [

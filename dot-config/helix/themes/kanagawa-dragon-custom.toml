@@ -3,6 +3,7 @@ inherits = "kanagawa-dragon"
 # variable = "dragonOrange"
 type = "dragonYellow"
 # keyword.modifiers = ["italic"]
+"ui.bufferline.active" = { fg = "oldWhite", bg = "dragonBlack4" }
 keyword = { fg = "dragonViolet", modifiers = ["italic"] }
 # keyword = "dragonRed"
 # function = "dragonTeal"

@@ -1,0 +1,198 @@
+### User interface
+### TODO: Clean up this to make this also more minimal
+"ui.statusline.inactive" = { fg = "fujiGray", bg = "sumiInk0" }
+"ui.statusline.normal" = { fg = "sumiInk0", bg = "crystalBlue", modifiers = [
+  "bold",
+] }
+"ui.statusline.insert" = { fg = "sumiInk0", bg = "autumnGreen", modifiers = [
+  "bold",
+] }
+"ui.statusline.select" = { fg = "sumiInk0", bg = "oniViolet", modifiers = [
+  "bold",
+] }
+
+"ui.menu" = { fg = "fujiWhite", bg = "waveBlue1" }
+"ui.menu.selected" = { fg = "fujiWhite", bg = "waveBlue2", modifiers = [
+  "bold",
+] }
+"ui.menu.scroll" = { fg = "oldWhite", bg = "waveBlue1" }
+
+## User interface
+"ui.selection" = { bg = "waveBlue2" }
+"ui.selection.primary" = { bg = "waveBlue1" }
+"ui.background" = { fg = "dragonWhite", bg = "dragonBlack3" }
+"ui.gutter" = { fg = "dragonBlack6", bg = "dragonBlack4" }
+
+"ui.linenr" = { fg = "dragonBlack6", bg = "dragonBlack4" }
+"ui.linenr.selected" = { fg = "roninYellow", modifiers = ["bold"] }
+
+"ui.virtual" = "dragonBlack6"
+"ui.virtual.ruler" = { bg = "dragonBlack5" }
+"ui.virtual.inlay-hint" = "dragonGray2"
+"ui.virtual.inlay-hint.parameter" = { fg = "dragonYellow", modifiers = ["dim"] }
+"ui.virtual.inlay-hint.type" = { fg = "dragonAqua", modifiers = ["dim"] }
+"ui.virtual.jump-label" = { fg = "dragonYellow", modifiers = ["bold"] }
+
+"ui.statusline" = { fg = "oldWhite", bg = "dragonBlack0" }
+
+"ui.bufferline" = { fg = "oldWhite", bg = "dragonBlack0" }
+"ui.bufferline.active" = { fg = "oldWhite", bg = "dragonBlack0" }
+"ui.bufferline.background" = { bg = "sumiInk0" }
+
+"ui.popup" = { fg = "oldWhite", bg = "dragonBlack0" }
+"ui.window" = { fg = "sumiInk0" }
+"ui.help" = { fg = "fujiWhite", bg = "sumiInk0" }
+"ui.text" = "text"
+"ui.text.focus" = { fg = "dragonWhite", bg = "waveBlue1", modifiers = ["bold"] }
+
+"ui.cursor" = { fg = "waveBlue1", bg = "waveAqua2" }
+"ui.cursor.primary" = { fg = "waveBlue1", bg = "fujiWhite" }
+"ui.cursor.match" = { fg = "roninYellow", modifiers = ["bold"] }
+"ui.highlight" = { fg = "fujiWhite", bg = "waveBlue2" }
+
+"ui.cursorline.primary" = { bg = "dragonBlack5" }
+"ui.cursorcolumn.primary" = { bg = "dragonBlack5" }
+
+
+"ui.debug.breakpoint" = "springBlue"
+"ui.debug.active" = "winterRed"
+
+"diagnostic.error" = { underline = { color = "samuraiRed", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "roninYellow", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.info" = { underline = { color = "dragonBlue", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "waveAqua1", style = "curl" } }
+"diagnostic.deprecated" = { fg = "katanaGray", modifiers = ["crossed_out"] }
+
+## Also affects comment keywords. See https://github.com/helix-editor/helix/blob/24b187a4bc4fed3c11541f6f4bd4f3a887842394/runtime/queries/comment/highlights.scm#L28# for full list.
+
+# error: BUG FIXME FIX BUG FIXME ISSUE XXX FIX SAFETY FIXIT FAILED DEBUG INVARIANT COMPLIANCE
+# warning: TEST WARN WARNING HACK WARN WARNING TEST TEMP
+# info: NOTE TODO INFO PERF OPTIMIZE PERFORMANCE QUESTION ASK
+# hint: HINT MARK PASSED STUB MOCK
+# text: UOAWE: (any capitalized text ending with ":")
+error = "samuraiRed"
+warning = "roninYellow"
+info = "oniViolet"
+hint = "springBlue"
+
+## Diff
+"diff.plus" = "autumnGreen"
+"diff.minus" = "autumnRed"
+"diff.delta" = "autumnYellow"
+
+
+## Markup modifiers
+"markup.heading" = { fg = "springViolet2", modifiers = ["bold"] }
+"markup.list" = "sakuraPink"
+"markup.heading.marker" = "dragonViolet"
+"markup.heading.1" = { fg = "dragonOrange", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "dragonYellow", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "dragonBlue2", modifiers = ["bold"] }
+"markup.heading.4" = { fg = "dragonWhite", modifiers = ["bold"] }
+"markup.heading.5" = { fg = "dragonRed", modifiers = ["bold"] }
+"markup.heading.6" = { fg = "dragonPink", modifiers = ["bold"] }
+"markup.list.numbered" = "dragonPink"
+"markup.list.unnumbered" = "dragonRed"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+# "markup.link.text" = "dragonTeal"
+# "markup.link.url" = { fg = "dragonPink", underline.style = "line" }
+"markup.link.url" = { underline.style = "line" }
+"markup.link.label" = "dragonBlue2"
+"markup.quote" = "springViolet1"
+"markup.raw" = "dragonGreen2"
+
+
+## Syntax highlighting (very minimal)
+"constant" = "orange"
+"string" = "orange"
+"punctuation" = "grey"
+"comment" = "pink"
+"function" = "text"
+"variable" = "text"
+"variable.parameter" = "blue"
+"type" = "violet"
+"operator" = "grey"
+"keyword" = "green"
+
+
+[palette]
+violet = "#a292a3"
+pink = "#d27e99"
+grey = "#737c73"
+text = "#c5c9c5"
+orange = "#b6927b"
+green = "#89997A"
+blue = "#949fb5"
+
+
+oldWhite = "#C8C093"      # dark foreground, e.g. statuslines
+fujiWhite = "#DCD7BA"     # default foreground
+fujiGray = "#727169"      # comments
+sumiInk0 = "#16161D"      # dark background, e.g. statuslines, floating windows
+sumiInk1 = "#181820"      # unused
+sumiInk2 = "#1A1A22"      # unused
+sumiInk3 = "#1F1F28"      # default background
+sumiInk4 = "#2A2A37"      # lighter background, e.g. colorcolumns, folds
+sumiInk5 = "#363646"      # lighter background, e.g. cursorline
+sumiInk6 = "#54546D"      # inlay hints
+waveBlue1 = "#223249"     # popup background, visual selection background
+waveBlue2 = "#2D4F67"     # popup selection background, search background
+winterGreen = "#2B3328"   # diff add background
+winterYellow = "#49443C"  # diff change background
+winterRed = "#43242B"     # diff delete background
+winterBlue = "#252535"    # diff line background
+autumnGreen = "#76946A"   # git add
+autumnRed = "#C34043"     # git delete
+autumnYellow = "#DCA561"  # git change
+samuraiRed = "#E82424"    # diagnostic error
+roninYellow = "#FF9E3B"   # diagnostic warning
+waveAqua1 = "#6A9589"     # diagnostic info
+dragonBlue = "#658594"    # diagnostic hint
+oniViolet = "#957FB8"     # statements and keywords
+oniViolet2 = "#B8B4D0"    # parameters
+crystalBlue = "#7E9CD8"   # functions and titles
+springViolet1 = "#938AA9" # unused
+springViolet2 = "#9CABCA" # brackets and punctuation
+springBlue = "#7FB4CA"    # specials and builtins
+lightBlue = "#A3D4D5"     # URLs
+waveAqua2 = "#7AA89F"     # types
+waveAqua3 = "#68AD99"     # unused
+waveAqua4 = "#7AA880"     # unused
+waveAqua5 = "#6CAF95"     # unused
+springGreen = "#98BB6C"   # strings
+boatYellow1 = "#938056"   # unused
+boatYellow2 = "#C0A36E"   # operators, regex
+carpYellow = "#E6C384"    # identifiers
+sakuraPink = "#D27E99"    # numbers
+waveRed = "#E46876"       # standout specials 1, e.g. builtin variables
+peachRed = "#FF5D62"      # standout specials 2, e.g. exception handling, returns
+surimiOrange = "#FFA066"  # constants, imports, booleans
+katanaGray = "#717C7C"    # unused
+
+dragonBlack0 = "#0d0c0c"
+dragonBlack1 = "#12120f"
+dragonBlack2 = "#1D1C19"
+dragonBlack3 = "#181616"
+dragonBlack4 = "#282727"
+dragonBlack5 = "#393836"
+dragonBlack6 = "#625e5a"
+
+dragonWhite = "#c5c9c5"
+dragonGreen = "#87a987"
+dragonGreen2 = "#8a9a7b"
+dragonPink = "#a292a3"
+dragonOrange = "#b6927b"
+dragonOrange2 = "#b98d7b"
+dragonGray = "#a6a69c"
+dragonGray2 = "#9e9b93"
+dragonGray3 = "#7a8382"
+dragonBlue2 = "#8ba4b0"
+dragonViolet = "#8992a7"
+dragonRed = "#c4746e"
+dragonAqua = "#8ea4a2"
+dragonAsh = "#737c73"
+dragonTeal = "#949fb5"
+dragonYellow = "#c4b28a"

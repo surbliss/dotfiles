@@ -20,3 +20,6 @@
 
 # Should be at the end of env.nu
 # zoxide init nushell --cmd j | save -f ($nu.default-config-dir | path join zoxide.nu)
+
+jj util completion nushell |
+   save -f ($nu.default-config-dir | path join completions-jj.nu)

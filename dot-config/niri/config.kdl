@@ -9,10 +9,15 @@
 // CAREFUL: Removing keybinds completely disables them, so make sure to at
 // least have binding to open terminal
 
+// Default config: https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
+
 ///////////////////////////////////////////////////
 // Layout
 ///////////////////////////////////////////////////
-workspace "browser"
+workspace "coding"
+workspace "browser" {
+    open-on-output "HDMI-A-1"
+}
 
 layout {
     gaps 6
@@ -23,7 +28,7 @@ layout {
         bottom 6
     }
     focus-ring {
-        off
+        // off
         width 3
         active-color "#b4befe"
         inactive-color "#505050"
@@ -56,7 +61,7 @@ layout {
 }
 
 animations {
-    slowdown 0.5
+    slowdown 0.8
 }
 
 prefer-no-csd // No client-side decorations

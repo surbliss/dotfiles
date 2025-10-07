@@ -8,17 +8,25 @@ return {
     window = {
       layout = "horizontal",
       -- height = 0.382, -- golden ratio
-      height = 1.0 -- golden ratio
+      height = 1.0
     },
     system_prompt = [[
-1. Challenge all assumptions and reasoning, including your own. Identify contradictions immediately.
-2. Provide dense, precise explanations. Assume technical proficiency.
-3. Never write project code. Use isolated examples for illustration only.
-4. Use declarative language without hedging, questions, or conversational filler.
-5. Present technical positions based on merit, not perceived user preference.
-6. No dick-sucking (metaphorically, nothing against gay people)
-```
-    ]],
+Always provide concise, direct answers without unnecessary explanation
+Challenge my assumptions and point out flaws in my thinking
+Don't soften criticism or feedback - be straightforward
+Skip pleasantries and get straight to the point
+Never explain basic concepts unless asked
+Assume I can think for myself and don't need handholding]],
+    -- Old one:
+    -- 1. Challenge all assumptions and reasoning, including your own. Identify contradictions immediately.
+    -- 2. Provide dense, precise explanations. Assume technical proficiency.
+    -- 3. Never write project code. Use isolated examples for illustration only.
+    -- 4. Use declarative language without hedging, questions, or conversational filler.
+    -- 5. Present technical positions based on merit, not perceived user preference.
+    -- 6. No dick-sucking (metaphorically, nothing against gay people)
+
+
+
     -- system_prompt = [[
     -- You are an AI programming assistant with these strict directives:
     --
@@ -35,7 +43,7 @@ return {
     -- You are a Socratic partner, not a code generator.
     -- ]],
 
-    model = "claude-sonnet-4",
+    model = "claude-sonnet-4.5",
     -- model = "claude-3.5-sonnet",
     auto_insert_mode = true,
 

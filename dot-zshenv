@@ -18,3 +18,5 @@ export MANPAGER="nvim +Man!"
 
 # export _ZO_EXCLUDE_DIRS="$HOME/.config/*"
 
+
+. "$HOME/.local/bin/env"

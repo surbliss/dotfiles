@@ -1,0 +1,36 @@
+# Kanagawa Lotus
+# Source: https://github.com/helix-editor/helix/blob/master/runtime/themes/kanagawa-lotus.toml
+# Source: https://github.com/rebelot/kanagawa.nvim/blob/master/lua/kanagawa/themes.lua
+
+[colors]
+background = '#FDFCFB'
+foreground = '#181825'
+
+ansi = [
+  '#181825', # black   (lotusInk0 - dark, for contrast)
+  '#E82424', # red
+  '#76946A', # green
+  '#AD8700', # yellow
+  '#086187', # blue
+  '#957FB8', # magenta
+  '#0081A7', # cyan
+  '#EAE3D7', # white   (lotusWhite2 - light)
+]
+
+brights = [
+  '#8F909C', # bright black   (lotusInk1)
+  '#FF5D62', # bright red     (lotusBrightPink)
+  '#2E8B57', # bright green   (lotusBrightGreen)
+  '#FF8800', # bright yellow  (lotusBrightOrange)
+  '#223249', # bright blue    (lotusBlue3)
+  '#7C3AED', # bright magenta (lotusBrightViolet)
+  '#006A6A', # bright cyan    (lotusSuperAqua)
+  '#FDFCFB', # bright white   (lotusWhite0)
+]
+
+selection_bg = '#B7C5D8'
+selection_fg = '#181825'
+
+[colors.indexed]
+16 = '#A34100' # lotusSuperOrange
+17 = '#861657' # lotusSuperPink

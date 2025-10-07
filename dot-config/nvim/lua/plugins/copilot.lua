@@ -44,6 +44,8 @@ Assume I can think for myself and don't need handholding]],
     -- ]],
 
     model = "claude-sonnet-4.5",
+    -- model = "claude-haiku-4.5",
+    -- model = "gpt-5.1-codex-mini",
     -- model = "claude-3.5-sonnet",
     auto_insert_mode = true,
 
@@ -85,6 +87,12 @@ Nothing else.]],
       "n",
       "<leader>cr",
       ":CopilotChatReview<CR>",
+      { silent = true }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cm",
+      ":CopilotChatModels<CR>",
       { silent = true }
     )
   end,

@@ -18,8 +18,16 @@
 # them for future reference.
 
 
+## ${UserConfigDir}/nushell/env.nu
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+mkdir $"($nu.cache-dir)"
+carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
+
+
+
 # Should be at the end of env.nu
 # zoxide init nushell --cmd j | save -f ($nu.default-config-dir | path join zoxide.nu)
 
 jj util completion nushell |
    save -f ($nu.default-config-dir | path join completions-jj.nu)
+

@@ -1,4 +1,20 @@
 # add it to your ~/.config/helix/languages.toml
+
+[language-server.fsharp-ls]
+command = "fsautocomplete"
+args = ["--verbose"]
+config = { AutomaticWorkspaceInit = true, FSharp = { ExternalAutocomplete = true } }
+
+[[language]]
+name = "fsharp"
+scope = "source.fs"
+roots = ["fsproj", "sln", ".git"]
+file-types = ["fs", "fsx", "fsi"]
+language-servers = ["fsharp-ls"]
+comment-token = "//"
+indent = { tab-width = 4, unit = " " }
+auto-format = true
+
 [[language]]
 name = "kanata"
 scope = "source.kanata"
@@ -22,36 +38,40 @@ comment-token = "--"
 block-comment-tokens = { start = "{-", end = "-}" }
 language-servers = ["haskell-language-server"]
 indent = { tab-width = 2, unit = "  " }
+# NOTE: Enable when figured out how to prevent stalling...
 auto-format = true
 
+[language-server.haskell-language-server.config]
+haskell.formattingProvider = "fourmolu"
+haskell.sessionLoading = "multipleComponents"
 
 [[language]]
 name = "cabal"
 auto-format = true
 roots = ["*.cabal", ".cabal", "Setup.hs", "stack.yaml", "cabal.project"]
 
-[[language]]
-name = "ini"
-# scope = "source.ini"
-file-types = [
-  "ini",
-  "desktop",
-  { glob = "mimeapps.list" },
-  # Podman quadlets
-  "container",
-  "volume",
-  "kube",
-  "network",
-  { glob = ".editorconfig" },
-  { glob = ".npmrc" },
-  { glob = "hgrc" },
-  { glob = "npmrc" },
-  { glob = "rclone.conf" },
-  "properties",
-  "cfg",
-  "directory",
-  { glob = "config" },
-]
+# [[language]]
+# name = "ini"
+# # scope = "source.ini"
+# file-types = [
+#   "ini",
+#   "desktop",
+#   { glob = "mimeapps.list" },
+#   # Podman quadlets
+#   "container",
+#   "volume",
+#   "kube",
+#   "network",
+#   { glob = ".editorconfig" },
+#   { glob = ".npmrc" },
+#   { glob = "hgrc" },
+#   { glob = "npmrc" },
+#   { glob = "rclone.conf" },
+#   "properties",
+#   "cfg",
+#   "directory",
+#   { glob = "config" },
+# ]
 # injection-regex = "ini"
 # comment-token = "#"
 # indent = { tab-width = 4, unit = "\t" }
@@ -65,7 +85,7 @@ name = "nix"
 auto-format = true
 text-width = 80
 formatter.command = "nixfmt"
-formatter.args = ["--width=80", "--strict", "--verify"]
+formatter.args = ["--width=77", "--strict", "--verify"]
 
 
 [language.auto-pairs]
@@ -84,6 +104,26 @@ language-servers = ["taplo"] # Taplo not working so good
 name = "c-sharp"
 formatter = { command = "csharpier", args = ["format"] }
 auto-format = true
+
+[[language]]
+name = "c"
+scope = "source.c"
+injection-regex = "c"
+file-types = ["c"]                                  # TODO: ["h"]
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = ["clangd"]
+indent = { tab-width = 2, unit = "  " }
+auto-format = true
+
+
+[language.auto-pairs]
+'(' = ")"
+'{' = "}"
+'[' = "]"
+'"' = '"'
+"'" = "'"
+
 
 [[language]]
 name = "nim"
@@ -158,7 +198,7 @@ language-servers = ["snippets-ls", "rust-analyzer"]
 '{' = "}"
 '[' = "]"
 '"' = '"'
-'<' = ">"
+# '<' = ">"
 
 [[grammar]]
 name = "kanata"
@@ -184,10 +224,18 @@ comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = ["tinymist"]
 indent = { tab-width = 2, unit = "  " }
+
 ### Mine
 auto-format = true
 formatter = ["typstyle"]
-roots = ["main.typ"]
+roots = ["main.typ", "out/", "tinymist.lock"]
+[language.auto-pairs]
+'"' = '"'
+'`' = '`'
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'$' = '$'
 
 [language-server.tinymist]
 command = "tinymist"
@@ -200,8 +248,10 @@ outputPath = "$root/out/$name"
 preview.background.enabled = true
 formatterPrintWidth = 80
 lint.enabled = true
-projectResolution = "projectResolution"
-typstExtraArgs = ["main.typ"]
+lint.when = "onType"
+projectResolution = "lockDatabase"
+# projectResolution = "singleFile"
+# typstExtraArgs = ["main.typ"]
 
 # Need both commands, evnen though top one is default
 preview.background.args = [
@@ -228,3 +278,102 @@ name = "nushell"
 formatter.command = "nufmt"
 formatter.args = ["-s"]
 auto-format = false         # Very unstable program (allegedly), careful!
+
+
+[[language]]
+name = "hyprlang"
+scope = "source.hyprlang"
+roots = ["hyprland.conf"]
+file-types = [{ glob = "hypr/*.conf" }, { glob = "mango/**/*.conf" }]
+comment-token = "#"
+grammar = "hyprlang"
+language-servers = ["hyprls"]
+
+
+# Base copied from upstream, so more configs can be added
+[[language]]
+name = "ini"
+scope = "source.ini"
+file-types = [
+  "ini",
+  "desktop",
+  { glob = "mimeapps.list" },
+  # Podman quadlets
+  "container",
+  "volume",
+  "kube",
+  "network",
+  { glob = ".editorconfig" },
+  { glob = ".npmrc" },
+  { glob = "hgrc" },
+  { glob = "npmrc" },
+  { glob = "rclone.conf" },
+  { glob = ".aws/config" },
+  "properties",
+  "cfg",
+  "directory",
+  { glob = ".wslconfig" },
+]
+injection-regex = "ini"
+comment-token = "#"
+indent = { tab-width = 4, unit = "\t" }
+
+
+[[language]]
+name = "python"
+scope = "source.python"
+injection-regex = "py(thon)?"
+file-types = [
+  "py",
+  "pyi",
+  "py3",
+  "pyw",
+  "ptl",
+  "rpy",
+  "cpy",
+  "ipy",
+  "pyt",
+  { glob = ".python_history" },
+  { glob = ".pythonstartup" },
+  { glob = ".pythonrc" },
+  { glob = "*SConstruct" },
+  { glob = "*SConscript" },
+  { glob = "*sconstruct" },
+]
+shebangs = ["python", "uv"]
+roots = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json"]
+comment-token = "#"
+language-servers = ["ty", "ruff", "jedi", "pylsp"] #disable ty
+# TODO: pyls needs utf-8 offsets
+indent = { tab-width = 4, unit = "    " }
+auto-format = true
+
+# [language-server.ty.config]
+# interpreter = ["$PYTHONPATH"]
+[language-server.nil.config]
+nix.flake.autoArchive = true
+nix.flake.autEvalInputs = true
+
+[[language]]
+name = "perl"
+scope = "source.perl"
+file-types = [
+  # "pl", # disable pl, so it doesn't interfere with prolog
+  "pm",
+  "t",
+  "psgi",
+  "raku",
+  "rakumod",
+  "rakutest",
+  "rakudoc",
+  "nqp",
+  "p6",
+  "pl6",
+  "pm6",
+  { glob = "latexmkrc" },
+  { glob = ".latexmkrc" },
+]
+shebangs = ["perl"]
+comment-token = "#"
+language-servers = ["perlnavigator"]
+indent = { tab-width = 2, unit = "  " }

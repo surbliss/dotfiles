@@ -14,27 +14,52 @@
 ///////////////////////////////////////////////////
 // Layout
 ///////////////////////////////////////////////////
-workspace "coding"
-workspace "browser" {
-    open-on-output "HDMI-A-1"
-}
+// workspace "config" {
+//     open-on-output "HDMI-A-1"
+// }
+// workspace "browser" {
+//     open-on-output "HDMI-A-1"
+// }
+// workspace "coding" {
+//     open-on-output "HDMI-A-1"
+// }
+// workspace "chat" {
+//     open-on-output "eDP-1"
+// }
+
+
+/// COLORS:
+// Orange:         #fab387
+// Pastel violet:  #cba6f7
+// Urgent:         #f38ba8
+//
+// Old colors:
+// active-color    #b4befe
+// inactive-color  #505050
+
 
 layout {
-    gaps 6
+    gaps 10
     struts {
-        left 4
-        right 4
-        top 6
-        bottom 6
+        right 3
+        left 3
+        bottom -6
+        top -6
+
     }
+    // struts {
+    //     left 4
+    //     right 4
+    //     top 6
+    //     bottom 6
+    // }
     focus-ring {
-        // off
-        width 3
-        active-color "#b4befe"
+        width 2
+        active-color "#fab387"
         inactive-color "#505050"
     }
     border {
-         width 2
+         width 3
          active-color "#fab387"
          inactive-color "#cba6f7"
          urgent-color "#f38ba8"
@@ -61,7 +86,20 @@ layout {
 }
 
 animations {
-    slowdown 0.8
+    on
+    slowdown 0.3
+}
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+cursor {
+    xcursor-theme "Bibata-Modern-Ice"
+    xcursor-size 36
+
 }
 
 prefer-no-csd // No client-side decorations
@@ -72,12 +110,12 @@ prefer-no-csd // No client-side decorations
 ///////////////////////////////////////////////////
 input {
     keyboard {
-        xkb {
-            // INFO: xkeyboard-config(7).
-            layout "dk,us"
-            variant "nodeadkeys,altgr-intl"
-            options "grp:win_space_toggle,compose:menu,caps:escape"
-        }
+        // xkb {
+        //     // INFO: xkeyboard-config(7).
+        //     layout "dk"
+        //     variant "nodeadkeys"
+        //     options "compose:menu,caps:escape"
+        // }
         numlock
     }
     touchpad {
@@ -89,9 +127,14 @@ input {
         scroll-factor 0.5
         click-method "clickfinger"
     }
+
     mouse {
         accel-profile "flat"
+        accel-speed -0.3
     }
+
+    // warp-mouse-to-focus mode="center-xy-always"
+
 }
 
 
@@ -104,16 +147,21 @@ output "eDP-1" {
 }
 
 output "HDMI-A-1" {
-    scale 1.2
+    scale 1.1
+    focus-at-startup
     position x=-10000 y=0
 }
 
+// output "Seiko Epson Corporation EPSON PJ 0x01010101" {
+
+// }
 
 ///////////////////////////////////////////////////
 // Startup
 ///////////////////////////////////////////////////
 /// TODO: Start in NixOS config instead
 spawn-at-startup "wbg" "-s" "/home/angryluck/Pictures/wallpapers/dark-split-park.jpg"
+spawn-at-startup "wezterm"
 
 /// From suggested mangowc config
 spawn-at-startup "wl-clip-persist" "--clipboard" "regular" "--reconnect-tries" "0"
@@ -124,7 +172,8 @@ spawn-at-startup "xwayland-satellite"
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     DISPLAY ":0"
-    _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.dpiaware=false -Dsun.java2d.uiScale=1"
+    // NOTE: intellij complains about this
+    // _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.dpiaware=false -Dsun.java2d.uiScale=1"
  }
  switch-events {
      lid-close {
@@ -137,10 +186,39 @@ hotkey-overlay { skip-at-startup; }
 ///////////////////////////////////////////////////
 // Window rules
 ///////////////////////////////////////////////////
+// Floating windows:
+window-rule {
+    match app-id="^float$"
+    open-floating true
+    default-column-width { proportion 0.7; }
+    default-window-height { proportion 0.7; }
+
+    focus-ring { off; }
+    shadow { on; }
+}
 window-rule {
     match app-id="pdfpc"
     open-maximized true
 }
+
+window-rule {
+    match app-id="^jetbrains-idea"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="^Alacritty$" at-startup=true
+    open-on-workspace "coding"
+    open-maximized true
+    open-focused true
+}
+
+// window-rule {
+//     match app-id="^org.wezfurlong.wezterm$" at-startup=true
+//     open-on-workspace "coding"
+//     // open-maximized true
+//     open-focused true
+// }
 
 window-rule {
     match app-id="isabelle-jedit-JEdit_Main"
@@ -148,19 +226,26 @@ window-rule {
 }
 
 window-rule {
-    geometry-corner-radius 4
+    geometry-corner-radius 2
     clip-to-geometry true
 }
 window-rule {
     match app-id="^zen-twilight$"
-    // open-maximized true
     open-on-workspace "browser"
     open-maximized true
+    open-focused true
+}
+window-rule {
+    match app-id="^brave-browser$"
+    open-on-workspace "browser"
+    open-maximized true
+    open-focused true
 }
 window-rule {
     match app-id="^chromium-browser$"
     open-on-workspace "browser"
     open-maximized true
+    open-focused false
 }
 window-rule {
     match app-id="^zen-twilight$" title="^Picture-in-Picture$"
@@ -178,8 +263,25 @@ window-rule {
 window-rule {
     match app-id="^discord$"
     open-maximized true
+    open-focused false
+    open-on-workspace "chat"
+}
+window-rule {
+    match app-id="^vesktop$"
+    open-maximized true
+    open-focused false
+    open-on-workspace "chat"
 }
 
+window-rule {
+    match app-id="^vesktop$"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="^RStudio$"
+    open-maximized true
+}
 
 ///////////////////////////////////////////////////
 // Key bindings
@@ -192,10 +294,13 @@ binds {
     /// Open applications
     Mod+Shift+O { show-hotkey-overlay; }
     Mod+O { toggle-overview; }
-    Mod+Return hotkey-overlay-title="Open a Terminal: Alacritty" {
+    Mod+Return hotkey-overlay-title="Open a Terminal: Wezterm" {
+        spawn "wezterm"
+    }
+    Mod+T hotkey-overlay-title="Open a Terminal: Alacritty" {
         spawn "alacritty"
     }
-    Mod+G hotkey-overlay-title="Run an Application: fuzzel" {
+    Mod+P hotkey-overlay-title="Run an Application: fuzzel" {
         spawn "fuzzel"
     }
     Mod+0 hotkey-overlay-title="Lock the Screen: swaylock" {
@@ -269,11 +374,13 @@ binds {
     Mod+Shift+F { fullscreen-window; }
     Mod+Shift+V { toggle-window-floating; }
     Mod+V { switch-focus-between-floating-and-tiling; }
-    Mod+T { toggle-column-tabbed-display; }
+    // Mod+T { toggle-column-tabbed-display; }
 
     /// Focus between workspaces
     Mod+D { focus-workspace-down; }
     Mod+U { focus-workspace-up; }
+    Mod+Page_Down { focus-workspace-down; }
+    Mod+Page_Up { focus-workspace-up; }
     Mod+B { focus-workspace-previous; }
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -291,6 +398,8 @@ binds {
     // 2. No bindings for moving a single window _on purpose_
     Mod+Shift+D { move-column-to-workspace-down; }
     Mod+Shift+U { move-column-to-workspace-up; }
+    Mod+Shift+Page_Down { move-column-to-workspace-down; }
+    Mod+Shift+Page_Up { move-column-to-workspace-up; }
     Mod+Shift+1 { move-column-to-workspace 1; }
     Mod+Shift+2 { move-column-to-workspace 2; }
     Mod+Shift+3 { move-column-to-workspace 3; }
@@ -305,36 +414,29 @@ binds {
     // NOTE: Unfortunately doesn't follow 'Ctrl = monitor' scheme
     // Also, Shift added despite 'Mod+Ctrl+D/U' not being used, to keep 'Shift
     // = move' scheme
-    Mod+Shift+Ctrl+D { move-workspace-down; }
-    Mod+Shift+Ctrl+U { move-workspace-up; }
+    Mod+Ctrl+D { move-workspace-down; }
+    Mod+Ctrl+U { move-workspace-up; }
+    Mod+Ctrl+Page_Down { move-workspace-down; }
+    Mod+Ctrl+Page_Up { move-workspace-up; }
     // Only way to move workspaces for now (but sufficient with 1 monitor)
-    Mod+Shift+Ctrl+B { move-workspace-to-monitor-previous; }
 
     /// Focus Monitors
-    Mod+Ctrl+Left { focus-monitor-left; }
-    Mod+Ctrl+Down { focus-monitor-down; }
-    Mod+Ctrl+Up { focus-monitor-up; }
-    Mod+Ctrl+Right { focus-monitor-right; }
-    Mod+Ctrl+L { focus-monitor-right; }
-    Mod+Ctrl+J { focus-monitor-down; }
-    Mod+Ctrl+K { focus-monitor-up; }
-    Mod+Ctrl+H { focus-monitor-left; }
-    Mod+Ctrl+E { focus-monitor-right; }
-    Mod+Ctrl+N { focus-monitor-left; }
-    Mod+Ctrl+B { focus-monitor-previous; }
+    Mod+I {focus-monitor-next;}
+    Alt+Mod+I {focus-monitor-previous;} // Only needed for 3+ monitors
+    Alt+Mod+1 {focus-monitor "HDMI-A-1"; }
+    Alt+Mod+2 {focus-monitor "eDP-1"; }
+    Mod+Home {focus-monitor "HDMI-A-1"; }
+    Mod+End{focus-monitor "eDP-1"; }
 
     /// Move between monitors
     // NOTE: Again, no bindings for moving single window in column
-    Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+Up { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+Left { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+K { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+N { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+E { move-column-to-monitor-right; }
+    Mod+Shift+I {move-column-to-monitor-next;}
+    Alt+Mod+Y {move-column-to-monitor-previous;}
+    Mod+Ctrl+I { move-workspace-to-monitor-previous; }
+    Mod+Shift+Home {move-column-to-monitor "HDMI-A-1"; }
+    Mod+Shift+End {move-column-to-monitor "eDP-1"; }
+    Mod+Ctrl+Home {move-workspace-to-monitor "HDMI-A-1"; }
+    Mod+Ctrl+End {move-workspace-to-monitor "eDP-1"; }
 
     /// Mouse (consider deleting this)
     Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
@@ -349,4 +451,6 @@ binds {
     Mod+Shift+WheelScrollUp { focus-column-left; }
     Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp { move-column-left; }
+
+    Mod+R { switch-preset-column-width; }
 }

@@ -1,0 +1,30 @@
+[core]
+    pager = delta
+
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+
+[delta]
+    navigate = true
+    line-numbers = true
+    dark = true
+    features = decorations interactive
+    # side-by-side = true
+    syntax-theme = zenburn
+    diff-so-fancy = true
+
+[merge]
+    conflictStyle = diff3
+
+[diff]
+    colorMoved = default
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+  file-decoration-style = yellow bold ul
+  hunk-header-style = line-number
+  hunk-header-decoration-style = ul
+
+

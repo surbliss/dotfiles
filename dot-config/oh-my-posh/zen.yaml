@@ -7,6 +7,14 @@ blocks:
     alignment: left
     newline: true
     segments:
+      # - template: '{{ if contains "/nix/store" (env "PATH") }} {{ end }}'
+      - template: '{{ if or (env "IN_NIX_SHELL") (env "DIRENV_DIR") }} {{ end }}'
+        foreground: cyan
+        background: transparent
+        type: text
+        style: plain
+        properties:
+          cache_duration: none
       - template: '{{ .Path }}'
         foreground: blue
         background: transparent
@@ -18,16 +26,26 @@ blocks:
           max_depth: 3
           folder_icon: "\U000F01D8"
           hide_root_location: true
-      - template: ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
-        foreground: p:grey
-        background: transparent
-        type: git
+      - type: jujutsu
+        # template: '\UF1FA {{.ChangeID}}{{if .Working.Changed}} \uf044 {{ .Working.String }}{{ end }}'
         style: plain
-        properties:
-          branch_icon: ''
-          cache_duration: none
-          commit_icon: '@'
+        foreground: "p.grey"
+        background: "transparent"
+        options:
           fetch_status: true
+          ignore_working_copy: false
+          fetch_ahead_counter: true
+          # ahead_icon: ⇡
+          # - template: ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+          #   foreground: p:grey
+          #   background: transparent
+          #   type: git
+          #   style: plain
+          #   properties:
+          #     branch_icon: ''
+          #     cache_duration: none
+          #     commit_icon: '@'
+          #     fetch_status: true
 
   - type: rprompt
     overflow: hidden
@@ -41,7 +59,6 @@ blocks:
           cache_duration: none
           threshold: 3000
           style: round
-
   - type: prompt
     alignment: left
     newline: true
@@ -70,3 +87,4 @@ transient_prompt:
 
 palette:
   grey: '#6c6c6c'
+

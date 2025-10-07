@@ -1,3 +1,4 @@
 !.gitignore
 /.direnv
 /target
+*.pdf

@@ -3,7 +3,10 @@
 # - gruvbox_material_dark_hard
 # - jellybeans
 # - catppuccin_mocha
-theme = "minimal-custom"
+
+# theme = "kanagawa-minimal-custom"
+# theme = "kanagawa-lotus" # Until black spots on screen fixed...
+theme = "catppuccin_mocha"
 
 [editor]
 bufferline = "multiple"
@@ -22,8 +25,9 @@ default-yank-register = "+"
 end-of-line-diagnostics = "warning"
 popup-border = "all"
 continue-comments = false
-clipboard-provider = "wayland"
 trim-trailing-whitespace = true
+rainbow-brackets = true
+
 
 [editor.smart-tab]
 supersede-menu = true
@@ -34,7 +38,7 @@ render = true
 skip-levels = 1
 
 [editor.inline-diagnostics]
-cursor-line = "warning"
+cursor-line = "hint"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -44,18 +48,21 @@ select = "underline"
 [editor.whitespace]
 # To enable all: render = "all"
 render.space = "none"
-render.tab = "all"
+render.tab = "none"
 render.nbsp = "all"
 render.nnbsp = "all"
 render.newline = "none"
 
 [editor.whitespace.characters]
-tab = "→"
+# tab = "→"
+tab = " "
 space = "·"
 nbsp = "⍽"
 nnbsp = "␣"
 newline = "⏎"
-tabpad = "·"  # Render tabs as '→···'
+# tabpad = "→ " # Render tabs as '→···'
+# tabpad = ""
+tabpad = ""
 
 
 [editor.soft-wrap]
@@ -79,18 +86,19 @@ left = [
   "spinner",
 ]
 center = [
-  "version-control",
-  "spacer",
-  "separator",
-  "file-name",
+  # "version-control",
+  # "spacer",
+  # "separator",
+  "file-base-name",
   "file-modification-indicator",
   "read-only-indicator",
 ]
 right = [
+  "position",
+  "separator",
+  "spacer",
   "position-percentage",
   "spacer",
-  "separator",
-  "position",
   "separator",
   "total-line-numbers",
 ]
@@ -119,6 +127,11 @@ M = "@;mim"
 A-m = "@;mam"
 # Split line at cursor
 C-ret = ["insert_newline", "move_char_left"]
+"C-," = "@<esc>A;<ret><esc>"
+pagedown = "page_cursor_half_down"
+pageup = "page_cursor_half_up"
+"C-'" = "@o```<ret><down>``<up><backspace>"
+A-e = "move_prev_long_word_end"
 
 
 [keys.normal.space]
@@ -129,26 +142,35 @@ q.q = ":quit"
 x = "@x\"yy\"ypk<C-c>jgh"
 # [I]nsert [H]eader
 i.h = "@Ox<esc><C-c>hdhdxyppghy49pghkk49pghjA<space>"
+# F = "file_picker"
+# f = "file_picker_in_current_directory"
+t = ":tree-sitter-highlight-name"
+l = ":config-reload"
+y = ":yank-diagnostic"
+"." = "repeat_last_motion"
 
 
 # S[n]ippets
 [keys.normal.space.n]
-c = "@O<esc>jghlki#[derive(Component<esc>"
-d = "@O<esc>jghlki#[derive("
-b = "@O<esc>jghlki#[derive(Bundle<esc>"
-r = "@O<esc>jghlki#[require("
+"'" = "@o```<ret><down>``<up><backspace><backspace><esc>"
+
 
 ### Visual mode
 [keys.select]
 x = "select_line_below"
 A-x = "select_line_above"
+A-e = "move_prev_long_word_end"
+# Replace 'goto' with 'extend' in visual mode, to easily select start-end
+g.e = "extend_to_file_end"
 
 ## Insert mode
 [keys.insert]
+C-tab = "@<esc>A;<ret>"
 C-ret = "open_below"
-C-t = "@<esc>A;<ret>"
+
+
 A-space = "@ <esc>hi"
 C-space = "completion"
-tab = ["commit_undo_checkpoint", "smart_tab"]
-C-o = "jump_backward"
-C-i = "jump_forward"
+tab = "smart_tab"
+C-q = "@```<ret><down>``<up><backspace>"
+C-k = "@<esc>o```<ret><down>``<up><backspace>"

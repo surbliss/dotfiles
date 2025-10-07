@@ -3,11 +3,13 @@ local config = wezterm.config_builder()
 -- local mux = wezterm.mux
 local act = wezterm.action
 
-config.term = "xterm-256color"
+-- config.term = "xterm-256color"
 config.use_fancy_tab_bar = false
 config.color_scheme = "Catppuccin Mocha"
+-- config.color_scheme = "minimal-custom"
+-- config.color_scheme = "kanagawa-lotus"
 -- config.color_scheme = "Jellybeans"
-config.color_scheme = "Kanagawa Dragon (Gogh)"
+-- config.color_scheme = "Kanagawa Dragon (Gogh)"
 config.harfbuzz_features = { "ss01" } -- Script italics
 config.enable_wayland = true
 config.font = wezterm.font_with_fallback {
@@ -33,6 +35,12 @@ config.adjust_window_size_when_changing_font_size = false
 config.front_end = "WebGpu"
 config.animation_fps = 1
 config.cursor_blink_rate = 0
+config.window_padding = {
+  left = 0,
+  right = 0,
+  top = 0,
+  bottom = 0,
+}
 
 ----------------------------------------------------------------------
 -- Keymaps
@@ -61,6 +69,8 @@ end
 config.keys = {
   wezmap("d", nil, act.ScrollByPage(0.5)),
   wezmap("u", nil, act.ScrollByPage(-0.5)),
+  wezmap("PageDown", nil, act.ScrollByPage(0.5)),
+  wezmap("PageUp", nil, act.ScrollByPage(-0.5)),
   wezmap("f", nil, act.ScrollByPage(1)),
   wezmap("b", nil, act.ScrollByPage(-1)),
   -- wezmap("d", nil, act.ScrollByPage(-0.5)),
@@ -107,15 +117,26 @@ config.keys = {
   {
     key = "Backspace", mods = "CTRL", action = act.SendKey { key = "w", mods = "CTRL" }
   }
-  , {
-  key = "c",
-  mods = "SHIFT|CTRL",
-  action = act.CopyTo "Clipboard",
-},
+  ,
+  {
+    key = "c",
+    mods = "SHIFT|CTRL",
+    action = act.CopyTo "Clipboard",
+  },
 
 
 
   { key = "Enter", mods = "SHIFT|SUPER", action = act.SpawnWindow },
+  {
+    key = "Enter",
+    mods = "ALT",
+    action = wezterm.action_callback(function(window, pane)
+      local cwd = pane:get_current_working_dir()
+      wezterm.background_child_process({
+        "wezterm", "start", "--class", "float", "--cwd", cwd.file_path
+      })
+    end),
+  },
   { key = "Space", mods = "SHIFT|CTRL",  action = act.QuickSelect },
   wezmap("y", nil, act.ActivateCopyMode),
   -- wezmap("-", act.SplitVertical),
@@ -161,6 +182,7 @@ config.keys = {
       end),
     }
   ),
+
 
   {
     key = "Enter",

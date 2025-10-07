@@ -38,8 +38,10 @@
     "format": "{icon}",
     "format-icons": {
       "config": "󱌢",
+      "misc": "",
       "browser": "",
       "coding": "",
+      "chat": "󰭹",
       // "coding2": "  ",
       // "4": "",
       // "5": "",

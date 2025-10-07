@@ -1,15 +1,25 @@
 [general]
-import = ["themes/gruvbox_material_hard_dark.toml"]
+import = ["themes/minimal-custom.toml"]
+# import = ["themes/ayu_evolve_custom.toml"]
 
 [window]
-padding = { x = 5, y = 5 }
+padding = { x = 0, y = 5 }
 decorations = "none"
 
 [font]
 size = 12
+normal.family = "0xProto Nerd Font"
 
 [mouse]
 hide_when_typing = true
+
+[[hints.enabled]]
+command = "xdg-open"   # On Linux/BSD
+hyperlinks = true
+post_processing = true
+persist = false
+mouse.enabled = true
+mouse.mods = "Control"
 
 [[keyboard.bindings]]
 key = "Backspace"
@@ -23,8 +33,21 @@ action = "SpawnNewInstance"
 
 [[keyboard.bindings]]
 key = "PageUp"
+mode = "~Alt"
 action = "ScrollHalfPageUp"
 
 [[keyboard.bindings]]
 key = "PageDown"
+mode = "~Alt"
 action = "ScrollHalfPageDown"
+
+[[keyboard.bindings]]
+key = "S"
+mode = "Vi|~Search"
+action = "SearchForward"
+
+[[keyboard.bindings]]
+key = "S"
+mods = "Shift"
+mode = "Vi|~Search"
+action = "SearchBackward"

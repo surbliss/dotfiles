@@ -36,13 +36,13 @@
 "ui.statusline" = { fg = "oldWhite", bg = "dragonBlack0" }
 
 "ui.bufferline" = { fg = "oldWhite", bg = "dragonBlack0" }
-"ui.bufferline.active" = { fg = "oldWhite", bg = "dragonBlack0" }
+"ui.bufferline.active" = { fg = "oldWhite", bg = "dragonBlack4" }
+# "ui.bufferline.active" = { fg = "oldWhite", bg = "dragonBlack0" }
 "ui.bufferline.background" = { bg = "sumiInk0" }
 
 "ui.popup" = { fg = "oldWhite", bg = "dragonBlack0" }
 "ui.window" = { fg = "sumiInk0" }
 "ui.help" = { fg = "fujiWhite", bg = "sumiInk0" }
-"ui.text" = "text"
 "ui.text.focus" = { fg = "dragonWhite", bg = "waveBlue1", modifiers = ["bold"] }
 
 "ui.cursor" = { fg = "waveBlue1", bg = "waveAqua2" }
@@ -106,16 +106,20 @@ hint = "springBlue"
 
 
 ## Syntax highlighting (very minimal)
-"constant" = "orange"
-"string" = "orange"
+# "constant" = "orange"
+# "string" = "orange"
+"string" = "green"
 "punctuation" = "grey"
 "comment" = "pink"
-"function" = "text"
-"variable" = "text"
-"variable.parameter" = "blue"
-"type" = "violet"
+# "function" = "text"
+# "variable" = "text"
+"variable.parameter" = "dragonBlue2"
+"function.builtin" = "dragonOrange"
+"type" = "springBlue"
 "operator" = "grey"
-"keyword" = "green"
+"keyword" = { fg = "oldWhite", modifiers = ["bold"] }
+"keyword.directive" = "dragonOrange"
+"ui.text" = "dragonWhite"
 
 
 [palette]
@@ -123,6 +127,7 @@ violet = "#a292a3"
 pink = "#d27e99"
 grey = "#737c73"
 text = "#c5c9c5"
+text2 = "#DCD7BA"
 orange = "#b6927b"
 green = "#89997A"
 blue = "#949fb5"

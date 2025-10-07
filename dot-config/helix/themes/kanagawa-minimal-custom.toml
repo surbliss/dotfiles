@@ -1,0 +1,209 @@
+
+# Kanagawa
+# Author: zetashift
+
+# Adaptation of https://github.com/rebelot/kanagawa.nvim
+# Original author: rebelot
+# All credits to the original author, the palette is taken from the README
+# because of some theming differences, it's not an exact copy of the original.
+
+## User interface
+"ui.selection" = { bg = "waveBlue2" }
+"ui.selection.primary" = { bg = "waveBlue2" }
+"ui.background" = { fg = "#B8B4A8", bg = "sumiInk3" }
+
+"ui.linenr" = { fg = "sumiInk6" }
+"ui.linenr.selected" = { fg = "fujiWhite", modifiers = ["bold"] }
+"ui.gutter" = { fg = "sumiInk6", bg = "sumiInk4" }
+
+"ui.virtual.ruler" = { bg = "sumiInk4" }
+"ui.virtual.jump-label" = { fg = "peachRed", modifiers = ["bold"] }
+
+"ui.statusline" = { fg = "oldWhite", bg = "sumiInk0" }
+"ui.statusline.inactive" = { fg = "fujiGray", bg = "sumiInk0" }
+"ui.statusline.normal" = { fg = "sumiInk0", bg = "crystalBlue", modifiers = [
+  "bold",
+] }
+"ui.statusline.insert" = { fg = "sumiInk0", bg = "autumnGreen", modifiers = [
+  "bold",
+] }
+"ui.statusline.select" = { fg = "sumiInk0", bg = "oniViolet", modifiers = [
+  "bold",
+] }
+
+"ui.bufferline" = { fg = "fujiGray", bg = "sumiInk0" }
+"ui.bufferline.active" = { fg = "fujiWhite", bg = "sumiInk4" }
+"ui.bufferline.background" = { bg = "sumiInk0" }
+
+"ui.popup" = { fg = "fujiWhite", bg = "sumiInk0" }
+"ui.window" = { fg = "sumiInk0" }
+"ui.help" = { fg = "fujiWhite", bg = "sumiInk0" }
+"ui.text.focus" = { fg = "fujiWhite", bg = "waveBlue2", modifiers = ["bold"] }
+
+"ui.cursor" = { fg = "waveBlue1", bg = "waveAqua2" }
+"ui.cursor.primary" = { fg = "waveBlue1", bg = "fujiWhite" }
+"ui.cursor.match" = { fg = "waveRed", modifiers = ["bold"] }
+"ui.highlight" = { fg = "fujiWhite", bg = "waveBlue2" }
+"ui.menu" = { fg = "fujiWhite", bg = "waveBlue1" }
+"ui.menu.selected" = { fg = "fujiWhite", bg = "waveBlue2", modifiers = [
+  "bold",
+] }
+"ui.menu.scroll" = { fg = "oldWhite", bg = "waveBlue1" }
+
+"ui.cursorline.primary" = { bg = "sumiInk5" }
+"ui.cursorcolumn.primary" = { bg = "sumiInk5" }
+
+"ui.debug.breakpoint" = "springBlue"
+"ui.debug.active" = "winterRed"
+
+"diagnostic.error" = { underline = { color = "samuraiRed", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "roninYellow", style = "curl" } }
+"diagnostic.info" = { underline = { color = "dragonBlue", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "waveAqua1", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+error = "red"
+warning = "orange"
+info = "blue"
+hint = "green"
+
+## Diff
+"diff.plus" = "green"
+"diff.minus" = "red"
+"diff.delta" = "orange"
+
+## Syntax highlighting
+# Base color!
+# "ui.text" = "text"
+keyword = { fg = "yellow", modifiers = ["bold"] }
+# @import in zig
+"keyword.control.import" = "blue"
+# "function.builtin" = { fg = "yellow", modifiers = ["bold"] }
+function = "blue"
+"constant.character" = "text"
+"constant.builtin" = "yellow"
+"constant.numeric" = "orange"
+punctuation = "grey"
+operator = "blue"             # Kinda like a function?
+# operator = { fg = "yellow", modifiers = ["bold"] }
+comment = { fg = "pink", modifiers = ["italic"] }
+type = "violet"
+string = "green"
+"variable" = "text"
+tag = "yellow"
+# "constant.character" = "orange"
+
+# constant = "samuraiRed"
+# constructor = "samuraiRed"
+
+
+# "attribute" = "waveRed"
+# "type" = "waveAqua2"
+# "type.builtin" = "springBlue"
+# "constructor" = "springBlue"
+# "constant" = "surimiOrange"
+# "constant.numeric" = "sakuraPink"
+# "constant.character.escape" = { fg = "boatYellow2", modifiers = ["bold"] }
+# "string" = "springGreen"
+# "string.regexp" = "boatYellow2"
+# "string.special.url" = "springBlue"
+# "string.special.symbol" = "oniViolet"
+# "comment" = "fujiGray"
+# "variable" = "fujiWhite"
+# "variable.builtin" = "waveRed"
+# "variable.parameter" = "oniViolet2"
+# "variable.other.member" = "carpYellow"
+# "label" = "springBlue"
+# "punctuation" = "springViolet2"
+# "keyword" = { fg = "oniViolet", modifiers = ["italic"] }
+# "keyword.control.return" = "peachRed"
+# "keyword.control.exception" = "peachRed"
+# "keyword.directive" = "waveRed"
+# "operator" = "boatYellow2"
+# "function" = "crystalBlue"
+# "function.builtin" = "springBlue"
+# "function.macro" = "waveRed"
+# "tag" = "blue"
+# "namespace" = "surimiOrange"
+# "special" = "peachRed"
+
+## Markup modifiers
+"markup.text" = "red"
+"markup.heading" = { fg = "violet", modifiers = ["bold"] }
+# "markup.heading.marker" = "violet"
+"markup.heading.1" = { fg = "yellow", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "green", modifiers = ["bold"] }
+"markup.list" = "blue"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.text" = { fg = "springBlue" }
+"markup.link.url" = { fg = "blue" }
+"markup.link.label" = "orange"
+"markup.quote" = "violet"
+"markup.raw" = "green"
+
+
+### My markup modifications
+
+"ui.virtual" = "grey"
+
+[palette]
+# My colors
+# text = "#DCD7BA"   #fujiWhite, default foreground,
+text = "#DCD7BA"   #oldWhite, default foreground,
+violet = "#B8B4D0" #oniViolet2, parameters,
+grey = "#727169"   #fujiGray, comments,
+yellow = "#E6C384" #carpYellow, identifiers,
+red = "#C34043"    #autumnRed, git delete,
+green = "#98BB6C"  #springGreen, strings,
+orange = "#DCA561" #autumnYellow, git change,
+blue = "#A3D4D5"   #lightBlue, URLs,
+pink = "#D27E99"   #sakuraPink, numbers,
+
+# Kanagawa colors
+oldWhite = "#C8C093"      #oldWhite, dark foreground, e.g. statuslines,
+fujiWhite = "#DCD7BA"     #fujiWhite, default foreground,
+fujiGray = "#727169"      #fujiGray, comments,
+sumiInk0 = "#16161D"      #sumiInk0, dark background, e.g. statuslines, floating windows,
+sumiInk1 = "#181820"      #sumiInk1, unused,
+sumiInk2 = "#1A1A22"      #sumiInk2, unused,
+sumiInk3 = "#1F1F28"      #sumiInk3, default background,
+sumiInk4 = "#2A2A37"      #sumiInk4, lighter background, e.g. colorcolumns, folds,
+sumiInk5 = "#363646"      #sumiInk5, lighter background, e.g. cursorline,
+sumiInk6 = "#54546D"      #sumiInk6, inlay hints,
+waveBlue1 = "#223249"     #waveBlue1, popup background, visual selection background,
+waveBlue2 = "#2D4F67"     #waveBlue2, popup selection background, search background,
+winterGreen = "#2B3328"   #winterGreen, diff add background,
+winterYellow = "#49443C"  #winterYellow, diff change background,
+winterRed = "#43242B"     #winterRed, diff delete background,
+winterBlue = "#252535"    #winterBlue, diff line background,
+autumnGreen = "#76946A"   #autumnGreen, git add,
+autumnRed = "#C34043"     #autumnRed, git delete,
+autumnYellow = "#DCA561"  #autumnYellow, git change,
+samuraiRed = "#E82424"    #samuraiRed, diagnostic error,
+roninYellow = "#FF9E3B"   #roninYellow, diagnostic warning,
+waveAqua1 = "#6A9589"     #waveAqua1, diagnostic info,
+dragonBlue = "#658594"    #dragonBlue, diagnostic hint,
+oniViolet = "#957FB8"     #oniViolet, statements and keywords,
+oniViolet2 = "#B8B4D0"    #oniViolet2, parameters,
+crystalBlue = "#7E9CD8"   #crystalBlue, functions and titles,
+springViolet1 = "#938AA9" #springViolet1, unused,
+springViolet2 = "#9CABCA" #springViolet2, brackets and punctuation,
+springBlue = "#7FB4CA"    #springBlue, specials and builtins,
+lightBlue = "#A3D4D5"     #lightBlue, URLs,
+waveAqua2 = "#7AA89F"     #waveAqua2, types,
+waveAqua3 = "#68AD99"     #waveAqua3, unused,
+waveAqua4 = "#7AA880"     #waveAqua4, unused,
+waveAqua5 = "#6CAF95"     #waveAqua5, unused,
+springGreen = "#98BB6C"   #springGreen, strings,
+boatYellow1 = "#938056"   #boatYellow1, unused,
+boatYellow2 = "#C0A36E"   #boatYellow2, operators, regex,
+carpYellow = "#E6C384"    #carpYellow, identifiers,
+sakuraPink = "#D27E99"    #sakuraPink, numbers,
+waveRed = "#E46876"       #waveRed, standout specials 1, e.g. builtin variables,
+peachRed = "#FF5D62"      #peachRed, standout specials 2, e.g. exception handling, returns,
+surimiOrange = "#FFA066"  #surimiOrange, constants, imports, booleans,
+katanaGray = "#717C7C"    #katanaGray, unused,

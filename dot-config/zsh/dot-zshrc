@@ -66,7 +66,7 @@ zstyle ':completion:*' menu no
 bindkey '^ ' autosuggest-accept
 # # See https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
 # bindkey '^[[13;5u' autosuggest-execute # Maps to CTRL+Enter
-# bindkey '^\n' autosuggest-execute 
+# bindkey '^\n' autosuggest-execute
 # bindkey '^A' autosuggest-accept
 # bindkey '^ ' autosuggest-accept
 # See https://stackoverflow.com/qestions/16359878/how-to-map-shift-enter

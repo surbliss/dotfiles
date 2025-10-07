@@ -12,7 +12,7 @@ write-change-id-header = true
 movement.edit = true
 pager = "delta"
 log-word-wrap = true
-default-command = ["log", "-n", "10", "--reversed", "-T", "log_compact"]
+default-command = ["log", "-n", "30", "--reversed", "-T", "log_compact"]
 merge-editor = ":builtin"
 diff-editor = ":builtin"
 
@@ -109,9 +109,9 @@ with_changes = '''
     ),
   )
 '''
-description_placeholder = '''
-label("description placeholder", if(empty, "", "(no description set)"))
-'''
+# description_placeholder = '''
+# label("description placeholder", if(empty, "", "(no description set)"))
+# '''
 
 "format_changes()" = "'\n' ++ diff.summary()"
 

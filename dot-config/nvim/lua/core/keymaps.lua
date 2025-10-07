@@ -47,7 +47,28 @@ vim.keymap.set("n", "gj", "v:count == 0 ? 'j' : 'j'", { expr = true, silent = tr
 -- Simpler way to paste last *yanked* think (ignoring deletes)
 -- Does overwrite default command, which pastes and puts cursor after, but
 -- whatever
-vim.keymap.set("n", "gp", '"0p', { desc = "[P]aste last yank", silent = true })
+-- vim.keymap.set("n", "gp", '"0p', { desc = "[P]aste last yank", silent = true })
+
+-- For vimdiff
+-- vim.keymap.set("n", "<C-j>", "]c", { desc = "Next [c]hange", silent = true })
+-- vim.keymap.set("n", "<C-k>", "[c", { desc = "Previous [c]hange", silent = true })
+
+vim.keymap.set('n', '<C-j>', '/^<<<<<<< \\|^=======$\\|^>>>>>>> <CR>', { desc = 'Next conflict marker', silent = true })
+vim.keymap.set('n', '<C-k>', '?^<<<<<<< \\|^=======$\\|^>>>>>>> <CR>',
+  { desc = 'Previous conflict marker', silent = true })
+vim.opt.diffopt:append("algorithm:patience")
+
+vim.keymap.set('n', '<C-s>', '<C-w>=', { desc = 'Re[s]ize windows' })
+vim.keymap.set('n', '<leader>b', ':diffget 2<cr>', { desc = 'Get base change' })
+vim.keymap.set('n', '<leader>j', ':diffget 1<cr>', { desc = 'Get left change' })
+vim.keymap.set('n', '<leader>k', ':diffget 3<cr>', { desc = 'Get right change' })
+
+-- Automatically resize
+vim.api.nvim_create_autocmd('VimResized', {
+  pattern = '*',
+  command = 'wincmd ='
+})
+
 
 ----------------------------------------------------------------------
 -- Global LSP bindings
@@ -94,8 +115,8 @@ vim.keymap.set("n", "g<cr>", "i<cr><esc>", { desc = "Insert new line" })
 ----------------------------------------------------------------------
 lmap("wj", "<C-W>j", "[W]indow down")
 lmap("wk", "<C-W>k", "[W]indow up")
-lmap("jj", "<C-W>j", "Window down")
-lmap("kk", "<C-W>k", "Window up")
+-- lmap("jj", "<C-W>j", "Window down")
+-- lmap("kk", "<C-W>k", "Window up")
 lmap("wh", "<C-W>h", "[W]indow left")
 lmap("wl", "<C-W>l", "[W]indow right")
 lcmap("ww", "w", "[W]rite")
@@ -103,8 +124,8 @@ lcmap("ss", "w", "[S]ave")
 lcmap("qq", "qa", "[Q]uit")
 lcmap("sq", "wq", "[S]ave and [Q]uit")
 lcmap("wq", "wqa", "[W]rite and [Q]uit")
-lmap("bp", vim.cmd.bprev, "[P]revious [B]uffer")
-lmap("bn", vim.cmd.bnext, "[N]ext [B]uffer")
+lmap("gp", vim.cmd.bprev, "[P]revious [B]uffer")
+lmap("gn", vim.cmd.bnext, "[N]ext [B]uffer")
 lmap("m", "@@", "Last [M]acro")
 lmap("zz", "<C-z>", "[ZZ]leep (background open buffer)")
 lmap("dj", "<cmd>Dj<Cr>", "Toggle d/j swap")

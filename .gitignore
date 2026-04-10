@@ -1,2 +1,5 @@
-dot-local/share/typst/packages
 runtime/
+
+dot-local/share/typst/packages
+
+dot-config/jj/repos/

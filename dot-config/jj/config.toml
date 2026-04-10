@@ -140,6 +140,8 @@ newest = ["new", "heads(@-::) ~ @"]
 # Usage: jj sep <revison> <fileset(s)>, maybe "-B" revision if new parallel branch
 sep = ["squash", "--keep-emptied", "-A"]
 
+[revsets]
+bookmark-advance-to = "@-"  # To the current working copy
 
 [revset-aliases]
 # What 'jj log' shows by default: ancestry from trunk to @, plus recent visible heads

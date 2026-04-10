@@ -4,9 +4,10 @@
 # - jellybeans
 # - catppuccin_mocha
 
-# theme = "kanagawa-minimal-custom"
+### Fine for surface book
+theme = "kanagawa-minimal-custom"
 # theme = "kanagawa-lotus" # Until black spots on screen fixed...
-theme = "catppuccin_mocha"
+# theme = "catppuccin_mocha"
 
 [editor]
 bufferline = "multiple"

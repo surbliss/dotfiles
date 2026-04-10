@@ -1,10 +1,97 @@
-# add it to your ~/.config/helix/languages.toml
-
 [language-server.fsharp-ls]
 command = "fsautocomplete"
 args = ["--verbose"]
 config = { AutomaticWorkspaceInit = true, FSharp = { ExternalAutocomplete = true } }
 
+
+[language-server.haskell-language-server.config.haskell]
+formattingProvider = "fourmolu"
+sessionLoading = "multipleComponents"
+
+
+[language-server.tinymist.config]
+formatterMode = "typstyle"
+exportPdf = "onType"
+outputPath = "$root/out/$name"
+formatterPrintWidth = 80
+lint.enabled = true
+lint.when = "onType"
+projectResolution = "lockDatabase"
+# projectResolution = "singleFile"
+# typstExtraArgs = ["main.typ"]
+
+# Need both commands, even though top one is default
+preview.background.args = [
+  "--data-plane-host=127.0.0.1:23635",
+  "--invert-colors=never",
+]
+preview.background.enabled = true
+typingContinueCommentsOnNewLine = false
+
+[language-server.snippets-ls]
+command = "snippets-ls"
+args = ["-config", "home/angryluck/.config/helix/snippets/rust.json"]
+
+
+[language-server.elm-language-server]
+command = "elm-language-server"
+args = ["--stdio"]
+
+
+# [language-server.ty.config]
+# interpreter = ["$PYTHONPATH"]
+[language-server.nil.config]
+nix.flake.autoArchive = true
+nix.flake.autoEvalInputs = true
+
+
+[[language]]
+name = "toml"
+scope = "source.toml"
+injection-regex = "toml"
+file-types = [
+  "toml",
+  { glob = "pdm.lock" },
+  { glob = "poetry.lock" },
+  { glob = "Cargo.lock" },
+  { glob = "uv.lock" },
+  { glob = "containers.conf" },
+  { glob = "containers.conf.d/*.conf" },
+  { glob = "containers.conf.modules/*.conf" },
+  { glob = "mounts.conf" },
+  { glob = "policy.conf" },
+  { glob = "registries.conf" },
+  { glob = "storage.conf" },
+]
+comment-token = "#"
+language-servers = ["taplo", "tombi"]
+indent = { tab-width = 2, unit = "  " }
+auto-format = true
+
+
+[[language]]
+name = "perl"
+scope = "source.perl"
+file-types = [
+  # "pl", # disable pl, so it doesn't interfere with prolog
+  "pm",
+  "t",
+  "psgi",
+  "raku",
+  "rakumod",
+  "rakutest",
+  "rakudoc",
+  "nqp",
+  "p6",
+  "pl6",
+  "pm6",
+  { glob = "latexmkrc" },
+  { glob = ".latexmkrc" },
+]
+shebangs = ["perl"]
+comment-token = "#"
+language-servers = ["perlnavigator"]
+indent = { tab-width = 2, unit = "  " }
 [[language]]
 name = "fsharp"
 scope = "source.fs"
@@ -17,10 +104,24 @@ auto-format = true
 
 [[language]]
 name = "kanata"
-scope = "source.kanata"
+scope = "source.scheme"
 file-types = ["kbd"]
-comment-tokens = [";;"]
-block-comment-tokens = [{ start = "#|", end = "|#" }]
+# comment-tokens = [";;"]
+# block-comment-tokens = [{ start = "#|", end = "|#" }]
+grammar = "scheme"
+
+
+# [[language]]
+# name = "racket"
+# scope = "source.racket"
+# file-types = ["rkt", "rktd", "rktl", "scrbl", "zuo"]
+# shebangs = ["racket", "zuo"]
+# comment-token = ";"
+# indent = { tab-width = 2, unit = "  " }
+# block-comment-tokens = { start = "#|", end = "|#" }
+# language-servers = [ "racket" ]
+# grammar = "scheme"
+
 
 # [[language]]
 # name = "haskell"
@@ -41,44 +142,6 @@ indent = { tab-width = 2, unit = "  " }
 # NOTE: Enable when figured out how to prevent stalling...
 auto-format = true
 
-[language-server.haskell-language-server.config]
-haskell.formattingProvider = "fourmolu"
-haskell.sessionLoading = "multipleComponents"
-
-[[language]]
-name = "cabal"
-auto-format = true
-roots = ["*.cabal", ".cabal", "Setup.hs", "stack.yaml", "cabal.project"]
-
-# [[language]]
-# name = "ini"
-# # scope = "source.ini"
-# file-types = [
-#   "ini",
-#   "desktop",
-#   { glob = "mimeapps.list" },
-#   # Podman quadlets
-#   "container",
-#   "volume",
-#   "kube",
-#   "network",
-#   { glob = ".editorconfig" },
-#   { glob = ".npmrc" },
-#   { glob = "hgrc" },
-#   { glob = "npmrc" },
-#   { glob = "rclone.conf" },
-#   "properties",
-#   "cfg",
-#   "directory",
-#   { glob = "config" },
-# ]
-# injection-regex = "ini"
-# comment-token = "#"
-# indent = { tab-width = 4, unit = "\t" }
-
-[[language]]
-name = "kdl"
-# auto-format = true
 
 [[language]]
 name = "nix"
@@ -95,10 +158,6 @@ formatter.args = ["--width=77", "--strict", "--verify"]
 '"' = '"'
 '=' = ";"
 
-[[language]]
-name = "toml"
-auto-format = true
-language-servers = ["taplo"] # Taplo not working so good
 
 [[language]]
 name = "c-sharp"
@@ -200,9 +259,25 @@ language-servers = ["snippets-ls", "rust-analyzer"]
 '"' = '"'
 # '<' = ">"
 
-[[grammar]]
-name = "kanata"
-source = { git = "https://github.com/postsolar/tree-sitter-kanata/", rev = "master" }
+
+[[language]]
+name = "scheme"
+scope = "source.scheme"
+injection-regex = "scheme"
+file-types = [
+  "ss",
+  "scm",
+  "sld",
+  "kbd", # kanata files
+]
+shebangs = ["scheme", "guile", "chicken"]
+comment-token = ";"
+block-comment-tokens = { start = "#|", end = "|#" }
+indent = { tab-width = 2, unit = "  " }
+
+# [[grammar]]
+# name = "kanata"
+# source = { git = "https://github.com/postsolar/tree-sitter-kanata/", rev = "master" }
 
 # [[grammar]]
 # name = "typst"
@@ -236,48 +311,9 @@ roots = ["main.typ", "out/", "tinymist.lock"]
 '{' = '}'
 '[' = ']'
 '$' = '$'
-
-[language-server.tinymist]
-command = "tinymist"
-# args = ["lsp"]
-
-[language-server.tinymist.config]
-formatterMode = "typstyle"
-exportPdf = "onType"
-outputPath = "$root/out/$name"
-preview.background.enabled = true
-formatterPrintWidth = 80
-lint.enabled = true
-lint.when = "onType"
-projectResolution = "lockDatabase"
-# projectResolution = "singleFile"
-# typstExtraArgs = ["main.typ"]
-
-# Need both commands, evnen though top one is default
-preview.background.args = [
-  "--data-plane-host=127.0.0.1:23635",
-  "--invert-colors=never",
-]
-typingContinueCommentsOnNewLine = false
-
-[language-server.snippets-ls]
-command = "snippets-ls"
-args = ["-config", "home/angryluck/.config/helix/snippets/rust.json"]
-
-
 [[language]]
 name = "elm"
 language-servers = ["elm-language-server"]
-
-[language-server.elm-language-server]
-command = "elm-language-server"
-args = ["--stdio"]
-
-[[lanuguage]]
-name = "nushell"
-formatter.command = "nufmt"
-formatter.args = ["-s"]
-auto-format = false         # Very unstable program (allegedly), careful!
 
 
 [[language]]
@@ -347,33 +383,3 @@ language-servers = ["ty", "ruff", "jedi", "pylsp"] #disable ty
 # TODO: pyls needs utf-8 offsets
 indent = { tab-width = 4, unit = "    " }
 auto-format = true
-
-# [language-server.ty.config]
-# interpreter = ["$PYTHONPATH"]
-[language-server.nil.config]
-nix.flake.autoArchive = true
-nix.flake.autEvalInputs = true
-
-[[language]]
-name = "perl"
-scope = "source.perl"
-file-types = [
-  # "pl", # disable pl, so it doesn't interfere with prolog
-  "pm",
-  "t",
-  "psgi",
-  "raku",
-  "rakumod",
-  "rakutest",
-  "rakudoc",
-  "nqp",
-  "p6",
-  "pl6",
-  "pm6",
-  { glob = "latexmkrc" },
-  { glob = ".latexmkrc" },
-]
-shebangs = ["perl"]
-comment-token = "#"
-language-servers = ["perlnavigator"]
-indent = { tab-width = 2, unit = "  " }

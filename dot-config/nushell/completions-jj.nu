@@ -75,7 +75,7 @@ module completions {
 
   # Interactively arrange the commit graph
   export extern "jj arrange" [
-    --revisions(-r): string   # The revisions to edit
+    -r: string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
     --ignore-immutable        # Allow rewriting immutable commits
@@ -88,6 +88,7 @@ module completions {
     --config: string          # Additional configuration options (can be repeated)
     --config-file: path       # Additional configuration files (can be repeated)
     --help(-h)                # Print help (see more with '--help')
+    ...revisions_pos: string  # The revisions to arrange [aliases: -r]
   ]
 
   def "nu-complete jj bisect color" [] {
@@ -257,7 +258,7 @@ module completions {
     --remote: string          # Show all tracked and untracked remote bookmarks belonging to this remote
     --tracked(-t)             # Show tracked remote bookmarks only
     --conflicted(-c)          # Show conflicted bookmarks only
-    --revisions(-r): string   # Show bookmarks whose local targets are in the given revisions
+    --revision(-r): string    # Show bookmarks whose local targets are in the given revisions
     --template(-T): string    # Render each bookmark using the given template
     --sort: string@"nu-complete jj bookmark list sort" # Sort bookmarks based on the given key (or multiple keys)
     --repository(-R): path    # Path to repository to operate on
@@ -1529,7 +1530,7 @@ module completions {
 
   # Upload changes to Gerrit for code review, or update existing changes
   export extern "jj gerrit upload" [
-    --revisions(-r): string   # The revset, selecting which revisions are sent in to Gerrit
+    --revision(-r): string    # The revset, selecting which revisions are sent in to Gerrit
     --remote-branch(-b): string # The location where your changes are intended to land
     --remote: string          # The Gerrit remote to push to
     --dry-run(-n)             # Do not actually push the changes to Gerrit
@@ -1800,7 +1801,7 @@ module completions {
     --allow-new(-N)           # Allow pushing new bookmarks
     --allow-empty-description # Allow pushing commits with empty descriptions
     --allow-private           # Allow pushing commits that are private
-    --revisions(-r): string   # Push bookmarks pointing to these commits (can be repeated)
+    --revision(-r): string    # Push bookmarks pointing to these commits (can be repeated)
     --change(-c): string      # Push this commit by creating a bookmark (can be repeated)
     --named: string           # Specify a new bookmark name and a revision to push under that name, e.g. '--named myfeature=@'
     --dry-run                 # Only display what will change on the remote
@@ -2039,7 +2040,7 @@ module completions {
 
   # Show revision history
   export extern "jj log" [
-    --revisions(-r): string   # Which revisions to show
+    --revision(-r): string    # Which revisions to show
     --limit(-n): string       # Limit number of revisions to show
     --reversed                # Show revisions in the opposite order (older revisions first)
     --no-graph(-G)            # Don't show the graph, show a flat list of revisions
@@ -2217,6 +2218,7 @@ module completions {
     --context: string         # Number of lines of context to show
     --ignore-all-space        # Ignore whitespace when comparing lines
     --ignore-space-change     # Ignore changes in amount of whitespace when comparing lines
+    --show-changes-in: string # Show only changed revisions matching the given revset expression
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
     --ignore-immutable        # Allow rewriting immutable commits
@@ -2274,6 +2276,7 @@ module completions {
     --context: string         # Number of lines of context to show
     --ignore-all-space        # Ignore whitespace when comparing lines
     --ignore-space-change     # Ignore changes in amount of whitespace when comparing lines
+    --show-changes-in: string # Show only changed revisions matching the given revset expression
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
     --ignore-immutable        # Allow rewriting immutable commits
@@ -2360,6 +2363,7 @@ module completions {
     --context: string         # Number of lines of context to show
     --ignore-all-space        # Ignore whitespace when comparing lines
     --ignore-space-change     # Ignore changes in amount of whitespace when comparing lines
+    --show-changes-in: string # Show only changed revisions matching the given revset expression
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
     --ignore-immutable        # Allow rewriting immutable commits
@@ -2429,7 +2433,7 @@ module completions {
   export extern "jj rebase" [
     --branch(-b): string      # Rebase the whole branch relative to destination's ancestors (can be repeated)
     --source(-s): string      # Rebase specified revision(s) together with their trees of descendants (can be repeated)
-    --revisions(-r): string   # Rebase the given revisions, rebasing descendants onto this revision's parent(s)
+    --revision(-r): string    # Rebase the given revisions, rebasing descendants onto this revision's parent(s)
     --onto(-o): string        # The revision(s) to rebase onto (can be repeated to create a merge commit)
     -d: string                # The revision(s) to rebase onto (can be repeated to create a merge commit)
     --insert-after(-A): string # The revision(s) to insert after (can be repeated to create a merge commit)
@@ -2532,7 +2536,7 @@ module completions {
 
   # Apply the reverse of the given revision(s)
   export extern "jj revert" [
-    --revisions(-r): string   # The revision(s) to apply the reverse of
+    --revision(-r): string    # The revision(s) to apply the reverse of
     --onto(-o): string        # The revision(s) to apply the reverse changes on top of
     --destination: string     # The revision(s) to apply the reverse changes on top of
     -d: string                # The revision(s) to apply the reverse changes on top of
@@ -2580,7 +2584,7 @@ module completions {
 
   # (**Stub**, does not work yet) Run a command across a set of revisions.
   export extern "jj run" [
-    --revisions(-r): string   # The revisions to change
+    --revision(-r): string    # The revisions to change
     -x                        # A no-op option to match the interface of `git rebase -x`
     --jobs(-j): string        # How many processes should run in parallel, uses by default all cores
     --repository(-R): path    # Path to repository to operate on
@@ -2638,7 +2642,7 @@ module completions {
 
   # Cryptographically sign a revision
   export extern "jj sign" [
-    --revisions(-r): string   # What revision(s) to sign
+    --revision(-r): string    # What revision(s) to sign
     --key: string             # The key used for signing
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
@@ -2661,7 +2665,7 @@ module completions {
   # Simplify parent edges for the specified revision(s)
   export extern "jj simplify-parents" [
     --source(-s): string      # Simplify specified revision(s) together with their trees of descendants (can be repeated)
-    --revisions(-r): string   # Simplify specified revision(s) (can be repeated)
+    --revision(-r): string    # Simplify specified revision(s) (can be repeated)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
     --ignore-immutable        # Allow rewriting immutable commits
@@ -2927,7 +2931,7 @@ module completions {
     --remote: string          # Show all tracked and untracked remote tags belonging to this remote
     --tracked(-t)             # Show tracked remote tags only
     --conflicted(-c)          # Show conflicted tags only
-    --revisions(-r): string   # Show tags whose local targets are in the given revisions
+    --revision(-r): string    # Show tags whose local targets are in the given revisions
     --template(-T): string    # Render each tag using the given template
     --sort: string@"nu-complete jj tag list sort" # Sort tags based on the given key (or multiple keys)
     --repository(-R): path    # Path to repository to operate on
@@ -2995,7 +2999,7 @@ module completions {
 
   # Drop a cryptographic signature
   export extern "jj unsign" [
-    --revisions(-r): string   # What revision(s) to unsign
+    --revision(-r): string    # What revision(s) to unsign
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
     --ignore-immutable        # Allow rewriting immutable commits

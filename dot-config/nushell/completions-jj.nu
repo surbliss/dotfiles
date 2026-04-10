@@ -8,6 +8,7 @@ module completions {
   export extern jj [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -32,6 +33,7 @@ module completions {
     --restore-descendants     # Do not modify the content of the children of the abandoned commits
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -56,6 +58,7 @@ module completions {
     --to: string              # Destination revisions to absorb into
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -75,9 +78,10 @@ module completions {
 
   # Interactively arrange the commit graph
   export extern "jj arrange" [
-    --revisions(-r): string   # The revisions to edit
+    -r: string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -88,6 +92,7 @@ module completions {
     --config: string          # Additional configuration options (can be repeated)
     --config-file: path       # Additional configuration files (can be repeated)
     --help(-h)                # Print help (see more with '--help')
+    ...revisions_pos: string  # The revisions to arrange [aliases: -r]
   ]
 
   def "nu-complete jj bisect color" [] {
@@ -98,6 +103,7 @@ module completions {
   export extern "jj bisect" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -121,6 +127,7 @@ module completions {
     --find-good               # Whether to find the first good revision instead
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -143,6 +150,7 @@ module completions {
   export extern "jj bookmark" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -164,6 +172,7 @@ module completions {
     --to(-t): string          # Move bookmarks to this revision
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -187,6 +196,7 @@ module completions {
     --to: string              # The bookmark's target revision
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -208,6 +218,7 @@ module completions {
   export extern "jj bookmark delete" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -230,6 +241,7 @@ module completions {
     --include-remotes         # When forgetting a local bookmark, also forget any corresponding remote bookmarks
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -257,11 +269,12 @@ module completions {
     --remote: string          # Show all tracked and untracked remote bookmarks belonging to this remote
     --tracked(-t)             # Show tracked remote bookmarks only
     --conflicted(-c)          # Show conflicted bookmarks only
-    --revisions(-r): string   # Show bookmarks whose local targets are in the given revisions
+    --revision(-r): string    # Show bookmarks whose local targets are in the given revisions
     --template(-T): string    # Render each bookmark using the given template
     --sort: string@"nu-complete jj bookmark list sort" # Sort bookmarks based on the given key (or multiple keys)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -286,6 +299,7 @@ module completions {
     --allow-backwards(-B)     # Allow moving bookmarks backwards or sideways
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -308,6 +322,7 @@ module completions {
     --overwrite-existing      # Allow renaming even if the new bookmark name already exists
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -333,6 +348,7 @@ module completions {
     --allow-backwards(-B)     # Allow moving the bookmark backwards or sideways
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -355,6 +371,7 @@ module completions {
     --remote: string          # Remote names to track
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -377,6 +394,7 @@ module completions {
     --remote: string          # Remote names to untrack
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -400,10 +418,9 @@ module completions {
     --tool: string            # Specify diff editor to be used (implies --interactive)
     --message(-m): string     # The change description to use (don't open editor)
     --editor                  # Open an editor to edit the change description
-    --reset-author            # Reset the author to the configured user
-    --author: string          # Set author to the provided string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -425,6 +442,7 @@ module completions {
   export extern "jj config" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -448,6 +466,7 @@ module completions {
     --workspace               # Target the workspace-level config
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -468,6 +487,7 @@ module completions {
   export extern "jj config get" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -495,6 +515,7 @@ module completions {
     --template(-T): string    # Render each variable using the given template
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -519,6 +540,7 @@ module completions {
     --workspace               # Target the workspace-level config
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -542,6 +564,7 @@ module completions {
     --workspace               # Target the workspace-level config
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -567,6 +590,7 @@ module completions {
     --workspace               # Target the workspace-level config
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -588,6 +612,7 @@ module completions {
   export extern "jj debug" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -608,6 +633,7 @@ module completions {
   export extern "jj debug copy-detection" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -629,6 +655,7 @@ module completions {
   export extern "jj debug fileset" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -650,6 +677,7 @@ module completions {
   export extern "jj debug index" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -671,6 +699,7 @@ module completions {
     --limit(-n): string       # Limit number of revisions to index
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -691,6 +720,7 @@ module completions {
   export extern "jj debug init-simple" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -712,6 +742,7 @@ module completions {
   export extern "jj debug local-working-copy" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -732,6 +763,7 @@ module completions {
   export extern "jj debug object" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -751,6 +783,7 @@ module completions {
   export extern "jj debug object commit" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -772,6 +805,7 @@ module completions {
     --revision(-r): string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -793,6 +827,7 @@ module completions {
   export extern "jj debug object operation" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -814,6 +849,7 @@ module completions {
     --revision(-r): string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -836,6 +872,7 @@ module completions {
     --revision(-r): string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -858,6 +895,7 @@ module completions {
     --op: string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -879,6 +917,7 @@ module completions {
   export extern "jj debug reindex" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -901,6 +940,7 @@ module completions {
     --no-optimize             # Do not rewrite expression to optimized form
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -922,6 +962,7 @@ module completions {
   export extern "jj debug snapshot" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -943,6 +984,7 @@ module completions {
     --key-size(-n): string    # Key size in bytes
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -964,6 +1006,7 @@ module completions {
   export extern "jj debug template" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -988,6 +1031,7 @@ module completions {
     --dir: string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1008,6 +1052,7 @@ module completions {
   export extern "jj debug watchman" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1028,6 +1073,7 @@ module completions {
   export extern "jj debug watchman status" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1047,6 +1093,7 @@ module completions {
   export extern "jj debug watchman query-clock" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1066,6 +1113,7 @@ module completions {
   export extern "jj debug watchman query-changed-files" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1085,6 +1133,7 @@ module completions {
   export extern "jj debug watchman reset-clock" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1105,6 +1154,7 @@ module completions {
   export extern "jj debug working-copy" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1126,13 +1176,10 @@ module completions {
     -r: string
     --message(-m): string     # The change description to use (don't open editor)
     --stdin                   # Read the change description from stdin
-    --no-edit                 # Don't open an editor
     --editor                  # Open an editor to edit the change description
-    --edit                    # Open an editor to edit the change description
-    --reset-author            # Reset the author name, email, and timestamp
-    --author: string          # Set author to the provided string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1168,6 +1215,7 @@ module completions {
     --ignore-space-change(-b) # Ignore changes in amount of whitespace when comparing lines
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1194,6 +1242,7 @@ module completions {
     --restore-descendants     # Preserve the content (not the diff) when rebasing descendants
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1223,6 +1272,7 @@ module completions {
     --before: string          # The revision(s) to insert before (can be repeated to create a merge commit)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1245,6 +1295,7 @@ module completions {
     -r: string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1282,6 +1333,7 @@ module completions {
     --ignore-space-change     # Ignore changes in amount of whitespace when comparing lines
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1302,6 +1354,7 @@ module completions {
   export extern "jj file" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1324,6 +1377,7 @@ module completions {
     --template(-T): string    # Render each line using the given template
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1350,6 +1404,7 @@ module completions {
     --revision(-r): string    # The revision to update
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1374,6 +1429,7 @@ module completions {
     --template(-T): string    # Render each file entry using the given template
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1394,9 +1450,10 @@ module completions {
   # Search for content in files
   export extern "jj file search" [
     --revision(-r): string    # The revision to search files in
-    --pattern(-p): string     # The glob pattern to search for
+    --pattern(-p): string     # The pattern to search for in a single line
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1420,6 +1477,7 @@ module completions {
     --template(-T): string    # Render each file metadata using the given template
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1442,6 +1500,7 @@ module completions {
     --include-ignored         # Track paths even if they're ignored or too large
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1463,6 +1522,7 @@ module completions {
   export extern "jj file untrack" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1484,8 +1544,10 @@ module completions {
   export extern "jj fix" [
     --source(-s): string      # Fix files in the specified revision(s) and their descendants. If no revisions are specified, this defaults to the `revsets.fix` setting, or `reachable(@, mutable())` if it is not set
     --include-unchanged-files # Fix unchanged files in addition to changed ones. If no paths are specified, all files in the repo will be fixed
+    --all-lines(-a)           # Format all lines instead of only modified lines
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1507,6 +1569,7 @@ module completions {
   export extern "jj gerrit" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1529,7 +1592,7 @@ module completions {
 
   # Upload changes to Gerrit for code review, or update existing changes
   export extern "jj gerrit upload" [
-    --revisions(-r): string   # The revset, selecting which revisions are sent in to Gerrit
+    --revision(-r): string    # The revset, selecting which revisions are sent in to Gerrit
     --remote-branch(-b): string # The location where your changes are intended to land
     --remote: string          # The Gerrit remote to push to
     --dry-run(-n)             # Do not actually push the changes to Gerrit
@@ -1537,7 +1600,9 @@ module completions {
     --cc: string              # CC these emails on the change (can be repeated)
     --label(-l): string       # Add the following labels configured by Gerrit (can be repeated)
     --topic: string           # Applies a topic to the change
-    --hashtag: string         # Applies a hashtag to the change
+    --hashtag: string         # Applies a hashtag to the change (can be repeated)
+    --message(-m): string     # A patch set description for the new patch set
+    --edit                    # Push the change as a change edit
     --wip                     # Marks the change as WIP (work in progress)
     --ready                   # Unmarks the change as WIP (work in progress)
     --private                 # Marks the change as private
@@ -1547,12 +1612,14 @@ module completions {
     --notify: string@"nu-complete jj gerrit upload notify" # Who to email notifications to (defaults to all)
     --submit                  # Directly submit the changes, bypassing code review
     --skip-validation         # When --submit is provided, skip performing validations
+    --merged                  # Create a new change, even if the change has already been merged
     --ignore-attention-set    # Do not modify the attention set upon uploading
     --deadline: string        # The deadline after which the push should be aborted
     --custom: string          # Send the following custom keyed values to Gerrit (can be repeated)
     --trace: string           # For debugging Gerrit
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1573,6 +1640,7 @@ module completions {
   export extern "jj git" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1601,8 +1669,10 @@ module completions {
     --depth: string           # Create a shallow clone of the given depth
     --fetch-tags: string@"nu-complete jj git clone fetch_tags" # Configure when to fetch tags
     --branch(-b): string      # Name of the branch to fetch and use as the parent of the working-copy change (can be repeated)
+    --tag(-t): string         # Fetch only some of the tags (can be repeated)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1625,6 +1695,7 @@ module completions {
   export extern "jj git colocation" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1645,6 +1716,7 @@ module completions {
   export extern "jj git colocation disable" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1665,6 +1737,7 @@ module completions {
   export extern "jj git colocation enable" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1685,6 +1758,7 @@ module completions {
   export extern "jj git colocation status" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1705,6 +1779,7 @@ module completions {
   export extern "jj git export" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1730,6 +1805,7 @@ module completions {
     --all-remotes             # Fetch from all remotes
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1750,6 +1826,7 @@ module completions {
   export extern "jj git import" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1773,6 +1850,7 @@ module completions {
     --git-repo: path          # Specifies a path to an **existing** git repository to be used as the backing git repo for the newly created `jj` repo
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1794,19 +1872,20 @@ module completions {
   export extern "jj git push" [
     --remote: string          # The remote to push to (only named remotes are supported)
     --bookmark(-b): string    # Push only this bookmark, or bookmarks matching a pattern (can be repeated)
+    --tag(-t): string         # Push only this tag, or tags matching a pattern (can be repeated)
     --all                     # Push all bookmarks (including new bookmarks)
     --tracked                 # Push all tracked bookmarks
     --deleted                 # Push all deleted bookmarks
-    --allow-new(-N)           # Allow pushing new bookmarks
     --allow-empty-description # Allow pushing commits with empty descriptions
     --allow-private           # Allow pushing commits that are private
-    --revisions(-r): string   # Push bookmarks pointing to these commits (can be repeated)
+    --revision(-r): string    # Push bookmarks pointing to these commits (can be repeated)
     --change(-c): string      # Push this commit by creating a bookmark (can be repeated)
     --named: string           # Specify a new bookmark name and a revision to push under that name, e.g. '--named myfeature=@'
     --dry-run                 # Only display what will change on the remote
     --option(-o): string      # Git push options
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1827,6 +1906,7 @@ module completions {
   export extern "jj git remote" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1853,6 +1933,7 @@ module completions {
     --push-url: string        # The URL used for push
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1875,6 +1956,7 @@ module completions {
   export extern "jj git remote list" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1895,6 +1977,7 @@ module completions {
   export extern "jj git remote remove" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1916,6 +1999,7 @@ module completions {
   export extern "jj git remote rename" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1940,6 +2024,7 @@ module completions {
     --fetch: string           # The URL or path to fetch from
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1962,6 +2047,7 @@ module completions {
   export extern "jj git root" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -1987,6 +2073,7 @@ module completions {
     --keyword(-k): string@"nu-complete jj help keyword" # Show help for keywords instead of commands
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2020,6 +2107,7 @@ module completions {
     --ignore-space-change(-b) # Ignore changes in amount of whitespace when comparing lines
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2039,7 +2127,7 @@ module completions {
 
   # Show revision history
   export extern "jj log" [
-    --revisions(-r): string   # Which revisions to show
+    --revision(-r): string    # Which revisions to show
     --limit(-n): string       # Limit number of revisions to show
     --reversed                # Show revisions in the opposite order (older revisions first)
     --no-graph(-G)            # Don't show the graph, show a flat list of revisions
@@ -2058,6 +2146,7 @@ module completions {
     --ignore-space-change     # Ignore changes in amount of whitespace when comparing lines
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2085,9 +2174,9 @@ module completions {
     --author: string          # Set author to the provided string
     --author-timestamp: string # Set the author date to the given date
     --force-rewrite           # Rewrite the commit, even if no other metadata changed
-    --update-committer-timestamp # Deprecated. Use `--force-rewrite` instead
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2117,6 +2206,7 @@ module completions {
     --before: string          # Insert the new change before the given commit(s)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2141,6 +2231,7 @@ module completions {
     --conflict                # Jump to the next conflicted descendant
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2162,6 +2253,7 @@ module completions {
   export extern "jj operation" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2182,6 +2274,7 @@ module completions {
   export extern "jj operation abandon" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2217,8 +2310,10 @@ module completions {
     --context: string         # Number of lines of context to show
     --ignore-all-space        # Ignore whitespace when comparing lines
     --ignore-space-change     # Ignore changes in amount of whitespace when comparing lines
+    --show-changes-in: string # Show only changed revisions matching the given revset expression
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2239,6 +2334,7 @@ module completions {
   export extern "jj operation integrate" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2274,8 +2370,10 @@ module completions {
     --context: string         # Number of lines of context to show
     --ignore-all-space        # Ignore whitespace when comparing lines
     --ignore-space-change     # Ignore changes in amount of whitespace when comparing lines
+    --show-changes-in: string # Show only changed revisions matching the given revset expression
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2301,6 +2399,7 @@ module completions {
     --what: string@"nu-complete jj operation restore what" # What portions of the local state to restore (can be repeated)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2327,6 +2426,7 @@ module completions {
     --what: string@"nu-complete jj operation revert what" # What portions of the local state to restore (can be repeated)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2360,8 +2460,10 @@ module completions {
     --context: string         # Number of lines of context to show
     --ignore-all-space        # Ignore whitespace when comparing lines
     --ignore-space-change     # Ignore changes in amount of whitespace when comparing lines
+    --show-changes-in: string # Show only changed revisions matching the given revset expression
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2384,6 +2486,7 @@ module completions {
     -r: string
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2408,6 +2511,7 @@ module completions {
     --conflict                # Jump to the previous conflicted ancestor
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2429,7 +2533,7 @@ module completions {
   export extern "jj rebase" [
     --branch(-b): string      # Rebase the whole branch relative to destination's ancestors (can be repeated)
     --source(-s): string      # Rebase specified revision(s) together with their trees of descendants (can be repeated)
-    --revisions(-r): string   # Rebase the given revisions, rebasing descendants onto this revision's parent(s)
+    --revision(-r): string    # Rebase the given revisions, rebasing descendants onto this revision's parent(s)
     --onto(-o): string        # The revision(s) to rebase onto (can be repeated to create a merge commit)
     -d: string                # The revision(s) to rebase onto (can be repeated to create a merge commit)
     --insert-after(-A): string # The revision(s) to insert after (can be repeated to create a merge commit)
@@ -2441,6 +2545,7 @@ module completions {
     --simplify-parents        # Simplify parents of rebased commits, like `jj simplify-parents`, while rebasing them. Any parents that are ancestors of other parents will be removed
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2461,6 +2566,7 @@ module completions {
   export extern "jj redo" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2484,6 +2590,7 @@ module completions {
     --tool: string            # Specify 3-way merge tool to be used
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2513,6 +2620,7 @@ module completions {
     --restore-descendants     # Preserve the content (not the diff) when rebasing descendants
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2532,7 +2640,7 @@ module completions {
 
   # Apply the reverse of the given revision(s)
   export extern "jj revert" [
-    --revisions(-r): string   # The revision(s) to apply the reverse of
+    --revision(-r): string    # The revision(s) to apply the reverse of
     --onto(-o): string        # The revision(s) to apply the reverse changes on top of
     --destination: string     # The revision(s) to apply the reverse changes on top of
     -d: string                # The revision(s) to apply the reverse changes on top of
@@ -2542,6 +2650,7 @@ module completions {
     --before: string          # The revision(s) to insert the reverse changes before (can be repeated to create a merge commit)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2562,6 +2671,7 @@ module completions {
   export extern "jj root" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2580,11 +2690,12 @@ module completions {
 
   # (**Stub**, does not work yet) Run a command across a set of revisions.
   export extern "jj run" [
-    --revisions(-r): string   # The revisions to change
+    --revision(-r): string    # The revisions to change
     -x                        # A no-op option to match the interface of `git rebase -x`
     --jobs(-j): string        # How many processes should run in parallel, uses by default all cores
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2602,10 +2713,10 @@ module completions {
     [ "always" "never" "debug" "auto" ]
   }
 
-  # Show commit description and changes in a revision
+  # Show revision metadata and diff
   export extern "jj show" [
     -r: string
-    --template(-T): string    # Render a revision using the given template
+    --template(-T): string    # Render each revision using the given template
     --summary(-s)             # For each path, show only whether it was modified, added, or deleted
     --stat                    # Show a histogram of the changes
     --types                   # For each path, show only its type before and after
@@ -2619,6 +2730,7 @@ module completions {
     --ignore-space-change(-b) # Ignore changes in amount of whitespace when comparing lines
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2629,7 +2741,7 @@ module completions {
     --config: string          # Additional configuration options (can be repeated)
     --config-file: path       # Additional configuration files (can be repeated)
     --help(-h)                # Print help (see more with '--help')
-    revision_pos?: string     # Show changes in this revision, compared to its parent(s) [default: @] [aliases: -r]
+    ...revisions_pos: string  # Show changes in these revisions, compared to their parent(s) [default: @] [aliases: -r]
   ]
 
   def "nu-complete jj sign color" [] {
@@ -2638,10 +2750,11 @@ module completions {
 
   # Cryptographically sign a revision
   export extern "jj sign" [
-    --revisions(-r): string   # What revision(s) to sign
+    --revision(-r): string    # What revision(s) to sign
     --key: string             # The key used for signing
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2661,9 +2774,10 @@ module completions {
   # Simplify parent edges for the specified revision(s)
   export extern "jj simplify-parents" [
     --source(-s): string      # Simplify specified revision(s) together with their trees of descendants (can be repeated)
-    --revisions(-r): string   # Simplify specified revision(s) (can be repeated)
+    --revision(-r): string    # Simplify specified revision(s) (can be repeated)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2684,6 +2798,7 @@ module completions {
   export extern "jj sparse" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2704,6 +2819,7 @@ module completions {
   export extern "jj sparse edit" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2724,6 +2840,7 @@ module completions {
   export extern "jj sparse list" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2744,6 +2861,7 @@ module completions {
   export extern "jj sparse reset" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2767,6 +2885,7 @@ module completions {
     --clear                   # Include no files in the working copy (combine with --add)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2795,11 +2914,12 @@ module completions {
     --after: string           # The revision(s) to insert after (can be repeated to create a merge commit)
     --insert-before(-B): string # The revision(s) to insert before (can be repeated to create a merge commit)
     --before: string          # The revision(s) to insert before (can be repeated to create a merge commit)
-    --message(-m): string     # The change description to use (don't open editor)
-    --editor                  # Open an editor to edit the change description
+    --message(-m): string     # The change description to use for the selected changes (don't open editor)
+    --editor                  # Open an editor to edit the change description(s)
     --parallel(-p)            # Split the revision into two parallel revisions instead of a parent and child
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2838,6 +2958,7 @@ module completions {
     --keep-emptied(-k)        # The source revision will not be abandoned
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2859,6 +2980,7 @@ module completions {
   export extern "jj status" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2880,6 +3002,7 @@ module completions {
   export extern "jj tag" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2900,6 +3023,7 @@ module completions {
   export extern "jj tag delete" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2927,11 +3051,12 @@ module completions {
     --remote: string          # Show all tracked and untracked remote tags belonging to this remote
     --tracked(-t)             # Show tracked remote tags only
     --conflicted(-c)          # Show conflicted tags only
-    --revisions(-r): string   # Show tags whose local targets are in the given revisions
+    --revision(-r): string    # Show tags whose local targets are in the given revisions
     --template(-T): string    # Render each tag using the given template
     --sort: string@"nu-complete jj tag list sort" # Sort tags based on the given key (or multiple keys)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2956,6 +3081,7 @@ module completions {
     --allow-move              # Allow moving existing tags
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2977,6 +3103,7 @@ module completions {
   export extern "jj undo" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -2995,9 +3122,10 @@ module completions {
 
   # Drop a cryptographic signature
   export extern "jj unsign" [
-    --revisions(-r): string   # What revision(s) to unsign
+    --revision(-r): string    # What revision(s) to unsign
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3018,11 +3146,54 @@ module completions {
   export extern "jj util" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
     --debug                   # Enable debug logging
     --color: string@"nu-complete jj util color" # When to colorize output
+    --quiet                   # Silence non-primary command output
+    --no-pager                # Disable the pager
+    --config: string          # Additional configuration options (can be repeated)
+    --config-file: path       # Additional configuration files (can be repeated)
+    --help(-h)                # Print help (see more with '--help')
+  ]
+
+  def "nu-complete jj util backend color" [] {
+    [ "always" "never" "debug" "auto" ]
+  }
+
+  # Commands relating to the backend used in the current repo
+  export extern "jj util backend" [
+    --repository(-R): path    # Path to repository to operate on
+    --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
+    --ignore-immutable        # Allow rewriting immutable commits
+    --at-operation: string    # Operation to load the repo at
+    --at-op: string           # Operation to load the repo at
+    --debug                   # Enable debug logging
+    --color: string@"nu-complete jj util backend color" # When to colorize output
+    --quiet                   # Silence non-primary command output
+    --no-pager                # Disable the pager
+    --config: string          # Additional configuration options (can be repeated)
+    --config-file: path       # Additional configuration files (can be repeated)
+    --help(-h)                # Print help (see more with '--help')
+  ]
+
+  def "nu-complete jj util backend name color" [] {
+    [ "always" "never" "debug" "auto" ]
+  }
+
+  # Print the name of the backend used in the current repo
+  export extern "jj util backend name" [
+    --repository(-R): path    # Path to repository to operate on
+    --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
+    --ignore-immutable        # Allow rewriting immutable commits
+    --at-operation: string    # Operation to load the repo at
+    --at-op: string           # Operation to load the repo at
+    --debug                   # Enable debug logging
+    --color: string@"nu-complete jj util backend name color" # When to colorize output
     --quiet                   # Silence non-primary command output
     --no-pager                # Disable the pager
     --config: string          # Additional configuration options (can be repeated)
@@ -3042,6 +3213,7 @@ module completions {
   export extern "jj util completion" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3063,6 +3235,7 @@ module completions {
   export extern "jj util config-schema" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3083,6 +3256,7 @@ module completions {
   export extern "jj util exec" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3106,6 +3280,7 @@ module completions {
     --expire: string          # Time threshold
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3126,6 +3301,7 @@ module completions {
   export extern "jj util install-man-pages" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3147,6 +3323,7 @@ module completions {
   export extern "jj util markdown-help" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3167,6 +3344,7 @@ module completions {
   export extern "jj util snapshot" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3187,6 +3365,7 @@ module completions {
   export extern "jj version" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3207,6 +3386,7 @@ module completions {
   export extern "jj workspace" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3235,6 +3415,7 @@ module completions {
     --sparse-patterns: string@"nu-complete jj workspace add sparse_patterns" # How to handle sparse patterns when creating a new workspace
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3256,6 +3437,7 @@ module completions {
   export extern "jj workspace forget" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3278,6 +3460,7 @@ module completions {
     --template(-T): string    # Render each workspace using the given template
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3298,6 +3481,7 @@ module completions {
   export extern "jj workspace rename" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3320,6 +3504,7 @@ module completions {
     --name: string            # Name of the workspace (defaults to current)
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at
@@ -3340,6 +3525,7 @@ module completions {
   export extern "jj workspace update-stale" [
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
     --ignore-immutable        # Allow rewriting immutable commits
     --at-operation: string    # Operation to load the repo at
     --at-op: string           # Operation to load the repo at

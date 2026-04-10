@@ -1,0 +1,33 @@
+[[snippets]]
+prefix = "="
+body = "= $1;\n"
+description = "Assignment"
+
+[[snippets]]
+prefix = "ep"
+body = "= with pkgs; [ $1 ];\n"
+description = "= <package-list>"
+
+[[snippets]]
+prefix = "et"
+body = """= {
+  $1 = $2;
+};
+"""
+description = "= <table (attribute set)>"
+
+[[snippets]]
+prefix = "es"
+body = '''= "$1";
+'''
+description = "= <string>"
+
+[[snippets]]
+prefix = "el"
+body = "= [ $1 ];\n"
+description = "= <list>"
+
+[[snippets]]
+prefix = "bajer-test"
+body = "{ $1 bajer $2 to $3 the $4 max};"
+description = "Bajer"

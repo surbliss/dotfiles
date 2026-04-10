@@ -6,7 +6,10 @@
 
 # theme = "kanagawa-minimal-custom"
 # theme = "kanagawa-lotus" # Until black spots on screen fixed...
-theme = "catppuccin_mocha"
+# theme = "custom-rose-pine-dawn" # Until black spots on screen fixed...
+# theme = "rose-pine-dawn-custom" # Until black spots on screen fixed...
+theme = "current" # runtime-switchable theme
+# theme = "catppuccin_mocha"
 
 [editor]
 bufferline = "multiple"
@@ -24,13 +27,13 @@ completion-replace = true
 default-yank-register = "+"
 end-of-line-diagnostics = "warning"
 popup-border = "all"
-continue-comments = false
+continue-comments = true
 trim-trailing-whitespace = true
 rainbow-brackets = true
 
 
 [editor.smart-tab]
-supersede-menu = true
+supersede-menu = false
 
 [editor.indent-guides]
 character = "▏"
@@ -48,21 +51,20 @@ select = "underline"
 [editor.whitespace]
 # To enable all: render = "all"
 render.space = "none"
-render.tab = "none"
+render.tab = "all"
 render.nbsp = "all"
 render.nnbsp = "all"
 render.newline = "none"
 
 [editor.whitespace.characters]
-# tab = "→"
-tab = " "
+tab = "→"
 space = "·"
 nbsp = "⍽"
 nnbsp = "␣"
 newline = "⏎"
 # tabpad = "→ " # Render tabs as '→···'
 # tabpad = ""
-tabpad = ""
+tabpad = " "
 
 
 [editor.soft-wrap]
@@ -73,6 +75,7 @@ wrap-at-text-width = true
 # Don't enable "display-inline-hints", it makes lines super long
 display-messages = true
 display-progress-messages = true
+snippets = true
 
 [editor.statusline]
 separator = "·"
@@ -119,20 +122,23 @@ g.k = ":buffer-close"
 g.o = ":buffer-close-others"
 ret = "goto_word"
 # Smart-tab stuff
-tab = "move_parent_node_end"
-S-tab = "move_parent_node_start"
+C-j = "move_parent_node_start"
+C-k = "move_parent_node_end"
 # Shortcuts for surround operations:
 m.w.s = "@miwms"
 M = "@;mim"
 A-m = "@;mam"
 # Split line at cursor
 C-ret = ["insert_newline", "move_char_left"]
-"C-," = "@<esc>A;<ret><esc>"
+"C-," = "@A;<ret><esc>"
 pagedown = "page_cursor_half_down"
 pageup = "page_cursor_half_up"
 "C-'" = "@o```<ret><down>``<up><backspace>"
 A-e = "move_prev_long_word_end"
-
+C-left = "jump_view_left"
+C-right = "jump_view_right"
+### Format selection without LSP, '=' uses lsp-format
+g.q = "@x:reflow<ret>;"
 
 [keys.normal.space]
 w.w = ":write"
@@ -165,12 +171,17 @@ g.e = "extend_to_file_end"
 
 ## Insert mode
 [keys.insert]
-C-tab = "@<esc>A;<ret>"
-C-ret = "open_below"
-
-
+# C-ret = "open_below"
+C-a = "@<esc>hf<ret>vha;<esc><A-;>;li"
+C-e = "@<esc>A;<ret>"
 A-space = "@ <esc>hi"
 C-space = "completion"
-tab = "smart_tab"
 C-q = "@```<ret><down>``<up><backspace>"
-C-k = "@<esc>o```<ret><down>``<up><backspace>"
+# C-j = "move_parent_node_start"
+# C-k = "move_parent_node_end"
+# Experiment
+left = "move_parent_node_start"
+right = "move_parent_node_end"
+C-k = "goto_prev_tabstop"       # Snippet-stop left
+C-j = "goto_next_tabstop"       # Snippet-stop right
+C-ret = "@<esc>A;<ret><esc>"

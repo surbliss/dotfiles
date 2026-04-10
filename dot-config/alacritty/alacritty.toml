@@ -1,6 +1,9 @@
 [general]
-import = ["themes/minimal-custom.toml"]
-# import = ["themes/ayu_evolve_custom.toml"]
+# import = ["themes/minimal-custom.toml"]
+import = ["~/.current-theme/alacritty-theme.toml"]
+
+[selection]
+save_to_clipboard = true
 
 [window]
 padding = { x = 0, y = 5 }
@@ -32,6 +35,17 @@ mods = "Super|Shift"
 action = "SpawnNewInstance"
 
 [[keyboard.bindings]]
+key = "Z"
+mods = "Super"
+command.program = "alacritty"
+command.args = [
+  "--class",
+  "scratch.term",
+  "-o",
+  'keyboard.bindings=[{key="Z",mods="Super",action="Quit"}]',
+]
+
+[[keyboard.bindings]]
 key = "PageUp"
 mode = "~Alt"
 action = "ScrollHalfPageUp"
@@ -51,3 +65,8 @@ key = "S"
 mods = "Shift"
 mode = "Vi|~Search"
 action = "SearchBackward"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Shift|Control"
+action = "Copy"

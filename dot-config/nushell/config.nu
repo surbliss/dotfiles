@@ -27,56 +27,68 @@ $env.config.buffer_editor = "hx"
 $env.config.show_banner = false
 # $env.LS_COLORS = (dircolors)
 ### LS_COLORS
-source ls-colors.nu
+# source ls-colors-rose-pine-dawn.nu
+# source ls-colors-rose-pine-dawn.nu
+# source ~/.current-theme/ls-colors.nu
+$env.LS_COLORS = (
+    try { open ~/.current-theme/ls-colors.txt }
+    catch {|_| error make -u "Runtime theme not generated, run `dark` or `light`" }
+    )
 $env.config.table.mode = "light"
-$env.LANG = "en_US.UTF-8"  # TODO: Set this in NixOS-config
+$env.LANG = "en_US.UTF-8" # TODO: Set this in NixOS-config
 $env.AFP = "~/AFP/afp-2025-07-07/thys"
 $env.ISABELLE_HOME = "~/.isabelle"
 $env.RULES = "/etc/nixos/configuration/secrets/_secrets.nix"
+
 # Risky hack, to increase POSIX-compliance
 # $env.SHELL = "zsh"
 
-$env.config.keybindings ++= [{
-    name: quit
-    modifier: control
-    keycode: char_q
-    mode: emacs
+$env.config.keybindings ++= [
+    {
+        name: quit
+        modifier: control
+        keycode: char_q
+        mode: emacs
+        event: {send: executehostcommand, cmd: "exit"}
+    }
+]
 
-    event: { send: executehostcommand cmd: "exit" }
-}]
-
+$env.config.completions.algorithm = "substring"
 
 alias vimr = nvim -R --cmd 'set nomodifiable'
 
 # $env.config.edit_mode = "vi"
 
+# let id = $id | into string
 
-    # let id = $id | into string
+def --env jd [id: string, id2?: string] {
 
-def --env jd [id: string, id2?:string] {
     # Helper function to find directory corresponding to given index
     def find_prefix [prefix] {
-        where ($it.name | path basename) starts-with $prefix |
-        get name |
-        if ($in | length) > 1 {
+        where ($it.name | path basename) starts-with $prefix
+        | get name
+        | if ($in | length) > 1 {
             error make -u {msg: "Prefix not unique"}
         } else if ($in | length) == 0 {
-            error make -u { msg: "Prefix not found" }
+            error make -u {msg: "Prefix not found"}
         } else {
             get 0
         }
     }
     let split: list<string> = if $id2 == null {
-        if (($id | str length) == 4) {
-            [($id | str substring 0..1) ($id | str substring 2..3) ]
+        if ($id | str length) == 4 {
+            [
+                ($id | str substring 0..1)
+                ($id | str substring 2..3)
+            ]
         } else {
-          $id | split row "."
+            $id | split row "."
         }
     } else {
         [$id $id2]
     }
     let arg_count = $split | length
-    let arg_len = $split  |  str length
+    let arg_len = $split | str length
 
     # Pre data validations
     # Length = 0 is handled by argument being required
@@ -111,7 +123,7 @@ def sep [program: path] {
 }
 
 def start [file: path] {
-  ^setsid -f xdg-open $file o+e> /dev/null
+    ^setsid -f xdg-open $file o+e> /dev/null
 }
 
 # def sep [...cmd] {
@@ -126,13 +138,14 @@ def start [file: path] {
 # }
 
 def l [path?: path] {
-    ^eza --icons=auto --group-directories-first (if ($path == null) {$env.PWD} else $path)
+    ^eza --icons=auto --group-directories-first (if $path == null { $env.PWD } else $path)
 }
 
 def la [path?: path] {
-    ^eza -a --icons=auto --group-directories-first (if ($path == null) {$env.PWD} else $path)
+    ^eza -a --icons=auto --group-directories-first (if $path == null { $env.PWD } else $path)
 }
 
+# printf: Weird hack, that should help Ghostty reload properly too.
 alias reload = exec nu # Doesn't work on windows
 alias dotstow = stow -R -d ~/dotfiles . --dotfiles
 
@@ -141,15 +154,15 @@ def bach --env [] {
     # Need isabelle components -u (full path) first!
     ^setsid -f isabelle jedit -R LexBFS $bach_path o> /dev/null
 }
-    # ^setsid -f (isabelle jedit -d ~/Documents/10-19_Nørklen/14_Uni-Datalogi/14.24_Bachelor-projekt_Modular_Decomposition/Modular_Decomposition/LexBFS.thy -l LexBFS ~/Documents/10-19_Nørklen/14_Uni-Datalogi/14.24_Bachelor-projekt_Modular_Decomposition/Modular_Decomposition/LexBFS.thy) o+e> /dev/null}
+
+# ^setsid -f (isabelle jedit -d ~/Documents/10-19_Nørklen/14_Uni-Datalogi/14.24_Bachelor-projekt_Modular_Decomposition/Modular_Decomposition/LexBFS.thy -l LexBFS ~/Documents/10-19_Nørklen/14_Uni-Datalogi/14.24_Bachelor-projekt_Modular_Decomposition/Modular_Decomposition/LexBFS.thy) o+e> /dev/null}
 # alias ls = exec eza --icons=auto --group-directories-first
 # alias l = eza -l --total-size --no-permissions --no-user -h --git --icons=auto --group-directories-first
 
 # alias l = ls | sort-by type
 
+let direnv_reload = {||
 
-
-let direnv_reload = { ||
     # SOURCE: https://github.com/nushell/nu_scripts/blob/main/nu-hooks/nu-hooks/direnv/config.nu
     if (which direnv | is-empty) {
         return
@@ -162,39 +175,36 @@ let direnv_reload = { ||
     $env.PATH = $env.PATH | split row (char env_sep)
 }
 
-
 # NOTE: Only on dir change work poorly when I keep changing development-flakes...
 $env.config.hooks.pre_prompt = (
     $env.config.hooks.pre_prompt | append $direnv_reload
 )
 
 # cdls
-def cl --env [path?:path] {
-    if ($path == null) {cd} else {cd $path}
+def cl --env [path?: path] {
+    if $path == null { cd } else { cd $path }
     ^eza --icons=auto --group-directories-first
 }
 # Yazi
 def --env y [...args] {
-	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-	yazi ...$args --cwd-file $tmp
-	let cwd = (open $tmp)
-	if $cwd != "" and $cwd != $env.PWD {
-		cd $cwd
-	}
-	rm -fp $tmp
+    let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+    yazi ...$args --cwd-file $tmp
+    let cwd = (open $tmp)
+    if $cwd != "" and $cwd != $env.PWD {
+        cd $cwd
+    }
+    rm -fp $tmp
 }
 
-# use completions-jj.nu *
+use completions-jj.nu *
 
-
-def --env shell [pkgs:string]  {
-    with-env { IN_NIX_SHELL: 1 }  { nix shell $"nixpkgs#($pkgs)" --command nu }
+def --env shell [pkgs: string] {
+    with-env { IN_NIX_SHELL: 1 } { nix shell $"nixpkgs#($pkgs)" --command nu }
 }
 
-def run [pkgs:string]  {
+def run [pkgs: string] {
     nix run $"nixpkgs#($pkgs)"
 }
-
 
 # Restart network-connect
 def restart-network [] {
@@ -202,19 +212,16 @@ def restart-network [] {
     nmcli device connect wlp1s0
 }
 
-
 ##################################################
 # Templates
 ##################################################
-def nix-module [name:string] {
-    module=$name envsubst -i ~/.local/share/templates/modules.nix -no-unset -no-empty
+def nix-module [name: string] {
+    envsubst -i ~/.local/share/templates/modules.nix -no-unset -no-empty
 }
-
 
 def mirror [] {
-  ^setsid -f wl-present mirror eDP-1 --fullscreen-output HDMI-A-1 o> /dev/null
+    ^setsid -f wl-present mirror eDP-1 --fullscreen-output HDMI-A-1 o> /dev/null
 }
-
 
 # Should be at the end of config.nu
 source ($nu.default-config-dir | path join zoxide.nu)
@@ -239,9 +246,56 @@ def develop [] {
 alias z = job unfreeze
 
 # ${UserConfigDir}/nushell/config.nu
-source $"($nu.cache-dir)/carapace.nu"
-
+# source $"($nu.cache-dir)/carapace.nu"
 
 alias fg = job unfreeze
 
 alias tmp = cd /tmp
+
+def typlate [name: string] {
+    let file_name = $'($name).typ'
+    '#set text(font: "Lato", lang: "en", size: 11pt)
+#set par(
+  justify: true,
+  justification-limits: (tracking: (min: -0.02em, max: 0.02em)),
+)
+' | save $file_name
+    hx $file_name
+}
+
+alias di = direnv reload
+
+alias copy = wl-copy
+alias paste = wl-paste
+
+def jj-completer [spans: list<string>]: nothing -> list<any> {
+    ^jj -- ...$spans
+    | lines
+    | each {|line|
+        let parts = $line | split row "\t"
+        {value: $parts.0, description: ($parts | get -o 1 | default "")}
+    }
+}
+def theme [thm: string] {
+    ln -sfn ~/.dotfiles/themes/($thm) ~/.current-theme
+    pkill -SIGUSR2 ghostty
+    # 'Change' alacritty config file, so live_config_reload triggers
+    touch ~/.config/alacritty/alacritty.toml
+    reload
+}
+
+alias dark = theme dark
+alias dark-bright = theme dark-bright
+alias light = theme light
+
+def init-direnv [] {
+    "use flake" | save .envrc
+    direnv allow
+}
+
+@complete jj-completer
+def --wrapped jj [...args] { ^jj ...$args }
+
+def test [] {
+    error make "oh no"
+}

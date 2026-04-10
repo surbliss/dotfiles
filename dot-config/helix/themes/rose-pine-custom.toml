@@ -1,0 +1,3 @@
+# Bajer to the max
+inherits = "rose_pine"
+"comment" = { fg = "#9bbb88", modifiers = ["italic"] }

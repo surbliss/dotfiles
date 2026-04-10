@@ -1,146 +1,11 @@
-///////////////////////////////////////////////////
-// niri config
-///////////////////////////////////////////////////
-
-// See default-config.kdl for possible settings/original comments
-// NOTES:
-// - Omitting settings disables/defaults them
-// - A whole {...} node can be commented out with '/-'
-// CAREFUL: Removing keybinds completely disables them, so make sure to at
-// least have binding to open terminal
-
-// Default config: https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
-
-///////////////////////////////////////////////////
-// Layout
-///////////////////////////////////////////////////
-// workspace "config" {
-//     open-on-output "HDMI-A-1"
-// }
-// workspace "browser" {
-//     open-on-output "HDMI-A-1"
-// }
-// workspace "coding" {
-//     open-on-output "HDMI-A-1"
-// }
-// workspace "chat" {
-//     open-on-output "eDP-1"
-// }
-
-
-/// COLORS:
-// Orange:         #fab387
-// Pastel violet:  #cba6f7
-// Urgent:         #f38ba8
-//
-// Old colors:
-// active-color    #b4befe
-// inactive-color  #505050
-
-
-layout {
-    gaps 10
-    struts {
-        right 3
-        left 3
-        bottom -6
-        top -6
-
-    }
-    // struts {
-    //     left 4
-    //     right 4
-    //     top 6
-    //     bottom 6
-    // }
-    focus-ring {
-        width 2
-        active-color "#fab387"
-        inactive-color "#505050"
-    }
-    border {
-         width 3
-         active-color "#fab387"
-         inactive-color "#cba6f7"
-         urgent-color "#f38ba8"
-    }
-
-    tab-indicator {
-        place-within-column
-        position "right"
-        length total-proportion=1.0
-    }
-
-    center-focused-column "never"
-    always-center-single-column
-    default-column-width {
-        proportion 0.5
-    }
-    preset-column-widths {
-        proportion 0.5
-    }
-
-    preset-window-heights {
-        proportion 1.0
-    }
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
+config-notification {
+    disable-failed
 }
-
-animations {
-    on
-    slowdown 0.3
-}
-
-gestures {
-    hot-corners {
-        off
-    }
-}
-
-cursor {
-    xcursor-theme "Bibata-Modern-Ice"
-    xcursor-size 36
-
-}
-
-prefer-no-csd // No client-side decorations
-
-
-///////////////////////////////////////////////////
-// Input
-///////////////////////////////////////////////////
-input {
-    keyboard {
-        // xkb {
-        //     // INFO: xkeyboard-config(7).
-        //     layout "dk"
-        //     variant "nodeadkeys"
-        //     options "compose:menu,caps:escape"
-        // }
-        numlock
-    }
-    touchpad {
-        tap
-        dwt // Disable while typing
-        natural-scroll
-        accel-speed 0.0
-        accel-profile "flat"
-        scroll-factor 0.5
-        click-method "clickfinger"
-    }
-
-    mouse {
-        accel-profile "flat"
-        accel-speed -0.3
-    }
-
-    // warp-mouse-to-focus mode="center-xy-always"
-
-}
-
-
-///////////////////////////////////////////////////
-// Outputs
-///////////////////////////////////////////////////
+// Outputs from existing configuration
 output "eDP-1" {
     scale 1.0
     position x=0 y=0
@@ -152,305 +17,271 @@ output "HDMI-A-1" {
     position x=-10000 y=0
 }
 
-// output "Seiko Epson Corporation EPSON PJ 0x01010101" {
 
-// }
+gestures {
+    hot-corners {
+        off
+    }
+}
 
-///////////////////////////////////////////////////
-// Startup
-///////////////////////////////////////////////////
-/// TODO: Start in NixOS config instead
-spawn-at-startup "wbg" "-s" "/home/angryluck/Pictures/wallpapers/dark-split-park.jpg"
-spawn-at-startup "wezterm"
+// Input device configuration.
+// Find the full list of options on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Input
+input {
+    keyboard {
+        xkb {
+            // You can set rules, model, layout, variant and options.
+            // For more information, see xkeyboard-config(7).
 
-/// From suggested mangowc config
-spawn-at-startup "wl-clip-persist" "--clipboard" "regular" "--reconnect-tries" "0"
-spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+            // For example:
+            // layout "us,ru"
+            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
 
-spawn-at-startup "xwayland-satellite"
-// Should be set in NixOS config!
+            // If this section is empty, niri will fetch xkb settings
+            // from org.freedesktop.locale1. You can control these using
+            // localectl set-x11-keymap.
+        }
+
+        // Enable numlock on startup, omitting this setting disables it.
+        numlock
+    }
+
+    // Next sections include libinput settings.
+    // Omitting settings disables them, or leaves them at their default values.
+    // All commented-out settings here are examples, not defaults.
+    touchpad {
+        // off
+        tap
+        // dwt
+        // dwtp
+        // drag false
+        // drag-lock
+        natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "two-finger"
+        // disabled-on-external-mouse
+    }
+
+    mouse {
+        // off
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "no-scroll"
+    }
+
+    trackpoint {
+        // off
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "on-button-down"
+        // scroll-button 273
+        // scroll-button-lock
+        // middle-emulation
+    }
+
+    // Uncomment this to make the mouse warp to the center of newly focused windows.
+    // warp-mouse-to-focus
+
+    // Focus windows and outputs automatically when moving the mouse into them.
+    // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
+    // focus-follows-mouse max-scroll-amount="0%"
+}
+// You can configure outputs by their name, which you can find
+// by running `niri msg outputs` while inside a niri instance.
+// The built-in laptop monitor is usually called "eDP-1".
+// Find more information on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
+// Remember to uncomment the node by removing "/-"!
+
+// Settings that influence how windows are positioned and sized.
+// Find more information on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
+layout {
+    // Set gaps around windows in logical pixels.
+    background-color "transparent"
+    // When to center a column when changing focus, options are:
+    // - "never", default behavior, focusing an off-screen column will keep at the left
+    //   or right edge of the screen.
+    // - "always", the focused column will always be centered.
+    // - "on-overflow", focusing a column will center it if it doesn't fit
+    //   together with the previously focused column.
+    center-focused-column "never"
+    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
+    preset-column-widths {
+        // Proportion sets the width as a fraction of the output width, taking gaps into account.
+        // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
+        // The default preset widths are 1/3, 1/2 and 2/3 of the output.
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        // Fixed sets the width in logical pixels exactly.
+        // fixed 1920
+    }
+    // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
+    // preset-window-heights { }
+    // You can change the default width of the new windows.
+    default-column-width { proportion 0.5; }
+    // If you leave the brackets empty, the windows themselves will decide their initial width.
+    // default-column-width {}
+    // By default focus ring and border are rendered as a solid background rectangle
+    // behind windows. That is, they will show up through semitransparent windows.
+    // This is because windows using client-side decorations can have an arbitrary shape.
+    //
+    // If you don't like that, you should uncomment `prefer-no-csd` below.
+    // Niri will draw focus ring and border *around* windows that agree to omit their
+    // client-side decorations.
+    //
+    // Alternatively, you can override it with a window rule called
+    // `draw-border-with-background`.
+    border {
+        off
+        width 4
+        active-color   "#707070"      // Neutral gray
+        inactive-color "#d0d0d0"      // Light gray
+        urgent-color   "#cc4444"      // Softer red
+    }
+    shadow {
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+    struts {
+    }
+}
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}
+overview {
+    workspace-shadow {
+        off
+    }
+}
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+// This line starts waybar, a commonly used bar for Wayland compositors.
 environment {
-    ELECTRON_OZONE_PLATFORM_HINT "auto"
-    DISPLAY ":0"
-    // NOTE: intellij complains about this
-    // _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=lcd -Dsun.java2d.dpiaware=false -Dsun.java2d.uiScale=1"
- }
- switch-events {
-     lid-close {
-        spawn "sh" "-c" "systemctl suspend && swaylock"
-     }
- }
-
-hotkey-overlay { skip-at-startup; }
-
-///////////////////////////////////////////////////
-// Window rules
-///////////////////////////////////////////////////
-// Floating windows:
+  XDG_CURRENT_DESKTOP "niri"
+}
+hotkey-overlay {
+    skip-at-startup
+}
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+animations {
+    workspace-switch {
+        spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
+    }
+    window-open {
+        duration-ms 150
+        curve "ease-out-expo"
+    }
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+    horizontal-view-movement {
+        spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=0.75 stiffness=323 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+    }
+    config-notification-open-close {
+        spring damping-ratio=0.65 stiffness=923 epsilon=0.001
+    }
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+    overview-open-close {
+        spring damping-ratio=0.85 stiffness=800 epsilon=0.0001
+    }
+}
+// Window rules let you adjust behavior for individual windows.
+// Find more information on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+// Work around WezTerm's initial configure bug
+// by setting an empty default-column-width.
 window-rule {
-    match app-id="^float$"
-    open-floating true
-    default-column-width { proportion 0.7; }
-    default-window-height { proportion 0.7; }
-
-    focus-ring { off; }
-    shadow { on; }
+    // This regular expression is intentionally made as specific as possible,
+    // since this is the default config, and we want no false positives.
+    // You can get away with just app-id="wezterm" if you want.
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
 }
 window-rule {
-    match app-id="pdfpc"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="^jetbrains-idea"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="^Alacritty$" at-startup=true
-    open-on-workspace "coding"
-    open-maximized true
-    open-focused true
-}
-
-// window-rule {
-//     match app-id="^org.wezfurlong.wezterm$" at-startup=true
-//     open-on-workspace "coding"
-//     // open-maximized true
-//     open-focused true
-// }
-
-window-rule {
-    match app-id="isabelle-jedit-JEdit_Main"
-    open-maximized true
-}
-
-window-rule {
-    geometry-corner-radius 2
+    match app-id=r#"^org\.gnome\."#
+    draw-border-with-background false
+    geometry-corner-radius 12
     clip-to-geometry true
 }
 window-rule {
-    match app-id="^zen-twilight$"
-    open-on-workspace "browser"
-    open-maximized true
-    open-focused true
+    match app-id=r#"^gnome-control-center$"#
+    match app-id=r#"^pavucontrol$"#
+    match app-id=r#"^nm-connection-editor$"#
+    default-column-width { proportion 0.5; }
+    open-floating false
 }
 window-rule {
-    match app-id="^brave-browser$"
-    open-on-workspace "browser"
-    open-maximized true
-    open-focused true
-}
-window-rule {
-    match app-id="^chromium-browser$"
-    open-on-workspace "browser"
-    open-maximized true
-    open-focused false
-}
-window-rule {
-    match app-id="^zen-twilight$" title="^Picture-in-Picture$"
-    open-floating true
-    open-maximized false
-}
-window-rule {
-    match app-id="firefox$" title="^Picture-in-Picture$"
+    match app-id=r#"^org\.gnome\.Calculator$"#
+    match app-id=r#"^gnome-calculator$"#
+    match app-id=r#"^galculator$"#
+    match app-id=r#"^blueman-manager$"#
+    match app-id=r#"^org\.gnome\.Nautilus$"#
+    match app-id=r#"^xdg-desktop-portal$"#
     open-floating true
 }
 window-rule {
-    match app-id="^Dorion$"
-    open-maximized true
-}
-window-rule {
-    match app-id="^discord$"
-    open-maximized true
+    match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
     open-focused false
-    open-on-workspace "chat"
 }
 window-rule {
-    match app-id="^vesktop$"
-    open-maximized true
-    open-focused false
-    open-on-workspace "chat"
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    match app-id="Alacritty"
+    match app-id="zen"
+    match app-id="com.mitchellh.ghostty"
+    match app-id="kitty"
+    draw-border-with-background false
 }
-
 window-rule {
-    match app-id="^vesktop$"
-    open-maximized true
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id="zoom"
+    open-floating true
 }
-
+// Open dms windows as floating by default
 window-rule {
-    match app-id="^RStudio$"
-    open-maximized true
+    match app-id=r#"org.quickshell$"#
+    match app-id=r#"com.danklinux.dms$"#
+    open-floating true
+}
+debug {
+    honor-xdg-activation-with-invalid-serial
 }
 
-///////////////////////////////////////////////////
-// Key bindings
-///////////////////////////////////////////////////
-/// Mantra: Only have one keybinding for each action (except when having to
-// work on two keyboards)
-//
-// Find key-names with 'wev'
-binds {
-    /// Open applications
-    Mod+Shift+O { show-hotkey-overlay; }
-    Mod+O { toggle-overview; }
-    Mod+Return hotkey-overlay-title="Open a Terminal: Wezterm" {
-        spawn "wezterm"
+// Override to disable super+tab
+recent-windows {
+    binds {
+        Alt+Tab         { next-window scope="output"; }
+        Alt+Shift+Tab   { previous-window scope="output"; }
+        Alt+grave       { next-window filter="app-id"; }
+        Alt+Shift+grave { previous-window filter="app-id"; }
     }
-    Mod+T hotkey-overlay-title="Open a Terminal: Alacritty" {
-        spawn "alacritty"
-    }
-    Mod+P hotkey-overlay-title="Run an Application: fuzzel" {
-        spawn "fuzzel"
-    }
-    Mod+0 hotkey-overlay-title="Lock the Screen: swaylock" {
-        spawn "sh" "-c" "niri msg action power-off-monitors && swaylock"
-    }
-    Mod+Ctrl+0 hotkey-overlay-title="Power menu: wlogout" {
-        spawn "wofi-power-menu"
-    }
-    // Brightness
-    XF86MonBrightnessUp allow-when-locked=true {
-        spawn "brillo" "-q" "-A" "5"
-    }
-    XF86MonBrightnessDown allow-when-locked=true {
-        spawn "brillo" "-q" "-U" "5"
-    }
-    // Audio
-    XF86AudioMute allow-when-locked=true {
-        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
-    }
-    XF86AudioMicMute allow-when-locked=true {
-        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
-    }
-    XF86AudioRaiseVolume allow-when-locked=true {
-        spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"
-    }
-    XF86AudioLowerVolume allow-when-locked=true {
-        spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%-"
-    }
-    Mod+M { spawn "wofi-emoji"; }
-
-    Mod+Shift+Q { close-window; }
-    Mod+Shift+S { screenshot; }
-    Mod+Shift+Ctrl+S { screenshot-window; }
-    // Idk what this does
-    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-    Mod+Shift+Ctrl+Q { quit; }
-    Mod+Shift+P { power-off-monitors; }
-
-    /// Focus on workspace
-    Mod+Down { focus-window-down; }
-    Mod+Up { focus-window-up; }
-    Mod+Left { focus-column-left; }
-    Mod+Right { focus-column-right; }
-    Mod+J { focus-window-down; }
-    Mod+K { focus-window-up; }
-    Mod+H { focus-column-left; }
-    Mod+L { focus-column-right; }
-    Mod+N { focus-column-left; }
-    Mod+E { focus-column-right; }
-    // Rotate focus of columns to the right, for when using tabbed display
-    Mod+Z {
-        spawn-sh "niri msg action focus-column-right-or-first && niri msg action focus-window-down-or-top && niri msg action focus-column-left-or-last"
-    }
-
-    /// Move on workspace
-    Mod+Shift+Down { move-window-down; }
-    Mod+Shift+Up { move-window-up; }
-    Mod+Shift+Left { move-column-left; }
-    Mod+Shift+Right { move-column-right; }
-    Mod+Shift+J { move-window-down; }
-    Mod+Shift+K { move-window-up; }
-    Mod+Shift+H { move-column-left; }
-    Mod+Shift+L { move-column-right; }
-    Mod+Shift+N { move-column-left; }
-    Mod+Shift+E { move-column-right; }
-    Mod+Comma{ consume-or-expel-window-left; }
-    Mod+Period { consume-or-expel-window-right; }
-
-    /// Transform windows
-    Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
-    Mod+Shift+V { toggle-window-floating; }
-    Mod+V { switch-focus-between-floating-and-tiling; }
-    // Mod+T { toggle-column-tabbed-display; }
-
-    /// Focus between workspaces
-    Mod+D { focus-workspace-down; }
-    Mod+U { focus-workspace-up; }
-    Mod+Page_Down { focus-workspace-down; }
-    Mod+Page_Up { focus-workspace-up; }
-    Mod+B { focus-workspace-previous; }
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-
-    /// Move between workspaces
-    // NOTE:
-    // 1. Unfortunately no option for Mod+Shift+B available ;(
-    // 2. No bindings for moving a single window _on purpose_
-    Mod+Shift+D { move-column-to-workspace-down; }
-    Mod+Shift+U { move-column-to-workspace-up; }
-    Mod+Shift+Page_Down { move-column-to-workspace-down; }
-    Mod+Shift+Page_Up { move-column-to-workspace-up; }
-    Mod+Shift+1 { move-column-to-workspace 1; }
-    Mod+Shift+2 { move-column-to-workspace 2; }
-    Mod+Shift+3 { move-column-to-workspace 3; }
-    Mod+Shift+4 { move-column-to-workspace 4; }
-    Mod+Shift+5 { move-column-to-workspace 5; }
-    Mod+Shift+6 { move-column-to-workspace 6; }
-    Mod+Shift+7 { move-column-to-workspace 7; }
-    Mod+Shift+8 { move-column-to-workspace 8; }
-    Mod+Shift+9 { move-column-to-workspace 9; }
-
-    /// Move workspaces
-    // NOTE: Unfortunately doesn't follow 'Ctrl = monitor' scheme
-    // Also, Shift added despite 'Mod+Ctrl+D/U' not being used, to keep 'Shift
-    // = move' scheme
-    Mod+Ctrl+D { move-workspace-down; }
-    Mod+Ctrl+U { move-workspace-up; }
-    Mod+Ctrl+Page_Down { move-workspace-down; }
-    Mod+Ctrl+Page_Up { move-workspace-up; }
-    // Only way to move workspaces for now (but sufficient with 1 monitor)
-
-    /// Focus Monitors
-    Mod+I {focus-monitor-next;}
-    Alt+Mod+I {focus-monitor-previous;} // Only needed for 3+ monitors
-    Alt+Mod+1 {focus-monitor "HDMI-A-1"; }
-    Alt+Mod+2 {focus-monitor "eDP-1"; }
-    Mod+Home {focus-monitor "HDMI-A-1"; }
-    Mod+End{focus-monitor "eDP-1"; }
-
-    /// Move between monitors
-    // NOTE: Again, no bindings for moving single window in column
-    Mod+Shift+I {move-column-to-monitor-next;}
-    Alt+Mod+Y {move-column-to-monitor-previous;}
-    Mod+Ctrl+I { move-workspace-to-monitor-previous; }
-    Mod+Shift+Home {move-column-to-monitor "HDMI-A-1"; }
-    Mod+Shift+End {move-column-to-monitor "eDP-1"; }
-    Mod+Ctrl+Home {move-workspace-to-monitor "HDMI-A-1"; }
-    Mod+Ctrl+End {move-workspace-to-monitor "eDP-1"; }
-
-    /// Mouse (consider deleting this)
-    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
-    Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Ctrl+WheelScrollUp cooldown-ms=150 { move-column-to-workspace-up; }
-    Mod+WheelScrollRight { focus-column-right; }
-    Mod+WheelScrollLeft { focus-column-left; }
-    Mod+Ctrl+WheelScrollRight { move-column-right; }
-    Mod+Ctrl+WheelScrollLeft { move-column-left; }
-    Mod+Shift+WheelScrollDown { focus-column-right; }
-    Mod+Shift+WheelScrollUp { focus-column-left; }
-    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
-    Mod+Ctrl+Shift+WheelScrollUp { move-column-left; }
-
-    Mod+R { switch-preset-column-width; }
 }
+
+// Include dms files
+include "dms/colors.kdl"
+include "dms/layout.kdl"
+include "dms/alttab.kdl"
+include "dms/binds.kdl"
+include "dms/outputs.kdl"
+include "dms/cursor.kdl"

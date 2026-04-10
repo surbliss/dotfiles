@@ -34,24 +34,24 @@ log_node = '''
 '''
 
 ### Default log-format
-log = '''
-  if(root,
-    format_root_commit(self),
-    label(if(current_working_copy, "working_copy"),
-      separate(" ",
-        format_short_change_id_with_change_offset(self),
-        bookmarks,
-        tags,
-        working_copies,
-        format_git_head(),
-        format_description(),
-        author.name(),
-        format_timestamp(committer.timestamp()),
-        if(current_working_copy, format_changes())
-      ),
-    )
-  )
-'''
+# log = '''
+#   if(root,
+#     format_root_commit(self),
+#     label(if(current_working_copy, "working_copy"),
+#       separate(" ",
+#         format_short_change_id_with_change_offset(self),
+#         bookmarks,
+#         tags,
+#         working_copies,
+#         format_git_head(),
+#         format_description(),
+#         author.name(),
+#         format_timestamp(committer.timestamp()),
+#         if(current_working_copy, format_changes())
+#       ),
+#     )
+#   )
+# '''
 
 
 [template-aliases]
@@ -138,8 +138,13 @@ newest = ["new", "heads(@-::) ~ @"]
 
 # Split a fileset into its own commit inserted before the 'merge' commit and after root.
 # Usage: jj sep <revison> <fileset(s)>, maybe "-B" revision if new parallel branch
-sep = ["squash", "--keep-emptied", "-A"]
+sep = ["squash", "--keep-emptied"]
 
+# TODO: Command to check if `jj fix` would change anything
+
+
+[revsets]
+bookmark-advance-to = "@-" # To the current working copy
 
 [revset-aliases]
 # What 'jj log' shows by default: ancestry from trunk to @, plus recent visible heads

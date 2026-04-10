@@ -1,4 +1,21 @@
 # add it to your ~/.config/helix/languages.toml
+use-grammars.only = ["cabal", "kanata"]
+[language-server.snippets]
+command = "simple-completion-language-server"
+
+# Empty definitions after 'snippets', to make sure snippets show up first in menu
+[language-server.nixd]
+[language-server.nil]
+[language-server.rust-analyzer]
+
+[language-server.snippets.config]
+feature_words = false                # enable completion by word
+feature_snippets = true              # enable snippets
+snippets_first = true                # completions will return before snippets by default
+snippets_inline_by_word_tail = false # suggest snippets by WORD tail, for example text `xsq|` become `x^2|` when snippet `sq` has body `^2`
+feature_unicode_input = false        # enable "unicode input"
+feature_paths = false                # enable path completion
+feature_citations = false            # enable citation completion (only on `citation` feature enabled)
 
 [language-server.fsharp-ls]
 command = "fsautocomplete"
@@ -11,7 +28,7 @@ scope = "source.fs"
 roots = ["fsproj", "sln", ".git"]
 file-types = ["fs", "fsx", "fsi"]
 language-servers = ["fsharp-ls"]
-comment-token = "//"
+# comment-token = "//"
 indent = { tab-width = 4, unit = " " }
 auto-format = true
 
@@ -48,8 +65,17 @@ haskell.sessionLoading = "multipleComponents"
 [[language]]
 name = "cabal"
 auto-format = true
-roots = ["*.cabal", ".cabal", "Setup.hs", "stack.yaml", "cabal.project"]
 
+[[grammar]]
+name = "cabal"
+source.git = "https://gitlab.com/magus/tree-sitter-cabal"
+source.rev = "eed27a619d96c5762aa7f7d323f5009c5eb3e56e"
+
+[[language]]
+name = "just"
+auto-format = true
+# formatter.command = "just"
+# formatter.args = ["--fmt"]
 # [[language]]
 # name = "ini"
 # # scope = "source.ini"
@@ -85,7 +111,8 @@ name = "nix"
 auto-format = true
 text-width = 80
 formatter.command = "nixfmt"
-formatter.args = ["--width=77", "--strict", "--verify"]
+formatter.args = ["--width=80", "--strict", "--verify"]
+language-servers = ["snippets", "nil", "nixd"]
 
 
 [language.auto-pairs]
@@ -93,7 +120,6 @@ formatter.args = ["--width=77", "--strict", "--verify"]
 '{' = "}"
 '[' = "]"
 '"' = '"'
-'=' = ";"
 
 [[language]]
 name = "toml"
@@ -191,7 +217,9 @@ file-types = [
 [[language]]
 name = "rust"
 # text-width = 80
-language-servers = ["snippets-ls", "rust-analyzer"]
+language-servers = ["snippets", "rust-analyzer"]
+persistent-diagnostic-sources = ["rustc", "clippy"]
+
 
 [language.auto-pairs]
 '(' = ")"
@@ -259,11 +287,6 @@ preview.background.args = [
   "--invert-colors=never",
 ]
 typingContinueCommentsOnNewLine = false
-
-[language-server.snippets-ls]
-command = "snippets-ls"
-args = ["-config", "home/angryluck/.config/helix/snippets/rust.json"]
-
 
 [[language]]
 name = "elm"

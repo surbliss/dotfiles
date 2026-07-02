@@ -1,0 +1,6 @@
+inherits = "catppuccin_mocha"
+
+"comment" = { fg = "pink", modifiers = ["italic"] }
+"comment.documentation" = { fg = "pink", modifiers = ["bold"] }
+"comment.line.documentation" = { fg = "pink", modifiers = ["bold"] }
+"comment.block.documentation" = { fg = "pink", modifiers = ["bold"] }

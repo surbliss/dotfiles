@@ -277,8 +277,12 @@ def jj-completer [spans: list<string>]: nothing -> list<any> {
     }
 }
 def theme [thm: string] {
-    ln -sfn ~/.dotfiles/themes/($thm) ~/.current-theme
-    pkill -SIGUSR2 ghostty
+    # -s = Symbolic link instead of hard link
+    # -f = force (overwrite) any files. So, any file with name `.dotfiles` will be overwritten, but not an non-empty folder `.dotfiles/`
+    # -n = When target is a symlink pointing to a directory, treat this symlink as a file instead of a folder to follow. Allows the target to be overwritten by the -f flag.
+    # Together: Overwrite files/symlinks at the target location (not non-emtpy actual folders)
+    ln -sfn ~/.local/share/runtime-themes/($thm) ~/.current-theme
+    # pkill -SIGUSR2 ghostty
     # 'Change' alacritty config file, so live_config_reload triggers
     touch ~/.config/alacritty/alacritty.toml
     reload

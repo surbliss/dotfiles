@@ -1,2 +1,15 @@
 inherits = "rose_pine_dawn"
-"comment" = { fg = "#5e7a4f", modifiers = ["italic"] }
+
+# Make TODO purple rather than blue (HINT)
+"info" = "iris"
+"hint" = "foam"
+
+# Separate colour added to palette for comments, to make them stand out more
+"comment" = { fg = "nice_green", modifiers = ["italic"] }
+"comment.documentation" = { fg = "nice_green", modifiers = ["bold"] }
+"comment.line.documentation" = { fg = "nice_green", modifiers = ["bold"] }
+"comment.block.documentation" = { fg = "nice_green", modifiers = ["bold"] }
+
+
+[palette]
+nice_green = "#5e7a4f"

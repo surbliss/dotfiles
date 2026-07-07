@@ -22,6 +22,7 @@ $env.PROMPT_COMMAND_RIGHT = ""
 # $env.TRANSIENT_PROMPT_COMMAND_RIGHT = ""
 $env.TRANSIENT_PROMPT_COMMAND_RIGHT = ""
 $env.TRANSIENT_PROMPT_COMMAND = ""
+$env.TODO_DIR = $env.HOME | path join "JD/00-09_Meta/03_Program-data/tuxedo"
 
 $env.config.buffer_editor = "hx"
 $env.config.show_banner = false
@@ -122,6 +123,9 @@ def sep [program: path] {
     ^setsid -f $program o+e> /dev/null
 }
 
+# Vscode with ssprove installed
+# def sscode
+
 def start [file: path] {
     ^setsid -f xdg-open $file o+e> /dev/null
 }
@@ -197,6 +201,7 @@ def --env y [...args] {
 }
 
 use completions-jj.nu *
+source completions-fzf.nu
 
 def --env shell [pkgs: string] {
     with-env { IN_NIX_SHELL: 1 } { nix shell $"nixpkgs#($pkgs)" --command nu }
@@ -263,7 +268,7 @@ def typlate [name: string] {
     hx $file_name
 }
 
-alias di = direnv reload
+alias dr = direnv reload
 
 alias copy = wl-copy
 alias paste = wl-paste
@@ -292,7 +297,9 @@ alias dark = theme dark
 alias dark-bright = theme dark-bright
 alias light = theme light
 
-def init-direnv [] {
+alias ssprove =  direnv exec /home/angryluck/JD/30-39_Arbejde/34_PhD_ITU/34.10_SSProve-testing/rocq-env/ rocqide
+
+def direnv-init [] {
     "use flake" | save .envrc
     direnv allow
 }

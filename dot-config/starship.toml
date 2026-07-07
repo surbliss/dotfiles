@@ -29,14 +29,6 @@ format = '[$symbol](bold blue) '
 [fill]
 symbol = " "
 
-[custom.jj]
-command = "prompt"
-format = "$output"
-ignore_timeout = true
-shell = ["starship-jj", "--ignore-working-copy", "starship"]
-use_stdin = false
-when = true
-
 
 # # custom module for jj status
 # [custom.jj]
@@ -72,31 +64,14 @@ when = true
 [git_status]
 disabled = true
 
-[custom.git_status]
-when = "! starship-jj --ignore-working-copy root"
-command = "starship module git_status"
-# This disables the default "(bold green)" style
-style = ""
-description = "Only show git_status if we're not in a jj repo"
-
 [git_commit]
 disabled = true
 tag_symbol = '  '
 
-[custom.git_commit]
-when = "! starship-jj --ignore-working-copy root"
-command = "starship module git_commit"
-style = ""
-description = "Only show git_commit if we're not in a jj repo"
 
 [git_metrics]
 disabled = true
 
-[custom.git_metrics]
-when = "! starship-jj --ignore-working-copy root"
-command = "starship module git_metrics"
-description = "Only show git_metrics if we're not in a jj repo"
-style = ""
 
 [git_branch]
 disabled = true
@@ -104,15 +79,44 @@ symbol = " "
 format = '[$symbol$branch]($style)'
 style = "177"
 
+[git_state]
+disabled = true
+
+[custom.jj]
+command = "prompt"
+format = "$output"
+ignore_timeout = true
+shell = ["starship-jj", "--ignore-working-copy", "starship"]
+use_stdin = false
+when = true
+
+[custom.git_status]
+when = "! starship-jj --ignore-working-copy root"
+command = "starship module git_status"
+# This disables the default "(bold green)" style
+style = ""
+description = "Only show git_status if we're not in a jj repo"
+
+
+[custom.git_commit]
+when = "! starship-jj --ignore-working-copy root"
+command = "starship module git_commit"
+style = ""
+description = "Only show git_commit if we're not in a jj repo"
+
+[custom.git_metrics]
+when = "! starship-jj --ignore-working-copy root"
+command = "starship module git_metrics"
+description = "Only show git_metrics if we're not in a jj repo"
+style = ""
+
+
 [custom.git_branch]
 when = "! starship-jj --ignore-working-copy root"
 command = "starship module git_branch"
 description = "Only show git_branch if we're not in a jj repo"
 style = ""
 
-
-[git_state]
-disabled = true
 
 [custom.git_state]
 when = "! jj --ignore-working-copy root"

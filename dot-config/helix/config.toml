@@ -25,7 +25,7 @@ completion-timeout = 0
 completion-trigger-len = 1
 completion-replace = true
 default-yank-register = "+"
-end-of-line-diagnostics = "warning"
+end-of-line-diagnostics = "hint"
 popup-border = "all"
 continue-comments = true
 trim-trailing-whitespace = true
@@ -41,7 +41,7 @@ render = true
 skip-levels = 1
 
 [editor.inline-diagnostics]
-cursor-line = "hint"
+cursor-line = "warning"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -76,6 +76,10 @@ wrap-at-text-width = true
 display-messages = true
 display-progress-messages = true
 snippets = true
+
+[editor.workspace-trust]
+level = "servers"
+prompt = true
 
 [editor.statusline]
 separator = "·"
@@ -118,12 +122,8 @@ select = "SELECT"
 [keys.normal]
 X = ["extend_to_line_bounds", "select_line_below"]
 A-x = ["extend_to_line_bounds", "select_line_above"]
-g.k = ":buffer-close"
-g.o = ":buffer-close-others"
 ret = "goto_word"
 # Smart-tab stuff
-C-j = "move_parent_node_start"
-C-k = "move_parent_node_end"
 # Shortcuts for surround operations:
 m.w.s = "@miwms"
 M = "@;mim"
@@ -140,6 +140,8 @@ C-right = "jump_view_right"
 C-h = "jump_view_left"
 C-l = "jump_view_right"                      ### Format selection without LSP, '=' uses lsp-format
 g.q = "@x:reflow<ret>;"
+g.k = ":buffer-close"
+g.o = ":buffer-close-others"
 
 [keys.normal.space]
 w.w = ":write"
@@ -149,8 +151,8 @@ q.q = ":quit"
 x = "@x\"yy\"ypk<C-c>jgh"
 # [I]nsert [H]eader
 i.h = "@Ox<esc><C-c>hdhdxyppghy49pghkk49pghjA<space>"
-F = "file_picker"
-f = "file_picker_in_current_directory"
+# F = "file_picker"
+# f = "file_picker_in_current_directory"
 t = ":tree-sitter-highlight-name"
 l = ":config-reload"
 y = ":yank-diagnostic"
@@ -183,6 +185,7 @@ C-q = "@```<ret><down>``<up><backspace>"
 # Experiment
 left = "move_parent_node_start"
 right = "move_parent_node_end"
-C-k = "goto_prev_tabstop"       # Snippet-stop left
-C-j = "goto_next_tabstop"       # Snippet-stop right
+C-l = "goto_next_tabstop"       # Snippet-stop left
+C-S-l = "goto_prev_tabstop"     # Snippet-stop right
 C-ret = "@<esc>A;<ret><esc>"
+C-t = ":tree-sitter-subtree"

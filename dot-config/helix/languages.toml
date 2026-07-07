@@ -1,27 +1,94 @@
-# add it to your ~/.config/helix/languages.toml
-use-grammars.only = ["cabal", "kanata"]
+### List of grammars that `hx --grammar fetch` gets. Only manual ones, since the rest are build together with helix
+use-grammars.only = ["cabal", "kanata", "rocq", "d2"]
+
+##################################################
+# Language-server configurations
+##################################################
+
 [language-server.snippets]
 command = "simple-completion-language-server"
 
+[language-server.snippets.config]
+feature_words = false  # enable completion by word
+feature_snippets = true  # enable snippets
+snippets_first = true  # completions will return before snippets by default
+snippets_inline_by_word_tail = false  # suggest snippets by WORD tail, for example text `xsq|` become `x^2|` when snippet `sq` has body `^2`
+feature_unicode_input = false  # enable "unicode input"
+feature_paths = false  # enable path completion
+feature_citations = false  # enable citation completion (only on `citation` feature enabled)
+
 # Empty definitions after 'snippets', to make sure snippets show up first in menu
 [language-server.nixd]
-[language-server.nil]
-[language-server.rust-analyzer]
 
-[language-server.snippets.config]
-feature_words = false                # enable completion by word
-feature_snippets = true              # enable snippets
-snippets_first = true                # completions will return before snippets by default
-snippets_inline_by_word_tail = false # suggest snippets by WORD tail, for example text `xsq|` become `x^2|` when snippet `sq` has body `^2`
-feature_unicode_input = false        # enable "unicode input"
-feature_paths = false                # enable path completion
-feature_citations = false            # enable citation completion (only on `citation` feature enabled)
+[language-server.nil]
+
+# [language-server.ty.config]
+# interpreter = ["$PYTHONPATH"]
+[language-server.nil.config]
+nix.flake.autoArchive = true
+nix.flake.autEvalInputs = true
+
+[language-server.rust-analyzer]
 
 [language-server.fsharp-ls]
 command = "fsautocomplete"
 args = ["--verbose"]
 config = { AutomaticWorkspaceInit = true, FSharp = { ExternalAutocomplete = true } }
 
+[language-server.haskell-language-server.config]
+haskell.formattingProvider = "fourmolu"
+haskell.sessionLoading = "multipleComponents"
+
+[language-server.tinymist]
+command = "tinymist"
+# args = ["lsp"]
+
+[language-server.tinymist.config]
+formatterMode = "typstyle"
+exportPdf = "onType"
+outputPath = "$root/out/$name"
+formatterPrintWidth = 80
+lint.enabled = true
+lint.when = "onType"
+projectResolution = "lockDatabase"
+# projectResolution = "singleFile"
+# typstExtraArgs = ["main.typ"]
+
+# Need both commands, evnen though top one is default
+preview.background.enabled = true
+preview.background.args = [
+  "--data-plane-host=127.0.0.1:23635",
+  "--invert-colors=never",
+]
+typingContinueCommentsOnNewLine = false
+
+[language-server.elm-language-server]
+command = "elm-language-server"
+args = ["--stdio"]
+
+### Rocq
+[language-server.vsrocqtop]
+command = "vsrocqtop"
+
+[language-server.rumdl.config]
+flavor = "standard"
+
+[language-server.rumdl.config.MD013]
+line-length = 80
+paragraphs = false
+code-blocks = true
+tables = true
+reflow = true
+reflow-mode = "sentence-per-line"
+
+[language-server.harper-ls.config.harper-ls.linters]
+SpellCheck = false
+# SentenceCapitalization = false
+OrthographicConsistency = false
+
+##################################################
+# Languages
+##################################################
 [[language]]
 name = "fsharp"
 scope = "source.fs"
@@ -58,18 +125,20 @@ indent = { tab-width = 2, unit = "  " }
 # NOTE: Enable when figured out how to prevent stalling...
 auto-format = true
 
-[language-server.haskell-language-server.config]
-haskell.formattingProvider = "fourmolu"
-haskell.sessionLoading = "multipleComponents"
-
 [[language]]
 name = "cabal"
 auto-format = true
 
-[[grammar]]
-name = "cabal"
-source.git = "https://gitlab.com/magus/tree-sitter-cabal"
-source.rev = "eed27a619d96c5762aa7f7d323f5009c5eb3e56e"
+[[language]]
+name = "d2"
+scope = "source.d2"
+injection-regex = "^d2$"
+file-types = ["d2"]
+grammar = "d2"
+comment-token = "#"
+formatter = { command = "d2", args = ["fmt", "-"] }
+# formatter = { command = "d2", args = ["fmt", "-"] }
+# auto-format = true
 
 [[language]]
 name = "just"
@@ -112,19 +181,20 @@ auto-format = true
 text-width = 80
 formatter.command = "nixfmt"
 formatter.args = ["--width=80", "--strict", "--verify"]
-language-servers = ["snippets", "nil", "nixd"]
-
+language-servers = ["nil", "nixd", "snippets"]
 
 [language.auto-pairs]
-'(' = ")"
-'{' = "}"
-'[' = "]"
+"(" = ")"
+"{" = "}"
+"[" = "]"
 '"' = '"'
+"=" = ";"
 
 [[language]]
 name = "toml"
 auto-format = true
-language-servers = ["taplo"] # Taplo not working so good
+language-servers = ["tombi"]
+formatter = { command = "tombi", args = ["format", "-"] }
 
 [[language]]
 name = "c-sharp"
@@ -133,29 +203,19 @@ auto-format = true
 
 [[language]]
 name = "c"
-scope = "source.c"
-injection-regex = "c"
-file-types = ["c"]                                  # TODO: ["h"]
-comment-token = "//"
-block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = ["clangd"]
-indent = { tab-width = 2, unit = "  " }
 auto-format = true
 
-
 [language.auto-pairs]
-'(' = ")"
-'{' = "}"
-'[' = "]"
+"(" = ")"
+"{" = "}"
+"[" = "]"
 '"' = '"'
 "'" = "'"
-
 
 [[language]]
 name = "nim"
 formatter = { command = "nph", args = ["-"] }
 auto-format = true
-
 
 [[language]]
 name = "lua"
@@ -216,92 +276,37 @@ file-types = [
 
 [[language]]
 name = "rust"
-# text-width = 80
 language-servers = ["snippets", "rust-analyzer"]
-persistent-diagnostic-sources = ["rustc", "clippy"]
-
 
 [language.auto-pairs]
-'(' = ")"
-'{' = "}"
-'[' = "]"
+"(" = ")"
+"{" = "}"
+"[" = "]"
 '"' = '"'
-# '<' = ">"
-
-[[grammar]]
-name = "kanata"
-source = { git = "https://github.com/postsolar/tree-sitter-kanata/", rev = "master" }
-
-# [[grammar]]
-# name = "typst"
-# source.git = "https://github.com/uben0/tree-sitter-typst"
-# source.rev = "master"
 
 [[language]]
-# name = "typst"
-# auto-format = true
-# formatter = ["typstyle"]
-# roots = ["main.typ", "report.typ", "tinymist.lock", "out/"]
-# language-servers = ["tinymist"]
-### Defaults, as of 02/11-2025
 name = "typst"
-scope = "source.typst"
-injection-regex = "typ(st)?"
-file-types = ["typst", "typ"]
-comment-token = "//"
-block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = ["tinymist"]
-indent = { tab-width = 2, unit = "  " }
-
-### Mine
-auto-format = true
 formatter = ["typstyle"]
 roots = ["main.typ", "out/", "tinymist.lock"]
+auto-format = true
+
 [language.auto-pairs]
 '"' = '"'
-'`' = '`'
-'(' = ')'
-'{' = '}'
-'[' = ']'
-'$' = '$'
-
-[language-server.tinymist]
-command = "tinymist"
-# args = ["lsp"]
-
-[language-server.tinymist.config]
-formatterMode = "typstyle"
-exportPdf = "onType"
-outputPath = "$root/out/$name"
-preview.background.enabled = true
-formatterPrintWidth = 80
-lint.enabled = true
-lint.when = "onType"
-projectResolution = "lockDatabase"
-# projectResolution = "singleFile"
-# typstExtraArgs = ["main.typ"]
-
-# Need both commands, evnen though top one is default
-preview.background.args = [
-  "--data-plane-host=127.0.0.1:23635",
-  "--invert-colors=never",
-]
-typingContinueCommentsOnNewLine = false
+"`" = "`"
+"(" = ")"
+"{" = "}"
+"[" = "]"
+"$" = "$"
 
 [[language]]
-name = "elm"
-language-servers = ["elm-language-server"]
-
-[language-server.elm-language-server]
-command = "elm-language-server"
-args = ["--stdio"]
-
-[[lanuguage]]
-name = "nushell"
-formatter.command = "nufmt"
-formatter.args = ["-s"]
-auto-format = false         # Very unstable program (allegedly), careful!
-
+name = "rocq"
+scope = "source.rocq"
+injection-regex = "^rocq$"
+file-types = ["v"]
+grammar = "rocq"
+block-comment-tokens = { start = "(*", end = "*)" }
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["vsrocqtop"]
 
 [[language]]
 name = "hyprlang"
@@ -311,7 +316,6 @@ file-types = [{ glob = "hypr/*.conf" }, { glob = "mango/**/*.conf" }]
 comment-token = "#"
 grammar = "hyprlang"
 language-servers = ["hyprls"]
-
 
 # Base copied from upstream, so more configs can be added
 [[language]]
@@ -341,62 +345,22 @@ injection-regex = "ini"
 comment-token = "#"
 indent = { tab-width = 4, unit = "\t" }
 
+##################################################
+# Grammars
+##################################################
+[[grammar]]
+name = "kanata"
+source = { git = "https://github.com/postsolar/tree-sitter-kanata/", rev = "master" }
 
-[[language]]
-name = "python"
-scope = "source.python"
-injection-regex = "py(thon)?"
-file-types = [
-  "py",
-  "pyi",
-  "py3",
-  "pyw",
-  "ptl",
-  "rpy",
-  "cpy",
-  "ipy",
-  "pyt",
-  { glob = ".python_history" },
-  { glob = ".pythonstartup" },
-  { glob = ".pythonrc" },
-  { glob = "*SConstruct" },
-  { glob = "*SConscript" },
-  { glob = "*sconstruct" },
-]
-shebangs = ["python", "uv"]
-roots = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json"]
-comment-token = "#"
-language-servers = ["ty", "ruff", "jedi", "pylsp"] #disable ty
-# TODO: pyls needs utf-8 offsets
-indent = { tab-width = 4, unit = "    " }
-auto-format = true
+[[grammar]]
+name = "rocq"
+source = { git = "https://github.com/smirnov-in/tree-sitter-rocq", rev = "main" }
 
-# [language-server.ty.config]
-# interpreter = ["$PYTHONPATH"]
-[language-server.nil.config]
-nix.flake.autoArchive = true
-nix.flake.autEvalInputs = true
+[[grammar]]
+name = "d2"
+source = { git = "https://github.com/ravsii/tree-sitter-d2", rev = "main" }
 
-[[language]]
-name = "perl"
-scope = "source.perl"
-file-types = [
-  # "pl", # disable pl, so it doesn't interfere with prolog
-  "pm",
-  "t",
-  "psgi",
-  "raku",
-  "rakumod",
-  "rakutest",
-  "rakudoc",
-  "nqp",
-  "p6",
-  "pl6",
-  "pm6",
-  { glob = "latexmkrc" },
-  { glob = ".latexmkrc" },
-]
-shebangs = ["perl"]
-comment-token = "#"
-language-servers = ["perlnavigator"]
-indent = { tab-width = 2, unit = "  " }
+[[grammar]]
+name = "cabal"
+source.git = "https://gitlab.com/magus/tree-sitter-cabal"
+source.rev = "eed27a619d96c5762aa7f7d323f5009c5eb3e56e"

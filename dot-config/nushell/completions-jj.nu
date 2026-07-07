@@ -122,9 +122,9 @@ module completions {
 
   # Run a given command to find the first bad revision
   export extern "jj bisect run" [
-    --range(-r): string       # Range of revisions to bisect
+    --range(-r): string       # Range of revisions to bisect (can be repeated)
     --command: string         # Deprecated. Use positional arguments instead
-    --find-good               # Whether to find the first good revision instead
+    --find-good               # Find the first good revision instead
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
     --no-integrate-operation  # Run the command as usual but don't integrate any operations
@@ -138,7 +138,7 @@ module completions {
     --config: string          # Additional configuration options (can be repeated)
     --config-file: path       # Additional configuration files (can be repeated)
     --help(-h)                # Print help (see more with '--help')
-    command?: string          # Command to run to determine whether the bug is present
+    command?: string          # Command to run to determine the status of a revision
     ...args: string           # Arguments to pass to the command
   ]
 
@@ -382,7 +382,7 @@ module completions {
     --config: string          # Additional configuration options (can be repeated)
     --config-file: path       # Additional configuration files (can be repeated)
     --help(-h)                # Print help (see more with '--help')
-    ...names: string          # Bookmark names to track
+    ...names: string          # Bookmark name patterns or remote bookmark symbols to track
   ]
 
   def "nu-complete jj bookmark untrack color" [] {
@@ -405,7 +405,7 @@ module completions {
     --config: string          # Additional configuration options (can be repeated)
     --config-file: path       # Additional configuration files (can be repeated)
     --help(-h)                # Print help (see more with '--help')
-    ...names: string          # Bookmark names to untrack
+    ...names: string          # Bookmark name patterns or remote bookmark symbols to untrack
   ]
 
   def "nu-complete jj commit color" [] {
@@ -472,6 +472,27 @@ module completions {
     --at-op: string           # Operation to load the repo at
     --debug                   # Enable debug logging
     --color: string@"nu-complete jj config edit color" # When to colorize output
+    --quiet                   # Silence non-primary command output
+    --no-pager                # Disable the pager
+    --config: string          # Additional configuration options (can be repeated)
+    --config-file: path       # Additional configuration files (can be repeated)
+    --help(-h)                # Print help (see more with '--help')
+  ]
+
+  def "nu-complete jj config gc color" [] {
+    [ "always" "never" "debug" "auto" ]
+  }
+
+  # Find and optionally delete repo-level config directories whose repo path no longer exists
+  export extern "jj config gc" [
+    --repository(-R): path    # Path to repository to operate on
+    --ignore-working-copy     # Don't snapshot the working copy, and don't update it
+    --no-integrate-operation  # Run the command as usual but don't integrate any operations
+    --ignore-immutable        # Allow rewriting immutable commits
+    --at-operation: string    # Operation to load the repo at
+    --at-op: string           # Operation to load the repo at
+    --debug                   # Enable debug logging
+    --color: string@"nu-complete jj config gc color" # When to colorize output
     --quiet                   # Silence non-primary command output
     --no-pager                # Disable the pager
     --config: string          # Additional configuration options (can be repeated)
@@ -1616,6 +1637,7 @@ module completions {
     --ignore-attention-set    # Do not modify the attention set upon uploading
     --deadline: string        # The deadline after which the push should be aborted
     --custom: string          # Send the following custom keyed values to Gerrit (can be repeated)
+    --option(-o): string      # Send a `git push -o` option (can be repeated)
     --trace: string           # For debugging Gerrit
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
@@ -2535,6 +2557,7 @@ module completions {
     --source(-s): string      # Rebase specified revision(s) together with their trees of descendants (can be repeated)
     --revision(-r): string    # Rebase the given revisions, rebasing descendants onto this revision's parent(s)
     --onto(-o): string        # The revision(s) to rebase onto (can be repeated to create a merge commit)
+    --destination: string     # The revision(s) to rebase onto (can be repeated to create a merge commit)
     -d: string                # The revision(s) to rebase onto (can be repeated to create a merge commit)
     --insert-after(-A): string # The revision(s) to insert after (can be repeated to create a merge commit)
     --after: string           # The revision(s) to insert after (can be repeated to create a merge commit)
@@ -2688,11 +2711,14 @@ module completions {
     [ "always" "never" "debug" "auto" ]
   }
 
-  # (**Stub**, does not work yet) Run a command across a set of revisions.
+  # Run a command across a set of revisions.
   export extern "jj run" [
     --revision(-r): string    # The revisions to change
     -x                        # A no-op option to match the interface of `git rebase -x`
-    --jobs(-j): string        # How many processes should run in parallel, uses by default all cores
+    --jobs(-j): string        # How many processes should run in parallel
+    --root                    # Run the command from the working-copy root in each commit instead of from the subdirectory `jj run` was invoked from
+    --clean                   # Delete each working copy before running the command
+    --restore-descendants     # Preserve the content (not the diff) when rebasing descendants
     --repository(-R): path    # Path to repository to operate on
     --ignore-working-copy     # Don't snapshot the working copy, and don't update it
     --no-integrate-operation  # Run the command as usual but don't integrate any operations
@@ -2706,7 +2732,8 @@ module completions {
     --config: string          # Additional configuration options (can be repeated)
     --config-file: path       # Additional configuration files (can be repeated)
     --help(-h)                # Print help (see more with '--help')
-    shell_command: string     # The command to run across all selected revisions
+    command: string           # Command to run across all selected revisions
+    ...args: string           # Arguments to pass to the command
   ]
 
   def "nu-complete jj show color" [] {
@@ -2716,6 +2743,7 @@ module completions {
   # Show revision metadata and diff
   export extern "jj show" [
     -r: string
+    --reversed                # Show revisions in the opposite order (older revisions first)
     --template(-T): string    # Render each revision using the given template
     --summary(-s)             # For each path, show only whether it was modified, added, or deleted
     --stat                    # Show a histogram of the changes

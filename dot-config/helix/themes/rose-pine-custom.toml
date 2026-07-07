@@ -1,8 +1,31 @@
 inherits = "rose_pine"
 
+# "diagnostic.info".underline.style = "line"
+
 # Make TODO purple rather than blue (HINT)
-"info" = "iris"
-"hint" = "foam"
+# "diagnostic.hint" = { fg = "foam", bg = "highlight_low", modifiers = [
+#   "italic",
+#   "reversed",
+# ] }
+# "diagnostic.info" = { fg = "iris", bg = "highlight_low", modifiers = [
+#   "italic",
+#   "reversed",
+# ] }
+# "diagnostic.warning" = { fg = "gold", bg = "highlight_low", modifiers = [
+#   "italic",
+#   "reversed",
+# ] }
+
+"hint" = { fg = "foam", bg = "foam_10" }
+"info" = { fg = "iris", bg = "iris_10" }
+"warning" = { fg = "gold", bg = "gold_10" }
+"error" = { fg = "love", bg = "love_10" }
+
+"diagnostic.unnecessary".modifiers = []
+"diagnostic.hint" = { underline.style = "line", underline.color = "foam" }
+"diagnostic.info" = { underline.style = "line", underline.color = "iris" }
+"diagnostic.warning" = { underline.style = "dotted", underline.color = "gold" }
+"diagnostic.error" = { underline.style = "curl", underline.color = "love" }
 
 # Separate colour added to palette for comments, to make them stand out more
 "comment" = { fg = "nice_green", modifiers = ["italic"] }

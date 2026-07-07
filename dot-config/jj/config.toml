@@ -2,11 +2,9 @@
 name = "Thomas Holme Surlykke"
 email = "thomas.dev@surlykke.dk"
 
-
 [git]
 colocate = true
 write-change-id-header = true
-
 
 [ui]
 movement.edit = true
@@ -15,7 +13,6 @@ log-word-wrap = true
 default-command = ["log", "-n", "30", "--reversed", "-T", "log_compact"]
 merge-editor = ":builtin"
 diff-editor = ":builtin"
-
 
 # --- Log node symbols ---
 [templates]
@@ -52,7 +49,6 @@ log_node = '''
 #     )
 #   )
 # '''
-
 
 [template-aliases]
 # Default log template (used by default-command above).
@@ -95,8 +91,6 @@ with_changes = '''
   )
 '''
 
-
-
 ### Helper-templates
 ### To override builtins: See https://github.com/jj-vcs/jj/blob/main/cli/src/config/templates.toml
 "format_description()" = '''
@@ -119,19 +113,16 @@ with_changes = '''
 
 "format_timestamp(timestamp)" = "timestamp.ago()"
 
-'format_short_change_id(id)' = 'id.shortest(4)'
-"format_git_head()" =  'if(self.contained_in("first_parent(@)"), label("git_head", "HEAD"))'
-
-
-
+"format_short_change_id(id)" = "id.shortest(4)"
+"format_git_head()" = 'if(self.contained_in("first_parent(@)"), label("git_head", "HEAD"))'
 
 [aliases]
-
 # Move the nearest bookmark ancestor of @- forward to @-
 tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 
 # Log with diff.summary() for every commit, not just working copy
-changes = ["log", "--template", "with_changes"]
+# changes = ["log", "--template", "with_changes"]
+changes = ["log", "--summary", "--no-graph"]
 
 # New commit on top of the latest descendant of @- (useful when @ is behind)
 newest = ["new", "heads(@-::) ~ @"]
@@ -142,23 +133,21 @@ sep = ["squash", "--keep-emptied"]
 
 # TODO: Command to check if `jj fix` would change anything
 
-
 [revsets]
-bookmark-advance-to = "@-" # To the current working copy
+bookmark-advance-to = "@-"  # To the current working copy
 
 [revset-aliases]
 # What 'jj log' shows by default: ancestry from trunk to @, plus recent visible heads
-'default()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent())'
+"default()" = "coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent())"
 
 # Recent = committed within the last month
-'recent()' = 'committer_date(after:"1 month ago")'
+"recent()" = 'committer_date(after:"1 month ago")'
 
 # All "tip" commits: @, visible heads near trunk, and trunk itself
 "ends()" = "@ | ancestors(trunk()..(visible_heads()), 2) | trunk()"
 
 # Nearest bookmark ancestor of a given revision
-'closest_bookmark(to)' = 'heads(::to & bookmarks())'
-
+"closest_bookmark(to)" = "heads(::to & bookmarks())"
 
 [colors]
 # Catppuccin Mocha palette (ANSI 256-color codes), for reference:
@@ -181,6 +170,6 @@ bookmarks = "ansi-color-177"
 "author" = "bright magenta"
 "working_copy author" = "bright magenta"
 "prefix" = "ansi-color-216"
-"node working_copy" =  "ansi-color-147"
+"node working_copy" = "ansi-color-147"
 # This one is fine tho?
-"diff modified" = "yellow" # This diff seems fine to modify
+"diff modified" = "yellow"  # This diff seems fine to modify

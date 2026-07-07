@@ -27,6 +27,22 @@ prefix = "el"
 body = "= [ $1 ];\n"
 description = "= <list>"
 
+# Home packages
+[[snippets]]
+prefix = "hp"
+body = """home.packages = with pkgs; [
+  $1
+];
+"""
+
+# System packages
+[[snippets]]
+prefix = "sp"
+body = """environment.systemPackages = with pkgs; [
+  $1
+];
+"""
+
 [[snippets]]
 prefix = "bajer-test"
 body = "{ $1 bajer $2 to $3 the $4 max};"

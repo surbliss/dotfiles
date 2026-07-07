@@ -137,7 +137,8 @@ pageup = "page_cursor_half_up"
 A-e = "move_prev_long_word_end"
 C-left = "jump_view_left"
 C-right = "jump_view_right"
-### Format selection without LSP, '=' uses lsp-format
+C-h = "jump_view_left"
+C-l = "jump_view_right"                      ### Format selection without LSP, '=' uses lsp-format
 g.q = "@x:reflow<ret>;"
 
 [keys.normal.space]
@@ -148,8 +149,8 @@ q.q = ":quit"
 x = "@x\"yy\"ypk<C-c>jgh"
 # [I]nsert [H]eader
 i.h = "@Ox<esc><C-c>hdhdxyppghy49pghkk49pghjA<space>"
-# F = "file_picker"
-# f = "file_picker_in_current_directory"
+F = "file_picker"
+f = "file_picker_in_current_directory"
 t = ":tree-sitter-highlight-name"
 l = ":config-reload"
 y = ":yank-diagnostic"

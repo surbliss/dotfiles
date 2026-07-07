@@ -3,35 +3,55 @@
 # Default notebook
 dir = "~/JD/00-09_Meta/03_Program-data/zk"
 
-[note]
-language = "da"
-
-[extra]
-author = "Thomas H. Surlykke"
+# [note]
+# language = "da"
 
 
-[group.zettlekasten]
-paths = ["zettlekasten"]
-[group.zettlekasten.note]
-filename = "{{id}}-{{slug title}}"
-
-[group.reference]
-paths = ["reference"]
-[group.reference.note]
-filename = "{{slug title}}"
+# [extra]
+# author = "Thomas H. Surlykke"
 
 
-[alias]
-# r = 'zk new reference -t "$@"'
-r = 'zk edit reference -i "$@"'
-# z = 'zk new zettlekasten -t "$@"'
-z = 'zk edit zettlekasten -i "$@"'
-conf = '$EDITOR ~/.dotfiles/zk/config.toml'
-paths = "zk list --quiet --format \"'{{path}}'\" --delimiter ' ' --no-pager -m $@"
-inline = 'zk list --quiet --format {{path}} --delimiter ,  --working-dir=$ZK_NOTEBOOK_DIR/zettlekasten "$@"'
-to = 'zk list --link-to "`zk inline $@`"'
+# [group.zettlekasten]
+# paths = ["zettlekasten"]
+# [group.zettlekasten.note]
+# filename = "{{id}}}"
 
-fzf-preview = "bat -p --color always {-1}"
+# # Litterature-notes
+# [group.litterature]
+# paths = ["litterature"]
+# [group.litterature.note]
+# filename = "{{slug title}}"
 
-[tool]
-shell = "zsh"
+
+# # MARKDOWN SETTINGS
+# [format.markdown]
+# # Enable support for #hashtags
+# hashtags = true
+# # Enable support for :colon:separated:tags:
+# colon-tags = true
+
+# [alias]
+# # r = 'zk new reference -t "$@"'
+# r = 'zk edit reference -i "$@"'
+# # z = 'zk new zettlekasten -t "$@"'
+# n = 'zk edit atomic -i "$@"'
+# structure = 'zk edit structure -i "$@"'
+# s = "zk structure"
+# conf = '$EDITOR .zk/config.toml'
+# paths = "zk list --quiet --format \"'{{path}}'\" --delimiter ' ' --no-pager -m $@"
+# inline = 'zk list --quiet --format {{path}} --delimiter ,  --working-dir=$ZK_NOTEBOOK_DIR/zettlekasten "$@"'
+# to = 'zk list --link-to "`zk inline -i $@`"'
+
+# # No idea what this does ...
+
+# [tool]
+# editor = "hx"
+# pager = "less -FIRX"
+# # fzf-preview = "bat -p --color always {-1}"
+# fzf-preview = "zk list --quiet --format full --limit 1 {-1}"
+# shell = "zsh"
+# # fzf-options = " --tiebreak begin --exact  --tabstop 4 --height 100% --layout reverse  --no-hscroll --color hl:-1,hl+:-1 --preview-window wrap --with-shell='zsh -c'"
+
+# [lsp.diagnostics]
+# wiki-title = "info"
+# self-link = "error"

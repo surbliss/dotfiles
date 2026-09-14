@@ -17,7 +17,7 @@ normal.family = "0xProto Nerd Font"
 hide_when_typing = true
 
 [[hints.enabled]]
-command = "xdg-open"   # On Linux/BSD
+command = "xdg-open"  # On Linux/BSD
 hyperlinks = true
 post_processing = true
 persist = false
@@ -70,3 +70,9 @@ action = "SearchBackward"
 key = "C"
 mods = "Shift|Control"
 action = "Copy"
+
+[[keyboard.bindings]]
+key = "Q"
+mods = "Control"
+mode = "~Alt"
+action = "Quit"

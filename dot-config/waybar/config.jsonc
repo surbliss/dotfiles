@@ -14,7 +14,8 @@
   // Choose the order of the modules
   "modules-left": [
     // "network",
-    "niri/workspaces"
+    // "niri/workspaces"
+    "mango/workspaces"
     // "wlr/taskbar"
   ],
   "modules-center": [
@@ -30,11 +31,10 @@
   ],
   // "modules-right": ["cpu", "memory", "battery", "network", "tray"],
   // Modules configuration
-  "niri/workspaces": {
-    "disable-scroll": true,
-    "all-outputs": false,
-    "warp-on-scroll": false,
-    // "format": "{name}: {icon}",
+  "mango/workspaces": {
+    // "disable-scroll": true,
+    // "all-outputs": false,
+    // "warp-on-scroll": false,
     "format": "{icon}",
     "format-icons": {
       "config": "󱌢",
@@ -49,7 +49,9 @@
       // "focused": "",
       // "default": "  ",
       // "empty": " "
-    }
+    },
+    "on-click": "activated",
+    "on-click-right": "toggle"
   },
   "custom/logout": {
     "format": "⏻",
